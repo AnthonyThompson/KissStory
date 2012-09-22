@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0533D07F160E75B5001C3E6B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533D07E160E75B5001C3E6B /* UIKit.framework */; };
+		0533D081160E75B5001C3E6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533D080160E75B5001C3E6B /* Foundation.framework */; };
+		0533D083160E75B6001C3E6B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533D082160E75B6001C3E6B /* CoreGraphics.framework */; };
+		0533D085160E75B6001C3E6B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533D084160E75B6001C3E6B /* CoreData.framework */; };
+		0533D08B160E75B6001C3E6B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0533D089160E75B6001C3E6B /* InfoPlist.strings */; };
+		0533D08D160E75B6001C3E6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0533D08C160E75B6001C3E6B /* main.m */; };
+		0533D091160E75B6001C3E6B /* ksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0533D090160E75B6001C3E6B /* ksAppDelegate.m */; };
+		0533D094160E75B6001C3E6B /* Kiss_Story.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0533D092160E75B6001C3E6B /* Kiss_Story.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0533D07A160E75B5001C3E6B /* Kiss Story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kiss Story.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0533D07E160E75B5001C3E6B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		0533D080160E75B5001C3E6B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		0533D082160E75B6001C3E6B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		0533D084160E75B6001C3E6B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		0533D088160E75B6001C3E6B /* Kiss Story-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kiss Story-Info.plist"; sourceTree = "<group>"; };
+		0533D08A160E75B6001C3E6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0533D08C160E75B6001C3E6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0533D08E160E75B6001C3E6B /* Kiss Story-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiss Story-Prefix.pch"; sourceTree = "<group>"; };
+		0533D08F160E75B6001C3E6B /* ksAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ksAppDelegate.h; sourceTree = "<group>"; };
+		0533D090160E75B6001C3E6B /* ksAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ksAppDelegate.m; sourceTree = "<group>"; };
+		0533D093160E75B6001C3E6B /* Kiss_Story.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kiss_Story.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0533D077160E75B5001C3E6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0533D07F160E75B5001C3E6B /* UIKit.framework in Frameworks */,
+				0533D081160E75B5001C3E6B /* Foundation.framework in Frameworks */,
+				0533D083160E75B6001C3E6B /* CoreGraphics.framework in Frameworks */,
+				0533D085160E75B6001C3E6B /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0533D06F160E75B5001C3E6B = {
+			isa = PBXGroup;
+			children = (
+				0533D086160E75B6001C3E6B /* Kiss Story */,
+				0533D07D160E75B5001C3E6B /* Frameworks */,
+				0533D07B160E75B5001C3E6B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0533D07B160E75B5001C3E6B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0533D07A160E75B5001C3E6B /* Kiss Story.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0533D07D160E75B5001C3E6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0533D07E160E75B5001C3E6B /* UIKit.framework */,
+				0533D080160E75B5001C3E6B /* Foundation.framework */,
+				0533D082160E75B6001C3E6B /* CoreGraphics.framework */,
+				0533D084160E75B6001C3E6B /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0533D086160E75B6001C3E6B /* Kiss Story */ = {
+			isa = PBXGroup;
+			children = (
+				0533D08F160E75B6001C3E6B /* ksAppDelegate.h */,
+				0533D090160E75B6001C3E6B /* ksAppDelegate.m */,
+				0533D092160E75B6001C3E6B /* Kiss_Story.xcdatamodeld */,
+				0533D087160E75B6001C3E6B /* Supporting Files */,
+			);
+			path = "Kiss Story";
+			sourceTree = "<group>";
+		};
+		0533D087160E75B6001C3E6B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0533D088160E75B6001C3E6B /* Kiss Story-Info.plist */,
+				0533D089160E75B6001C3E6B /* InfoPlist.strings */,
+				0533D08C160E75B6001C3E6B /* main.m */,
+				0533D08E160E75B6001C3E6B /* Kiss Story-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0533D079160E75B5001C3E6B /* Kiss Story */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0533D097160E75B6001C3E6B /* Build configuration list for PBXNativeTarget "Kiss Story" */;
+			buildPhases = (
+				0533D076160E75B5001C3E6B /* Sources */,
+				0533D077160E75B5001C3E6B /* Frameworks */,
+				0533D078160E75B5001C3E6B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Kiss Story";
+			productName = "Kiss Story";
+			productReference = 0533D07A160E75B5001C3E6B /* Kiss Story.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0533D071160E75B5001C3E6B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ks;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Geek Gamer Guy";
+			};
+			buildConfigurationList = 0533D074160E75B5001C3E6B /* Build configuration list for PBXProject "Kiss Story" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0533D06F160E75B5001C3E6B;
+			productRefGroup = 0533D07B160E75B5001C3E6B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0533D079160E75B5001C3E6B /* Kiss Story */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0533D078160E75B5001C3E6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0533D08B160E75B6001C3E6B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0533D076160E75B5001C3E6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0533D08D160E75B6001C3E6B /* main.m in Sources */,
+				0533D091160E75B6001C3E6B /* ksAppDelegate.m in Sources */,
+				0533D094160E75B6001C3E6B /* Kiss_Story.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0533D089160E75B6001C3E6B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0533D08A160E75B6001C3E6B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0533D095160E75B6001C3E6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0533D096160E75B6001C3E6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0533D098160E75B6001C3E6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiss Story/Kiss Story-Prefix.pch";
+				INFOPLIST_FILE = "Kiss Story/Kiss Story-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0533D099160E75B6001C3E6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Kiss Story/Kiss Story-Prefix.pch";
+				INFOPLIST_FILE = "Kiss Story/Kiss Story-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0533D074160E75B5001C3E6B /* Build configuration list for PBXProject "Kiss Story" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0533D095160E75B6001C3E6B /* Debug */,
+				0533D096160E75B6001C3E6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0533D097160E75B6001C3E6B /* Build configuration list for PBXNativeTarget "Kiss Story" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0533D098160E75B6001C3E6B /* Debug */,
+				0533D099160E75B6001C3E6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0533D092160E75B6001C3E6B /* Kiss_Story.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0533D093160E75B6001C3E6B /* Kiss_Story.xcdatamodel */,
+			);
+			currentVersion = 0533D093160E75B6001C3E6B /* Kiss_Story.xcdatamodel */;
+			path = Kiss_Story.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 0533D071160E75B5001C3E6B /* Project object */;
+}
