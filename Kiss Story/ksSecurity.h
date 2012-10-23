@@ -23,11 +23,11 @@
 
 -(BOOL)securityCheck;
 -(void)showPasscodeView:(int)thisProcess;
--(void)updatePasscodeDisplay;
--(void)validateTempPasscode;
--(void)hidePasscodeView;
+//-(void)updatePasscodeDisplay;
+//-(void)validateTempPasscode;
+//-(void)hidePasscodeView;
 
--(IBAction)passcodeButtonTapped:(id)sender;
+//-(IBAction)passcodeButtonTapped:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UILabel* passcodeTitleLabel;
 @property (nonatomic, retain) IBOutlet UILabel* passcodeStatusLabel;

@@ -24,6 +24,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView* rightThumb;
 @property (nonatomic, retain) IBOutlet UIImageView* photoThumb;
 
--(IBAction)moreButtonTapped:(id)sender;
+//-(IBAction)moreButtonTapped:(id)sender;
 
 @end

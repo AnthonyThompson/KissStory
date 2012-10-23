@@ -189,29 +189,45 @@
     // dataDict is two arrays: headers and sections
     // gotta skip headers, so only object at index:1 is interesting
     for (int i = 0; i < [[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]count]; i++) {
-        NSMutableArray* locationSections = [[NSMutableArray alloc]init];
+        ksMapAnnotation* annotation = [[ksMapAnnotation alloc]init];
 
-        // grab each array of fetched objects
+        // extract the data beyond the header array (index:1), at the array of fetched objects
+        // just need the coord once, and we know that there's always an object at index:0
+        NSManagedObject* coordinateObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:0];
+        
+        annotation.coordinate = CLLocationCoordinate2DMake([[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"long"]floatValue]);
+
+        // our temp arrays
+        NSMutableArray* IDs = [[NSMutableArray alloc]init];
+        NSMutableArray* locations = [[NSMutableArray alloc]init];
+        NSMutableArray* kissers = [[NSMutableArray alloc]init];
+        NSMutableArray* ratings = [[NSMutableArray alloc]init];
+        NSMutableArray* dates = [[NSMutableArray alloc]init];
+        NSMutableArray* descriptions = [[NSMutableArray alloc]init];
+        
+        // now loop through all of the elements and break into separate arrays for ksMapAnnotation storage
         for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
-
-            // retrieve managed objects of the array
             NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j];
-            
-            ksMapAnnotation* annotation = [[ksMapAnnotation alloc]init];
-            
-            annotation.coordinate = CLLocationCoordinate2DMake([[[locationObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[locationObject valueForKey:@"kissWhere"]valueForKey:@"long"]floatValue]);
-            annotation.ID = [[locationObject valueForKey:@"id"] doubleValue];
-            annotation.locationName = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
-            annotation.kisserName = [[locationObject valueForKey:@"kissWho"]valueForKey:@"name"];
-            annotation.rating = [[locationObject valueForKey:@"score"] intValue];
-            annotation.date = [[locationObject valueForKey:@"when"] doubleValue];
-            annotation.kissDescription = [locationObject valueForKey:@"desc"];
 
-            [locationSections addObject:annotation];
+            // fill temp arrays
+            [IDs addObject:[locationObject valueForKey:@"id"]];
+            [locations addObject:[[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"]];
+            [kissers addObject:[[locationObject valueForKey:@"kissWho"]valueForKey:@"name"]];
+            [ratings addObject:[locationObject valueForKey:@"score"]];
+            [dates addObject:[locationObject valueForKey:@"when"]];
+            [descriptions addObject:[locationObject valueForKey:@"desc"]];
         }
+        
+        // add arrays to the ksMapAnnotation object
+        annotation.IDArray = [[NSArray alloc]initWithArray:IDs];
+        annotation.locationArray = [[NSArray alloc]initWithArray:locations];
+        annotation.kisserArray = [[NSArray alloc]initWithArray:kissers];
+        annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
+        annotation.dateArray = [[NSArray alloc]initWithArray:dates];
+        annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
 
-        // so _annotationArray is now an array of annotations, organized by lat/lon
-        [_annotationArray addObject:locationSections];
+        // add the ksMapAnnotation to the annotation array
+        [_annotationArray addObject:annotation];
     }
 }
 
@@ -554,28 +570,6 @@
     [_locationManager startMonitoringSignificantLocationChanges];
 }
 
--(void)pushMapRegion:(MKCoordinateRegion)region forMap:(int)whichMap {
-    // saves map display info into dictionary
-    /*
-    [dataDictionary setValue:[NSNumber numberWithDouble:region.center.latitude] forKey:[[[NSString alloc]initWithFormat:@"centerLat%i",whichMap]autorelease]];
-    [dataDictionary setValue:[NSNumber numberWithDouble:region.center.longitude] forKey:[[[NSString alloc]initWithFormat:@"centerLong%i",whichMap]autorelease]];
-    [dataDictionary setValue:[NSNumber numberWithDouble:region.span.latitudeDelta] forKey:[[[NSString alloc]initWithFormat:@"spanLat%i",whichMap]autorelease]];
-    [dataDictionary setValue:[NSNumber numberWithDouble:region.span.longitudeDelta] forKey:[[[NSString alloc]initWithFormat:@"spanLong%i",whichMap]autorelease]];
-     */
-}
-
--(MKCoordinateRegion)pullMapRegionForMap:(int)whichMap {
-    // retrieves map display info from dictionary
-    MKCoordinateRegion coordReg;
-    /*
-    coordReg.center.latitude = [[dataDictionary valueForKey:[[[NSString alloc]initWithFormat:@"centerLat%i",whichMap]autorelease]]doubleValue];
-    coordReg.center.longitude = [[dataDictionary valueForKey:[[[NSString alloc]initWithFormat:@"centerLong%i",whichMap]autorelease]]doubleValue];
-    coordReg.span.latitudeDelta = [[dataDictionary valueForKey:[[[NSString alloc]initWithFormat:@"spanLat%i",whichMap]autorelease]]doubleValue];
-    coordReg.span.longitudeDelta = [[dataDictionary valueForKey:[[[NSString alloc]initWithFormat:@"spanLong%i",whichMap]autorelease]]doubleValue];
-     */
-    return coordReg;
-}
-
 -(MKCoordinateRegion)getMapRegion {
     //9901
     // IS THIS NECCESSARY?  DOES THE DEFAULT NOT TIGHTEN TO ALL ANNOTATIONS?
@@ -630,6 +624,39 @@
     // add all annotations
     [_mainMapView addAnnotations:_annotationArray];
 }
+
+-(ksAnnotationView*)mapView:(MKMapView*)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:(ksMapAnnotation*)annotation reuseIdentifier:@"resuableIdentifier"];
+
+    // I guess we don't want to annotate user location?
+    /*
+    if (![annotation isMemberOfClass:[ksMapAnnotation class]]) {
+        return nil;
+    }
+     */
+
+    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksMapAnnotation*)annotation color]]objectAtIndex:CCO_PIN];
+    
+    if ([annotation isMemberOfClass:[MKUserLocation class]]) {
+        annotationView.image = [UIImage imageNamed:@"IconHeartRedShadow.png"];
+    }
+    
+    //9901
+    //re-size on fly or re-build image?
+    //mAV.frame = CGRectMake(mAV.bounds.origin.x, mAV.bounds.origin.y, mAV.frame.size.width/1.5f, mAV.frame.size.height/1.5f);
+    
+    annotationView.canShowCallout = YES;
+    
+    // the image is normally centered itself on the point, so offset for the size of the image itself
+    // move it up by half the size
+    int offSetHeight = annotationView.image.size.height/-2;
+    //move it right by 2/3 because of drop shadow, et al
+    int offSetWidth = annotationView.image.size.width/2/3;
+    annotationView.centerOffset = CGPointMake(offSetWidth,offSetHeight);
+    return annotationView;
+}
+
 
 #pragma mark - TwitterBook Group
 
@@ -784,13 +811,17 @@
     }
 
     ksSecure.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
+    
     _wallpaperView.alpha = 1.0f;
+    
     _twitterBookView.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
-    [_mainTableView reloadData];
     _mainTableView.clipsToBounds = YES;
+    [_mainTableView reloadData];
+
+    [self annotateMap];
 
     _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
                               [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],

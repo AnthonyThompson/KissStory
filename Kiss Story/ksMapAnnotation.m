@@ -21,9 +21,12 @@
     return self;
 }
 
--(id)initWithLocation:(NSArray*)locationArray {
-    self = [self init];
-    return self;
+-(int)color {
+    if ([_ratingArray count] > 1) {
+        return CCO_RAINBOW_COLOR;
+    }
+    
+    return [[_ratingArray objectAtIndex:0]intValue];
 }
 
 @end

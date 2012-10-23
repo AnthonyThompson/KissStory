@@ -14,12 +14,10 @@
     NSString* FBSessionStateChangedNotification;
 }
 
-// FB
-
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) IBOutlet ksViewController* kissStoryViewController;
 
--(NSURL *)applicationDocumentsDirectory;
+//-(NSURL *)applicationDocumentsDirectory;
 
 // FB
 -(BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
