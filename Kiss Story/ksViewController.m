@@ -270,11 +270,9 @@
     _topBarView.image = [UIImage imageNamed:@"TitleKisserCream.png"];
     [self buttonControl:sender];
     
-    if (_state == STATE_SETTINGS) {
-        [self dismissSettingsView];
-    }
-    
-    [self swapMapForTable];
+    _mainTableView.hidden = NO;
+    _mainMapView.hidden = YES;
+    _settingsView.hidden = YES;
     
     _state = STATE_KISSER;
     [_mainTableView reloadData];
@@ -299,11 +297,9 @@
     _topBarView.image = [UIImage imageNamed:@"TitleDateCream.png"];
     [self buttonControl:sender];
 
-    if (_state == STATE_SETTINGS) {
-        [self dismissSettingsView];
-    }
-    
-    [self swapMapForTable];
+    _mainTableView.hidden = NO;
+    _mainMapView.hidden = YES;
+    _settingsView.hidden = YES;
     
     _state = STATE_DATE;
     [_mainTableView reloadData];
@@ -323,11 +319,9 @@
     _topBarView.image = [UIImage imageNamed:@"TitleRatingCream.png"];
     [self buttonControl:sender];
     
-    if (_state == STATE_SETTINGS) {
-        [self dismissSettingsView];
-    }
-    
-    [self swapMapForTable];
+    _mainTableView.hidden = NO;
+    _mainMapView.hidden = YES;
+    _settingsView.hidden = YES;
     
     _state = STATE_RATING;
     [_mainTableView reloadData];
@@ -347,11 +341,9 @@
     _topBarView.image = [UIImage imageNamed:@"TitleLocationCream.png"];
     [self buttonControl:sender];
 
-    if (_state == STATE_SETTINGS) {
-        [self dismissSettingsView];
-    }
-    
-    [self swapTableForMap];
+    _mainMapView.hidden = NO;
+    _settingsView.hidden = YES;
+    _mainTableView.hidden = YES;
     
     _state = STATE_LOCATION;
 }
@@ -376,9 +368,9 @@
 
     [self buttonControl:sender];
     
-    [UIView animateWithDuration:0.5f animations:^{
-        _settingsView.frame = CGRectMake(0.0f, 0.0f, 320.0f, 480.0f);
-    }];
+    _settingsView.hidden = NO;
+    _mainMapView.hidden = YES;
+    _mainTableView.hidden = YES;
 
     _state = STATE_SETTINGS;
 }
@@ -409,13 +401,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
 }
 
--(void)dismissSettingsView {
-    [UIView animateWithDuration:0.5f animations:^{
-        _settingsView.frame = CGRectMake(0.0f, 480.0f, 320.0f, 480.0f);
-    }];
-}
-
-#pragma mark - UItableView Group   
+#pragma mark - UItableView Group
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return ([[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:0]count]);
@@ -630,11 +616,9 @@
     ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:(ksMapAnnotation*)annotation reuseIdentifier:@"resuableIdentifier"];
 
     // I guess we don't want to annotate user location?
-    /*
     if (![annotation isMemberOfClass:[ksMapAnnotation class]]) {
         return nil;
     }
-     */
 
     annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksMapAnnotation*)annotation color]]objectAtIndex:CCO_PIN];
     
@@ -797,7 +781,6 @@
 -(void)initGuiObjects {
     [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     _topLeftButton.hidden = YES;
-    _settingsView.frame = CGRectMake(0.0, 430.0, 320.0, 386.0);
     _mainMapView.delegate = self;
     
     _facebookSwitch.on = NO;
@@ -882,16 +865,6 @@
             _wallpaperView.alpha = 0.0f;
         }];
     }
-}
-
--(void)swapMapForTable {
-    _mainTableView.hidden = NO;
-    _mainMapView.hidden = YES;
-}
-
--(void)swapTableForMap {
-    _mainTableView.hidden = YES;
-    _mainMapView.hidden = NO;
 }
 
 #pragma mark - VC super class
