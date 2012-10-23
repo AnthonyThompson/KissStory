@@ -7,16 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ksViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface ksAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ksAppDelegate : UIResponder <UIApplicationDelegate> {
+    NSString* FBSessionStateChangedNotification;
+}
+
+// FB
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) IBOutlet ksViewController* kissStoryViewController;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+-(NSURL *)applicationDocumentsDirectory;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+// FB
+-(BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
+-(void)closeSession;
 
 @end

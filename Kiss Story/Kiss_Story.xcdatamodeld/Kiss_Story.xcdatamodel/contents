@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="11G63" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="iOS 5.1">
+    <entity name="Kisses" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="when" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="kissWhere" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Where" inverseName="kissRecord" inverseEntity="Where" syncable="YES"/>
+        <relationship name="kissWho" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Who" inverseName="kissRecord" inverseEntity="Who" syncable="YES"/>
+    </entity>
+    <entity name="Settings" syncable="YES">
+        <attribute name="keyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keyValue" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Where" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="long" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="kissRecord" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Kisses" inverseName="kissWhere" inverseEntity="Kisses" syncable="YES"/>
+    </entity>
+    <entity name="Who" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="kissRecord" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Kisses" inverseName="kissWho" inverseEntity="Kisses" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Kisses" positionX="72" positionY="153" width="128" height="150"/>
+        <element name="Settings" positionX="223" positionY="54" width="128" height="75"/>
+        <element name="Where" positionX="-126" positionY="168" width="128" height="120"/>
+        <element name="Who" positionX="241" positionY="171" width="128" height="105"/>
+    </elements>
 </model>
