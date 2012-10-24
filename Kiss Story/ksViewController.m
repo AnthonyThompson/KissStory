@@ -48,7 +48,10 @@
     // annotationArray
     _annotationArray = [[NSMutableArray alloc]init];
     [self buildAnnotationArray];
-
+    
+    //location manager
+    [self initLocationManager];
+    
     //9901
     // default launch state, may be useful later?
     _state = STATE_NEUTRAL;
@@ -401,7 +404,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
 }
 
-#pragma mark - UItableView Group
+#pragma mark - UITableView Group
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return ([[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:0]count]);
@@ -543,6 +546,9 @@
 }
 
 -(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //9901
+    
+    // opens the individual kiss view
     return indexPath;
 }
 
@@ -758,7 +764,30 @@
 }
 
 -(IBAction)topRightButtonTapped:(id)sender {
-    // depends on state...
+    
+    switch(_state) {
+        case STATE_KISSER:
+        case STATE_DATE:
+        case STATE_RATING:
+        case STATE_LOCATION:
+        case STATE_SETTINGS: {
+            // add kiss
+            _state = STATE_ADD;
+            _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
+            _topRightButton.hidden = NO;
+            _topLeftButton.hidden = NO;
+
+            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
+
+            [UIView animateWithDuration:0.5f animations:^{
+                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 527.0f)];
+            }];
+
+            //9901
+            
+        }
+            break;
+    }
 }
 
 #pragma mark - Passcode Action Group
@@ -803,6 +832,8 @@
     _mainTableView.dataSource = self;
     _mainTableView.clipsToBounds = YES;
     [_mainTableView reloadData];
+    
+    _mainMapView.showsUserLocation = YES;
 
     [self annotateMap];
 
@@ -861,7 +892,7 @@
         [ksSecure setPrivacyView:_wallpaperView];
         [ksSecure showPasscodeView:SEC_PROCESS_RUNTIMELOGIN];
     } else {
-        [UIView animateWithDuration:0.75f animations:^{
+        [UIView animateWithDuration:0.5f animations:^{
             _wallpaperView.alpha = 0.0f;
         }];
     }
@@ -872,7 +903,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         _iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
         [self initDataStructures];
     }

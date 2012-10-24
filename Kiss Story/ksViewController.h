@@ -16,6 +16,7 @@
 #import "ksSecurity.h"
 #import "ksMapAnnotation.h"
 #import "ksAnnotationView.h"
+#import "ksKissUtilityView.h"
 
 #define STATE_KISSER 0
 #define STATE_DATE 1
@@ -23,7 +24,10 @@
 #define STATE_LOCATION 3
 #define STATE_SETTINGS 4
 #define STATE_NEUTRAL 5
-#define STATE_SECURITY 6
+#define STATE_ADD 6
+#define STATE_EDIT 7
+#define STATE_DELETE 8
+#define STATE_SECURITY 9
 
 #define KISSER 0
 #define DATE 1
@@ -53,59 +57,6 @@
 -(NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 -(NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component;
  */
-
-#pragma mark - Inits
-
-//-(void)initDataStructures;
-
-#pragma mark - GUI Control
-
-//-(void)initGuiObjects;
-//-(void)buttonControl:(id)sender;
-//-(void)dismissSettingsView;
-//-(void)viewCameAlive;
-//-(void)displayTwitterBookView:(int)whichView;
-//-(void)dismissTwitterBookView;
-
-#pragma mark - Data Creation
-
-//-(NSArray*)headerAndSectionArraysForData:(int)whichData;
-//-(void)buildSettingsDictionary;
-//-(void)buildDataDictionary;
-
-#pragma mark - IBActions
-
-//-(IBAction)kisserButtonTapped:(id)sender;
-//-(IBAction)dateButtonTapped:(id)sender;
-//-(IBAction)ratingButtonTapped:(id)sender;
-//-(IBAction)locationButtonTapped:(id)sender;
-//-(IBAction)settingsButtonTapped:(id)sender;
-//-(IBAction)topLeftButtonTapped:(id)sender;
-//-(IBAction)topRightButtonTapped:(id)sender;
-
-//-(IBAction)emailButtonTapped:(id)sender;
-//-(IBAction)wwwButtonTapped:(id)sender;
-//-(IBAction)facebookSwitchSwitched:(id)sender;
-//-(IBAction)twitterSwitchSwitched:(id)sender;
-//-(IBAction)passcodeSwitchSwitched:(id)sender;
-
-//-(IBAction)twitterbookSaveButtonTapped:(id)sender;
-//-(IBAction)twitterbookCancelButtonTapped:(id)sender;
-
-#pragma mark - UItableViewDelegate
-
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
-//-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
-//-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-//-(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView;
-//-(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-//-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-
-#pragma mark - MFMailComposeViewControllerDelegate
-
-//-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error;
 
 #pragma mark - @properties
 
@@ -153,6 +104,9 @@
 
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;
+
+@property (nonatomic, retain) IBOutlet ksKissUtilityView* kissUtilityView;
+
 
 
 @end

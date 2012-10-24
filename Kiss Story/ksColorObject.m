@@ -19,8 +19,7 @@
 //@synthesize color;
 
 -(id)init{
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _colorArray = [ksColorObject colorArray];
         _imageArray = [ksColorObject imageArray];
     }
@@ -28,8 +27,7 @@
 }
 
 -(id)initCellWithColor:(int)whichColor withType:(int)whichType {
-    self = [self init];
-    if (self) {
+    if (self = [self init]) {
         _color = whichColor;
         _type = whichType;
         
