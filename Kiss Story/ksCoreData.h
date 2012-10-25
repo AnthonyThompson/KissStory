@@ -15,11 +15,13 @@
 #define KSCD_DEBUGDATA 2
 #define KSCD_DATA_PATH_NAME @"/KissStory.sqlite"
 #define KSCD_DATA_FILE_NAME @"KissStory.sqlite"
-#define KSCD_WHOBYNAME 0
+#define KSCD_KISSESBYWHO 0
 #define KSCD_KISSESBYWHEN 1
 #define KSCD_KISSESBYSCORE 2
-#define KSCD_WHEREBYNAME 3
+#define KSCD_KISSESBYWHERE 3
 #define KSCD_SETTINGS 4
+#define KSCD_WHOBYNAME 5
+#define KSCD_WHEREBYNAME 6
 
 @interface ksCoreData : NSObject <NSFetchedResultsControllerDelegate> {
     

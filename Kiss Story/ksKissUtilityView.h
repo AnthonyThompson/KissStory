@@ -43,7 +43,7 @@
 @property (atomic, readwrite) int state;
 
 @property (atomic, retain) NSObject* kissWhoObject;
-@property (atomic, readwrite) double kissDate;
+@property (atomic, readwrite) NSDate* kissDate;
 @property (atomic, readwrite) int kissRating;
 @property (atomic, retain) NSObject* kissWhereObject;
 @property (atomic, retain) NSString* kissDescription;

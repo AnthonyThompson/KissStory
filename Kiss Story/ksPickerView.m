@@ -62,25 +62,14 @@
 #pragma mark - UIPickerViewDelegate
 
 -(NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    switch (_state) {
-        case KISSER: {
-        }
-            break;
-        case DATE: {
-            
-        }
-            break;
-        case LOCATION: {
-        }
-            break;
-    }
+    if (_state == DATE)
+        return @"";
     
-    NSString* abba = [[NSString alloc]initWithFormat:@"%i HELLS YEAH %i",row,row];
-    return abba;
+    return [[[_fetchedResults fetchedObjects] objectAtIndex:row] valueForKey:@"name"];
 }
 
 -(NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 16;
+    return [[_fetchedResults fetchedObjects] count];
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -92,6 +81,34 @@
 }
 
 -(IBAction)acceptButtonTapped:(id)sender {
+    //9901 save picked stuff
+    switch (_state) {
+        case KISSER: {
+            [(ksKissUtilityView*)[self superview] setKissWhoObject:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            [[(ksKissUtilityView*)[self superview] kisserButton] setTitle:[self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] kisserButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] kisserButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+        }
+            break;
+        case DATE: {
+            [(ksKissUtilityView*)[self superview] setKissDate:[_datePickerView date]];
+
+            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            
+            [[(ksKissUtilityView*)[self superview] dateButton] setTitle:[dateFormatter stringFromDate:[_datePickerView date]] forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] dateButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] dateButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+        }
+            break;
+        case LOCATION: {
+            [(ksKissUtilityView*)[self superview] setKissWhereObject:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            [[(ksKissUtilityView*)[self superview] locationButton] setTitle:[self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] locationButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+            [[(ksKissUtilityView*)[self superview] locationButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+        }
+            break;
+    }
     [self dismissPickerView];
 }
 
@@ -99,6 +116,9 @@
     [UIView animateWithDuration:0.5f animations:^{
         self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
     } completion:^(BOOL finished){
+        [[(ksKissUtilityView*)[self superview] kisserButton] setEnabled:YES];
+        [[(ksKissUtilityView*)[self superview] dateButton] setEnabled:YES];
+        [[(ksKissUtilityView*)[self superview] locationButton] setEnabled:YES];
         [self enableHeaderButtons];
         [self removeFromSuperview];
     }];

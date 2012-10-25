@@ -677,8 +677,6 @@
 }
 
 -(NSFetchedResultsController*)fetchedResultsController:(int)whichfetch {
-    // based on 0,1,2,3, called extranally from loop
-    
     NSString* entityName = @"";
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setFetchBatchSize:24];
@@ -686,7 +684,7 @@
     NSString* cache = [NSString stringWithFormat:@"%i",whichfetch];
     
     switch (whichfetch) {
-        case KSCD_WHOBYNAME: {
+        case KSCD_KISSESBYWHO: {
             // KISSES by NAME by SCORE by WHERE by WHEN
             entityName = @"Kisses";
             [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"kissWho.name"
@@ -734,7 +732,7 @@
                                                                     selector:@selector(caseInsensitiveCompare:)]];
         }
             break;
-        case KSCD_WHEREBYNAME: {
+        case KSCD_KISSESBYWHERE: {
             // KISSES by WHERE by WHEN by WHO by SCORE
             entityName = @"Kisses";
             [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"kissWhere.name"
@@ -754,6 +752,20 @@
             entityName = @"Settings";
             [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"keyName"
                                                                    ascending:NO
+                                                                    selector:@selector(caseInsensitiveCompare:)]];
+        }
+            break;
+        case KSCD_WHOBYNAME: {
+            entityName = @"Who";
+            [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                   ascending:YES
+                                                                    selector:@selector(caseInsensitiveCompare:)]];
+        }
+            break;
+        case KSCD_WHEREBYNAME: {
+            entityName = @"Where";
+            [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                   ascending:YES
                                                                     selector:@selector(caseInsensitiveCompare:)]];
         }
             break;
