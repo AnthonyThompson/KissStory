@@ -17,7 +17,7 @@
 
 @property (atomic, retain) IBOutlet UIView* kisserHeader;
 @property (atomic, retain) IBOutlet UILabel* kisserLabel;
-@property (atomic, retain) IBOutlet UITextField* kisserText;
+@property (atomic, retain) IBOutlet UIButton* kisserButton;
 
 @property (atomic, retain) IBOutlet UIView* dateHeader;
 @property (atomic, retain) IBOutlet UILabel* dateLabel;
@@ -34,13 +34,11 @@
 
 @property (atomic, retain) IBOutlet UIView* locationHeader;
 @property (atomic, retain) IBOutlet UILabel* locationLabel;
-@property (atomic, retain) IBOutlet UILabel* locationNameLabel;
+@property (atomic, retain) IBOutlet UIButton* locationButton;
 @property (atomic, retain) IBOutlet MKMapView* locationMapView;
 
 @property (atomic, retain) IBOutlet UIView* descHeader;
 @property (atomic, retain) IBOutlet UILabel* descLabel;
 @property (atomic, retain) IBOutlet UITextField* descText;
-
-@property (atomic, retain) IBOutlet ksKissUtilityView* toplevelSubView;
 
 @end

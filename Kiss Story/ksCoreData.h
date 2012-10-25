@@ -42,7 +42,6 @@
 @property (nonatomic, readonly, retain) NSString* storePath;
 @property (nonatomic, readonly, retain) NSFileManager* fileMan;
 
--(void)genData;
 -(NSFetchedResultsController*)fetchedResultsController:(int)whichfetch;
 -(void)saveContext;
 -(void)updateSecurity:(NSString*)securityEnabled passcode:(NSString*)passcode;

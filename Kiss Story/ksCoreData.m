@@ -21,8 +21,7 @@
 #pragma mark - Inits
 
 - (id)init{
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
     }
     
 #ifdef DEBUG
@@ -133,6 +132,9 @@
 #pragma mark - Setting Utilities
 
 -(void)updateSecurity:(NSString*)securityEnabled passcode:(NSString*)passcode {
+    
+    NSLog(@"%@",passcode);
+    
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription* settingsEntity = [NSEntityDescription entityForName:@"Settings" inManagedObjectContext:managedObjectContext_];
     [fetchRequest setEntity:settingsEntity];

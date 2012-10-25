@@ -13,7 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ksCoreData.h"
 #import "ksColorCell.h"
-#import "ksSecurity.h"
+#import "ksSecurityView.h"
 #import "ksMapAnnotation.h"
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
@@ -58,6 +58,8 @@
 -(NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component;
  */
 
+-(void)buildSettingsDictionary;
+
 #pragma mark - @properties
 
 @property (nonatomic, retain) ksCoreData* ksCD;
@@ -70,7 +72,7 @@
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSArray* cellSizeArray;
 
-@property (nonatomic, retain) IBOutlet ksSecurity* ksSecure;
+//@property (nonatomic, retain) IBOutlet ksSecurityView* ksSecure;
 
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
@@ -91,8 +93,6 @@
 @property (nonatomic, retain) IBOutlet UIButton* wwwButton;
 @property (nonatomic, retain) IBOutlet UIButton* emailButton;
 
-@property (nonatomic, retain) IBOutlet UIImageView* wallpaperView;
-
 @property (nonatomic, retain) IBOutlet UIView* twitterBookView;
 @property (nonatomic, retain) IBOutlet UILabel* twitterBookLabel;
 @property (nonatomic, retain) IBOutlet UILabel* unameLabel;
@@ -105,7 +105,9 @@
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;
 
-@property (nonatomic, retain) IBOutlet ksKissUtilityView* kissUtilityView;
+@property (nonatomic, retain) IBOutlet UIImageView* wallpaperView;
+
+//@property (nonatomic, retain) IBOutlet ksKissUtilityView* kissUtilityView;
 
 
 

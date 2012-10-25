@@ -12,7 +12,6 @@
 @implementation ksKissUtilityView
 
 - (id)initWithFrame:(CGRect)frame {
-    NSLog(@"initWithFrame");
     if (self = [super initWithFrame:frame]) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
         self = [nib objectAtIndex:0];
@@ -23,8 +22,7 @@
 }
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary {
-    NSLog(@"initForState");
-    if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 527.0f)]) {
+    if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
         dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
     }
     

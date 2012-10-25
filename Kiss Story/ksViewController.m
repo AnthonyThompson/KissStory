@@ -16,7 +16,6 @@
 @implementation ksViewController
 
 @synthesize ksCD;
-@synthesize ksSecure;
 
 #pragma mark - Init Group
 
@@ -24,7 +23,6 @@
     // inits data structures
 
     ksCD = [[ksCoreData alloc]init];
-    ksSecure = [[ksSecurity alloc]init];
 
     // build FRC array
     _fetchedResultsControllerArray = [[NSArray alloc]init];
@@ -363,11 +361,15 @@
     _topBarView.image = [UIImage imageNamed:@"TitleSettingsCream.png"];
     _topRightButton.hidden = YES;
     
-    if ([ksSecure securityCheck]) {
+    /*
+    if ([ksSecurityView securityCheck:_settingsDictionary]) {
         _passcodeSwitch.on = YES;
     } else {
         _passcodeSwitch.on = NO;
     }
+     */
+    
+    _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
 
     [self buttonControl:sender];
     
@@ -382,10 +384,8 @@
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
-        //[mailer setSubject:@"Question or comment about KissStory"];
         mailer.subject = @"Question or comment about KissStory";
         NSArray *toRecipients = [NSArray arrayWithObjects:@"ksfeedback@geekgamerguy.com",nil];
-        //[mailer setToRecipients:toRecipients];
         mailer.toRecipients = toRecipients;
         [self presentViewController:mailer
                            animated:YES
@@ -403,6 +403,8 @@
 -(IBAction)wwwButtonTapped:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
 }
+
+
 
 #pragma mark - UITableView Group
 
@@ -760,11 +762,24 @@
 #pragma mark - Top Button Action Group
 
 -(IBAction)topLeftButtonTapped:(id)sender {
-    // depends on state...
+    switch (_state) {
+        case STATE_ADD: {
+            _topLeftButton.hidden = YES;
+            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
+
+            [UIView animateWithDuration:0.5f animations:^{
+                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
+            }
+            completion:^(BOOL finished){
+                [[[self.view subviews] lastObject] removeFromSuperview];
+            }];
+
+            _state = STATE_KISSER;
+        }
+    }
 }
 
 -(IBAction)topRightButtonTapped:(id)sender {
-    
     switch(_state) {
         case STATE_KISSER:
         case STATE_DATE:
@@ -773,18 +788,34 @@
         case STATE_SETTINGS: {
             // add kiss
             _state = STATE_ADD;
+            
             _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
+            [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
+            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
             _topRightButton.hidden = NO;
             _topLeftButton.hidden = NO;
 
             [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
 
             [UIView animateWithDuration:0.5f animations:^{
-                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 527.0f)];
+                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 436.0f)];
             }];
+        }
+            break;
+        case STATE_ADD: {
+            // save & dismiss utlity view
+            _topLeftButton.hidden = YES;
+            _topRightButton.hidden = NO;
+            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
 
-            //9901
+            [UIView animateWithDuration:0.5f animations:^{
+                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
+            }
+                             completion:^(BOOL finished){
+                                 [[[self.view subviews] lastObject] removeFromSuperview];
+                             }];
             
+            _state = STATE_KISSER;
         }
             break;
     }
@@ -793,15 +824,12 @@
 #pragma mark - Passcode Action Group
 
 -(IBAction)passcodeSwitchSwitched:(id)sender {
-    ksSecure.passcodeSwitch = sender;
-    
     if ([(UISwitch*)sender isOn]) {
-        // was off, is now ON
-        [ksSecure showPasscodeView:SEC_PROCESS_SETNEW];
+        // was off, is now ON, so set a new passcode
+        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary]];
     } else {
-        // was on, is now OFF
-        ksSecure.passcode = [_settingsDictionary valueForKey:@"passcode"];
-        [ksSecure showPasscodeView:SEC_PROCESS_DISABLE];
+        // was on, is now OFF, so disable current passcode
+        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary]];
     }
 }
 
@@ -822,8 +850,6 @@
         _twitterSwitch.on = YES;
     }
 
-    ksSecure.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
-    
     _wallpaperView.alpha = 1.0f;
     
     _twitterBookView.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
@@ -885,12 +911,8 @@
 }
 
 -(void)viewCameAlive {
-    ksSecure.securityEnabled = [_settingsDictionary valueForKey:@"securityEnabled"];
-    
-    if ([ksSecure securityCheck]) {
-        ksSecure.passcode = [_settingsDictionary valueForKey:@"passcode"];
-        [ksSecure setPrivacyView:_wallpaperView];
-        [ksSecure showPasscodeView:SEC_PROCESS_RUNTIMELOGIN];
+    if ([ksSecurityView securityCheck:_settingsDictionary]) {
+        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary]];
     } else {
         [UIView animateWithDuration:0.5f animations:^{
             _wallpaperView.alpha = 0.0f;
