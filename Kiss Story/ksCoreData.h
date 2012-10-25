@@ -36,6 +36,7 @@
 @property (nonatomic, readonly, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, readonly, retain) NSManagedObjectModel* managedObjectModel;
 @property (nonatomic, readonly, retain) NSPersistentStoreCoordinator* persistentStoreCoordinator;
+
 @property (nonatomic, readwrite) int runTime;
 
 @property (nonatomic, readonly, retain) NSURL* storeURL;

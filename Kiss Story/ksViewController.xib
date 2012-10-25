@@ -50,7 +50,6 @@
 								<int key="NSvFlags">268</int>
 								<string key="NSFrameSize">{320, 386}</string>
 								<reference key="NSSuperview" ref="789539996"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="670893241"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -62,7 +61,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{320, 386}</string>
 								<reference key="NSSuperview" ref="789539996"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="98176580"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -82,7 +80,6 @@
 						</array>
 						<string key="NSFrame">{{0, 44}, {320, 386}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="243732047"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSHuggingPriority">{1, 1}</string>
@@ -102,7 +99,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{17, 182}, {286, 49}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="321559086"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -137,7 +133,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{17, 137}, {286, 49}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="972469267"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -159,7 +154,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{0, -44}, {320, 480}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="833752891"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -174,7 +168,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 6}, {280, 30}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="691060954"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -209,7 +202,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 52}, {300, 60}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="892936809"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -246,7 +238,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{187, 238}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="836028580"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -264,7 +255,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{187, 281}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="834212103"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -282,7 +272,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{187, 325}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="98176580"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="138686775"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -298,7 +287,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						</array>
 						<string key="NSFrame">{{0, 44}, {320, 436}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="163707527"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSHuggingPriority">{1, 1}</string>
@@ -331,7 +319,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="849451700"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -346,7 +333,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{8, 4}, {60, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="522952664"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="608005315">
@@ -368,7 +354,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{247, 4}, {65, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="789539996"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSHuggingPriority">{250, 250}</string>
@@ -403,7 +388,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 430}, {64, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="634018862"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -430,7 +414,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{64, 430}, {64, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="429486091"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -455,7 +438,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{128, 430}, {64, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="941455670"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -480,7 +462,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{192, 430}, {64, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="397862575"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -505,8 +486,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{256, 461}, {64, 19}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -530,7 +509,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="617426748"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -543,7 +521,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 				</array>
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1056693519"/>
 				<string key="NSHuggingPriority">{1, 1}</string>
 				<string key="NSAntiCompressionPriority">{1, 1}</string>
@@ -2796,361 +2773,7 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 			<nil key="sourceID"/>
 			<int key="maxID">1461</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">NSLayoutConstraint</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ksKissUtilityView</string>
-					<string key="superclassName">UIView</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="dateButton">UIButton</string>
-						<string key="dateHeader">UIView</string>
-						<string key="dateLabel">UILabel</string>
-						<string key="descHeader">UIView</string>
-						<string key="descLabel">UILabel</string>
-						<string key="descText">UITextField</string>
-						<string key="kisserButton">UIButton</string>
-						<string key="kisserHeader">UIView</string>
-						<string key="kisserLabel">UILabel</string>
-						<string key="locationButton">UIButton</string>
-						<string key="locationHeader">UIView</string>
-						<string key="locationLabel">UILabel</string>
-						<string key="locationMapView">MKMapView</string>
-						<string key="ratingHeader">UIView</string>
-						<string key="ratingHeart1">UIImageView</string>
-						<string key="ratingHeart2">UIImageView</string>
-						<string key="ratingHeart3">UIImageView</string>
-						<string key="ratingHeart4">UIImageView</string>
-						<string key="ratingHeart5">UIImageView</string>
-						<string key="ratingLabel">UILabel</string>
-						<string key="ratingSlider">UISlider</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="dateButton">
-							<string key="name">dateButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dateHeader">
-							<string key="name">dateHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dateLabel">
-							<string key="name">dateLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="descHeader">
-							<string key="name">descHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="descLabel">
-							<string key="name">descLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="descText">
-							<string key="name">descText</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="kisserButton">
-							<string key="name">kisserButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="kisserHeader">
-							<string key="name">kisserHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="kisserLabel">
-							<string key="name">kisserLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="locationButton">
-							<string key="name">locationButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="locationHeader">
-							<string key="name">locationHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="locationLabel">
-							<string key="name">locationLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="locationMapView">
-							<string key="name">locationMapView</string>
-							<string key="candidateClassName">MKMapView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeader">
-							<string key="name">ratingHeader</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeart1">
-							<string key="name">ratingHeart1</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeart2">
-							<string key="name">ratingHeart2</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeart3">
-							<string key="name">ratingHeart3</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeart4">
-							<string key="name">ratingHeart4</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingHeart5">
-							<string key="name">ratingHeart5</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingLabel">
-							<string key="name">ratingLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingSlider">
-							<string key="name">ratingSlider</string>
-							<string key="candidateClassName">UISlider</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ksKissUtilityView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ksViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="dateButtonTapped:">id</string>
-						<string key="emailButtonTapped:">id</string>
-						<string key="facebookSwitchSwitched:">id</string>
-						<string key="kisserButtonTapped:">id</string>
-						<string key="locationButtonTapped:">id</string>
-						<string key="passcodeSwitchSwitched:">id</string>
-						<string key="ratingButtonTapped:">id</string>
-						<string key="settingsButtonTapped:">id</string>
-						<string key="topLeftButtonTapped:">id</string>
-						<string key="topRightButtonTapped:">id</string>
-						<string key="twitterSwitchSwitched:">id</string>
-						<string key="twitterbookCancelButtonTapped:">id</string>
-						<string key="twitterbookSaveButtonTapped:">id</string>
-						<string key="wwwButtonTapped:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="dateButtonTapped:">
-							<string key="name">dateButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="emailButtonTapped:">
-							<string key="name">emailButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="facebookSwitchSwitched:">
-							<string key="name">facebookSwitchSwitched:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="kisserButtonTapped:">
-							<string key="name">kisserButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="locationButtonTapped:">
-							<string key="name">locationButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="passcodeSwitchSwitched:">
-							<string key="name">passcodeSwitchSwitched:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="ratingButtonTapped:">
-							<string key="name">ratingButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="settingsButtonTapped:">
-							<string key="name">settingsButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="topLeftButtonTapped:">
-							<string key="name">topLeftButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="topRightButtonTapped:">
-							<string key="name">topRightButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="twitterSwitchSwitched:">
-							<string key="name">twitterSwitchSwitched:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="twitterbookCancelButtonTapped:">
-							<string key="name">twitterbookCancelButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="twitterbookSaveButtonTapped:">
-							<string key="name">twitterbookSaveButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="wwwButtonTapped:">
-							<string key="name">wwwButtonTapped:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="bigVersionLabel">UILabel</string>
-						<string key="dateButton">UIButton</string>
-						<string key="emailButton">UIButton</string>
-						<string key="facebookSwitch">UISwitch</string>
-						<string key="kissUtilityView">ksKissUtilityView</string>
-						<string key="kisserButton">UIButton</string>
-						<string key="littleVersionLabel">UILabel</string>
-						<string key="locationButton">UIButton</string>
-						<string key="mainMapView">MKMapView</string>
-						<string key="mainTableView">UITableView</string>
-						<string key="passcodeSwitch">UISwitch</string>
-						<string key="pwordField">UITextField</string>
-						<string key="pwordLabel">UILabel</string>
-						<string key="ratingButton">UIButton</string>
-						<string key="settingsButton">UIButton</string>
-						<string key="settingsView">UIView</string>
-						<string key="topBarView">UIImageView</string>
-						<string key="topLeftButton">UIButton</string>
-						<string key="topRightButton">UIButton</string>
-						<string key="twitterBookCancelButton">UIButton</string>
-						<string key="twitterBookLabel">UILabel</string>
-						<string key="twitterBookSaveButton">UIButton</string>
-						<string key="twitterBookView">UIView</string>
-						<string key="twitterSwitch">UISwitch</string>
-						<string key="unameField">UITextField</string>
-						<string key="unameLabel">UILabel</string>
-						<string key="wallpaperView">UIImageView</string>
-						<string key="wwwButton">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="bigVersionLabel">
-							<string key="name">bigVersionLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="dateButton">
-							<string key="name">dateButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="emailButton">
-							<string key="name">emailButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="facebookSwitch">
-							<string key="name">facebookSwitch</string>
-							<string key="candidateClassName">UISwitch</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="kissUtilityView">
-							<string key="name">kissUtilityView</string>
-							<string key="candidateClassName">ksKissUtilityView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="kisserButton">
-							<string key="name">kisserButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="littleVersionLabel">
-							<string key="name">littleVersionLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="locationButton">
-							<string key="name">locationButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="mainMapView">
-							<string key="name">mainMapView</string>
-							<string key="candidateClassName">MKMapView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="mainTableView">
-							<string key="name">mainTableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="passcodeSwitch">
-							<string key="name">passcodeSwitch</string>
-							<string key="candidateClassName">UISwitch</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pwordField">
-							<string key="name">pwordField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pwordLabel">
-							<string key="name">pwordLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ratingButton">
-							<string key="name">ratingButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="settingsButton">
-							<string key="name">settingsButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="settingsView">
-							<string key="name">settingsView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="topBarView">
-							<string key="name">topBarView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="topLeftButton">
-							<string key="name">topLeftButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="topRightButton">
-							<string key="name">topRightButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterBookCancelButton">
-							<string key="name">twitterBookCancelButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterBookLabel">
-							<string key="name">twitterBookLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterBookSaveButton">
-							<string key="name">twitterBookSaveButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterBookView">
-							<string key="name">twitterBookView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterSwitch">
-							<string key="name">twitterSwitch</string>
-							<string key="candidateClassName">UISwitch</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="unameField">
-							<string key="name">unameField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="unameLabel">
-							<string key="name">unameLabel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wallpaperView">
-							<string key="name">wallpaperView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wwwButton">
-							<string key="name">wwwButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ksViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">

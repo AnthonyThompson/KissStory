@@ -41,22 +41,12 @@
                                                 UITableViewDelegate,
                                                 UITableViewDataSource,
                                                 UIActionSheetDelegate,
-                                                UIPickerViewDelegate,
                                                 UINavigationControllerDelegate,
-//UIPickerViewDataSource,
                                                 UITextFieldDelegate,
                                                 MKMapViewDelegate,
                                                 CLLocationManagerDelegate,
                                                 MFMailComposeViewControllerDelegate> {
 }
-
-
-/*
-#pragma mark - UIPickerViewDelegate
-
--(NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
--(NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component;
- */
 
 -(void)buildSettingsDictionary;
 

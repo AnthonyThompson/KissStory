@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface ksKissUtilityView : UIView {
-    NSDictionary* dataDictionary;
-}
+@interface ksKissUtilityView : UIView
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
 
@@ -39,6 +37,15 @@
 
 @property (atomic, retain) IBOutlet UIView* descHeader;
 @property (atomic, retain) IBOutlet UILabel* descLabel;
-@property (atomic, retain) IBOutlet UITextField* descText;
+@property (atomic, retain) IBOutlet UITextView* descTextView;
+
+@property (atomic, retain) NSDictionary* dataDictionary;
+@property (atomic, readwrite) int state;
+
+@property (atomic, retain) NSObject* kissWhoObject;
+@property (atomic, readwrite) double kissDate;
+@property (atomic, readwrite) int kissRating;
+@property (atomic, retain) NSObject* kissWhereObject;
+@property (atomic, retain) NSString* kissDescription;
 
 @end

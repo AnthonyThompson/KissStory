@@ -16,6 +16,8 @@
 @implementation ksViewController
 
 @synthesize ksCD;
+@synthesize topRightButton = _topRightButton;
+@synthesize topLeftButton = _topLeftButton;
 
 #pragma mark - Init Group
 
@@ -53,6 +55,107 @@
     //9901
     // default launch state, may be useful later?
     _state = STATE_NEUTRAL;
+}
+
+#pragma mark - GUI control
+
+-(void)initGuiObjects {
+    [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    _topLeftButton.hidden = YES;
+    _mainMapView.delegate = self;
+    
+    _facebookSwitch.on = NO;
+    if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
+        _facebookSwitch.on = YES;
+    }
+    
+    _twitterSwitch.on = NO;
+    if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
+        _twitterSwitch.on = YES;
+    }
+    
+    _wallpaperView.alpha = 1.0f;
+    
+    _twitterBookView.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
+    
+    _mainTableView.delegate = self;
+    _mainTableView.dataSource = self;
+    _mainTableView.clipsToBounds = YES;
+    [_mainTableView reloadData];
+    
+    _mainMapView.showsUserLocation = YES;
+    
+    [self annotateMap];
+    
+    _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
+                             [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
+                             [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
+                             [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey],
+#ifdef DEBUG
+                             @"d"
+#else
+                             @""
+#endif
+                             ];
+    _littleVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ logo and app are\n© 2012 Geek Gamer Guy Mobile LLC\nAll rights reserved",
+                                [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"]];
+}
+
+-(void)buttonControl:(id)sender {
+    if ([sender tag] != KISSER ) {
+        _kisserButton.frame = CGRectMake(0.0f, 430.0f, 64.0f, 50.0f);
+        [_kisserButton setImage:[UIImage imageNamed:@"ButtonKisserUnselected.png"]
+                       forState:UIControlStateNormal];
+    }
+    
+    if ([sender tag] != DATE ) {
+        _dateButton.frame = CGRectMake(64.0f, 430.0f, 64.0f, 50.0f);
+        [_dateButton setImage:[UIImage imageNamed:@"ButtonDateUnselected.png"]
+                     forState:UIControlStateNormal];
+    }
+    
+    if ([sender tag] != RATING ) {
+        _ratingButton.frame = CGRectMake(128.0f, 430.0f, 64.0f, 50.0f);
+        [_ratingButton setImage:[UIImage imageNamed:@"ButtonRatingUnselected.png"]
+                       forState:UIControlStateNormal];
+    }
+    
+    if ([sender tag] != LOCATION ) {
+        _locationButton.frame = CGRectMake(192.0f, 430.0f, 64.0f, 50.0f);
+        [_locationButton setImage:[UIImage imageNamed:@"ButtonLocationUnselected.png"]
+                         forState:UIControlStateNormal];
+    }
+    
+    if ([sender tag] != 4 ) {
+        _settingsButton.frame = CGRectMake(256.0f, 430.0f, 64.0f, 50.0f);
+        [_settingsButton setImage:[UIImage imageNamed:@"ButtonSettingsUnselected.png"]
+                         forState:UIControlStateNormal];
+        _topRightButton.hidden = NO;
+    }
+}
+
+-(void)viewCameAlive {
+    if ([ksSecurityView securityCheck:_settingsDictionary]) {
+        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary]];
+    } else {
+        [UIView animateWithDuration:0.5f animations:^{
+            _wallpaperView.alpha = 0.0f;
+        }];
+    }
+}
+
+-(void)displayUtilityView {
+    [UIView animateWithDuration:0.5f animations:^{
+        [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 436.0f)];
+    }];
+}
+
+-(void)dismissUtilityView {
+    [UIView animateWithDuration:0.5f animations:^{
+        [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
+    } completion:^(BOOL finished){
+        [[[self.view subviews] lastObject] removeFromSuperview];
+    }];
 }
 
 #pragma mark - Data Build Group
@@ -360,15 +463,7 @@
                      forState:UIControlStateNormal];
     _topBarView.image = [UIImage imageNamed:@"TitleSettingsCream.png"];
     _topRightButton.hidden = YES;
-    
-    /*
-    if ([ksSecurityView securityCheck:_settingsDictionary]) {
-        _passcodeSwitch.on = YES;
-    } else {
-        _passcodeSwitch.on = NO;
-    }
-     */
-    
+
     _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
 
     [self buttonControl:sender];
@@ -764,17 +859,12 @@
 -(IBAction)topLeftButtonTapped:(id)sender {
     switch (_state) {
         case STATE_ADD: {
+            // cancelled
             _topLeftButton.hidden = YES;
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
-
-            [UIView animateWithDuration:0.5f animations:^{
-                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
-            }
-            completion:^(BOOL finished){
-                [[[self.view subviews] lastObject] removeFromSuperview];
-            }];
-
-            _state = STATE_KISSER;
+            
+            [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self dismissUtilityView];
         }
     }
 }
@@ -786,7 +876,7 @@
         case STATE_RATING:
         case STATE_LOCATION:
         case STATE_SETTINGS: {
-            // add kiss
+            // add a new kiss
             _state = STATE_ADD;
             
             _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
@@ -796,26 +886,19 @@
             _topLeftButton.hidden = NO;
 
             [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
-
-            [UIView animateWithDuration:0.5f animations:^{
-                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 436.0f)];
-            }];
+            //9901 this should be a utilityview thing
+            [self displayUtilityView];
         }
             break;
         case STATE_ADD: {
-            // save & dismiss utlity view
+            // save kiss
             _topLeftButton.hidden = YES;
             _topRightButton.hidden = NO;
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
-
-            [UIView animateWithDuration:0.5f animations:^{
-                [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
-            }
-                             completion:^(BOOL finished){
-                                 [[[self.view subviews] lastObject] removeFromSuperview];
-                             }];
             
-            _state = STATE_KISSER;
+            [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            //9901 this should be a utilityview thing
+            [self dismissUtilityView];
         }
             break;
     }
@@ -830,93 +913,6 @@
     } else {
         // was on, is now OFF, so disable current passcode
         [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary]];
-    }
-}
-
-#pragma mark - GUI control
-
--(void)initGuiObjects {
-    [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    _topLeftButton.hidden = YES;
-    _mainMapView.delegate = self;
-    
-    _facebookSwitch.on = NO;
-    if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
-        _facebookSwitch.on = YES;
-    }
-    
-    _twitterSwitch.on = NO;
-    if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
-        _twitterSwitch.on = YES;
-    }
-
-    _wallpaperView.alpha = 1.0f;
-    
-    _twitterBookView.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
-    
-    _mainTableView.delegate = self;
-    _mainTableView.dataSource = self;
-    _mainTableView.clipsToBounds = YES;
-    [_mainTableView reloadData];
-    
-    _mainMapView.showsUserLocation = YES;
-
-    [self annotateMap];
-
-    _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
-                              [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
-                              [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
-                              [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey],
-#ifdef DEBUG
-                              @"d"
-#else
-                              @""
-#endif
-                              ];
-    _littleVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ logo and app are\n© 2012 Geek Gamer Guy Mobile LLC\nAll rights reserved",
-                                 [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"]];
-}
-
--(void)buttonControl:(id)sender {
-    if ([sender tag] != KISSER ) {
-        _kisserButton.frame = CGRectMake(0.0f, 430.0f, 64.0f, 50.0f);
-        [_kisserButton setImage:[UIImage imageNamed:@"ButtonKisserUnselected.png"]
-                       forState:UIControlStateNormal];
-    }
-    
-    if ([sender tag] != DATE ) {
-        _dateButton.frame = CGRectMake(64.0f, 430.0f, 64.0f, 50.0f);
-        [_dateButton setImage:[UIImage imageNamed:@"ButtonDateUnselected.png"]
-                     forState:UIControlStateNormal];
-    }
-    
-    if ([sender tag] != RATING ) {
-        _ratingButton.frame = CGRectMake(128.0f, 430.0f, 64.0f, 50.0f);
-        [_ratingButton setImage:[UIImage imageNamed:@"ButtonRatingUnselected.png"]
-                       forState:UIControlStateNormal];
-    }
-    
-    if ([sender tag] != LOCATION ) {
-        _locationButton.frame = CGRectMake(192.0f, 430.0f, 64.0f, 50.0f);
-        [_locationButton setImage:[UIImage imageNamed:@"ButtonLocationUnselected.png"]
-                         forState:UIControlStateNormal];
-    }
-    
-    if ([sender tag] != 4 ) {
-        _settingsButton.frame = CGRectMake(256.0f, 430.0f, 64.0f, 50.0f);
-        [_settingsButton setImage:[UIImage imageNamed:@"ButtonSettingsUnselected.png"]
-                         forState:UIControlStateNormal];
-        _topRightButton.hidden = NO;
-    }
-}
-
--(void)viewCameAlive {
-    if ([ksSecurityView securityCheck:_settingsDictionary]) {
-        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary]];
-    } else {
-        [UIView animateWithDuration:0.5f animations:^{
-            _wallpaperView.alpha = 0.0f;
-        }];
     }
 }
 

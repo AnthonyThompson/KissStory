@@ -16,7 +16,6 @@
 @synthesize storeURL = storeURL_;
 @synthesize storePath = storePath_;
 @synthesize fileMan = fileMan_;
-@synthesize runTime;
 
 #pragma mark - Inits
 
@@ -26,15 +25,15 @@
     
 #ifdef DEBUG
     // KSCD_DATA = initial place-values; anon, addNew, &c
-    //[self setRunTime:KSCD_DATA];
+    //_runTime = KSCD_DATA;
     
     // KSCD_DEBUGDATA = ladies && settings
-    [self setRunTime:KSCD_DEBUGDATA];
+    _runTime = KSCD_DEBUGDATA;
     
     // KSCD_NODATA = no data generated at all BE CAREFUL WITH THIS ONE MY FRIEND
-    //[self setRunTime:KSCD_NODATA];
+    //_runTime = KSCD_NODATA;
 #else
-    [self setRunTime:KSCD_DATA];
+    _runTime = KSCD_DATA;
 #endif
 
     return self;
@@ -77,7 +76,7 @@
     }
     
     // If it doesn't already exist && we need data, make that data mang
-    if ((!preExists) && (runTime != KSCD_NODATA)) {
+    if ((!preExists) && (_runTime != KSCD_NODATA)) {
         [self genData];
     }
     
@@ -163,31 +162,34 @@
     
     NSManagedObject* mystKisser = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
     [mystKisser setValue:[NSNumber numberWithDouble:0.0f] forKey:@"id"];
-    [mystKisser setValue:@"Mystery Kisser" forKey:@"name"];
+    [mystKisser setValue:@"¿Mystery Kisser?" forKey:@"name"];
     [mystKisser setValue:@"Kisser unknown" forKey:@"desc"];
     
     NSManagedObject* addWho = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
     [addWho setValue:[NSNumber numberWithDouble:-1.0f] forKey:@"id"];
-    [addWho setValue:@"(Add a new kisser)" forKey:@"name"];
+    [addWho setValue:@"+ Add a new kisser" forKey:@"name"];
     [addWho setValue:@"" forKey:@"desc"];
     
     NSManagedObject* mystWhere = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
     [mystWhere setValue:[NSNumber numberWithDouble:0.0f] forKey:@"id"];
-    [mystWhere setValue:@"Mystery Place" forKey:@"name"];
+    [mystWhere setValue:@"¿Mystery Place?" forKey:@"name"];
     [mystWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
     [mystWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"long"];
     
     NSManagedObject* addWhere = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
     [addWhere setValue:[NSNumber numberWithDouble:-1.0f] forKey:@"id"];
-    [addWhere setValue:@"(Add a new place to kiss)" forKey:@"name"];
+    [addWhere setValue:@"+ Add a new place to kiss" forKey:@"name"];
     [addWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
     [addWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"long"];
     
+    //9901 is this needed now?
+    /*
     NSManagedObject* currentLoc = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
     [currentLoc setValue:[NSNumber numberWithDouble:-2.0f] forKey:@"id"];
     [currentLoc setValue:@"(Use current location)" forKey:@"name"];
     [currentLoc setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
     [currentLoc setValue:[NSNumber numberWithFloat:0.0f] forKey:@"long"];
+     */
     
     NSManagedObject* s0 = [NSEntityDescription insertNewObjectForEntityForName:[settingsEntity name] inManagedObjectContext:[self managedObjectContext]];
     [s0 setValue:@"securityEnabled" forKey:@"keyName"];
@@ -226,7 +228,7 @@
     double clicker = 0.0f;
     NSEntityDescription* kissesEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[self managedObjectContext]];
     
-    if (runTime == KSCD_DEBUGDATA) {
+    if (_runTime == KSCD_DEBUGDATA) {
         NSManagedObject* jessicadrew = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [jessicadrew setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [jessicadrew setValue:@"Jessica Drew" forKey:@"name"];
