@@ -513,7 +513,7 @@
         [k12 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [k12 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]-100000.0f] forKey:@"when"];
         [k12 setValue:[NSNumber numberWithInt:5] forKey:@"score"];
-        [k12 setValue:@"123456789a123456789b" forKey:@"desc"];
+        [k12 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j123456789k123456789L123456789m123456789n" forKey:@"desc"];
         [k12 setValue:nauticathorn forKey:@"kissWho"];
         [k12 setValue:tesoro forKey:@"kissWhere"];
         [nauticathornK addObject:k12];
@@ -543,7 +543,7 @@
         [k15 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [k15 setValue:[NSNumber numberWithDouble:1313447521.0f] forKey:@"when"];
         [k15 setValue:[NSNumber numberWithInt:2] forKey:@"score"];
-        [k15 setValue:@"Warmer... warmer..." forKey:@"desc"];
+        [k15 setValue:@"OMG THIS WAS SOOOO ROMANTICAL!!! HE HAD BK SLIDERS ALREADY THERE W/HIS OWN BACON!!! LOL XLRG FRIES AND BOTTOMLESS BLIZZARDS!!!  MOUTHFULL!!!" forKey:@"desc"];
         [k15 setValue:fc forKey:@"kissWho"];
         [k15 setValue:Submarine forKey:@"kissWhere"];
         [SubmarineK addObject:k15];

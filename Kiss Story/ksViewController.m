@@ -103,31 +103,31 @@
 
 -(void)buttonControl:(id)sender {
     if ([sender tag] != KISSER ) {
-        _kisserButton.frame = CGRectMake(0.0f, 430.0f, 64.0f, 50.0f);
+        _kisserButton.frame = CGRectMake(0.0f, 440.0f, 64.0f, 40.0f);
         [_kisserButton setImage:[UIImage imageNamed:@"ButtonKisserUnselected.png"]
                        forState:UIControlStateNormal];
     }
     
     if ([sender tag] != DATE ) {
-        _dateButton.frame = CGRectMake(64.0f, 430.0f, 64.0f, 50.0f);
+        _dateButton.frame = CGRectMake(64.0f, 440.0f, 64.0f, 40.0f);
         [_dateButton setImage:[UIImage imageNamed:@"ButtonDateUnselected.png"]
                      forState:UIControlStateNormal];
     }
     
     if ([sender tag] != RATING ) {
-        _ratingButton.frame = CGRectMake(128.0f, 430.0f, 64.0f, 50.0f);
+        _ratingButton.frame = CGRectMake(128.0f, 440.0f, 64.0f, 40.0f);
         [_ratingButton setImage:[UIImage imageNamed:@"ButtonRatingUnselected.png"]
                        forState:UIControlStateNormal];
     }
     
     if ([sender tag] != LOCATION ) {
-        _locationButton.frame = CGRectMake(192.0f, 430.0f, 64.0f, 50.0f);
+        _locationButton.frame = CGRectMake(192.0f, 440.0f, 64.0f, 40.0f);
         [_locationButton setImage:[UIImage imageNamed:@"ButtonLocationUnselected.png"]
                          forState:UIControlStateNormal];
     }
     
     if ([sender tag] != 4 ) {
-        _settingsButton.frame = CGRectMake(256.0f, 430.0f, 64.0f, 50.0f);
+        _settingsButton.frame = CGRectMake(256.0f, 440.0f, 64.0f, 40.0f);
         [_settingsButton setImage:[UIImage imageNamed:@"ButtonSettingsUnselected.png"]
                          forState:UIControlStateNormal];
         _topRightButton.hidden = NO;
@@ -142,20 +142,6 @@
             _wallpaperView.alpha = 0.0f;
         }];
     }
-}
-
--(void)displayUtilityView {
-    [UIView animateWithDuration:0.5f animations:^{
-        [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 44.0f, 320.0f, 436.0f)];
-    }];
-}
-
--(void)dismissUtilityView {
-    [UIView animateWithDuration:0.5f animations:^{
-        [[[self.view subviews] lastObject] setFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)];
-    } completion:^(BOOL finished){
-        [[[self.view subviews] lastObject] removeFromSuperview];
-    }];
 }
 
 #pragma mark - Data Build Group
@@ -864,7 +850,7 @@
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
             
             [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-            [self dismissUtilityView];
+            [[[self.view subviews] lastObject] dismissUtilityView];
         }
     }
 }
@@ -886,8 +872,6 @@
             _topLeftButton.hidden = NO;
 
             [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
-            //9901 this should be a utilityview thing
-            [self displayUtilityView];
         }
             break;
         case STATE_ADD: {
@@ -897,8 +881,7 @@
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
             
             [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-            //9901 this should be a utilityview thing
-            [self dismissUtilityView];
+            [[[self.view subviews] lastObject] dismissUtilityView];
         }
             break;
     }

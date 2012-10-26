@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface ksKissUtilityView : UIView
+@interface ksKissUtilityView : UIView <UITextViewDelegate>
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
+-(void)dismissUtilityView;
 
 @property (atomic, retain) IBOutlet UIView* kisserHeader;
 @property (atomic, retain) IBOutlet UILabel* kisserLabel;
@@ -47,5 +48,20 @@
 @property (atomic, readwrite) int kissRating;
 @property (atomic, retain) NSObject* kissWhereObject;
 @property (atomic, retain) NSString* kissDescription;
+
+@property (atomic, retain) IBOutlet UIButton* whoButton;
+@property (atomic, retain) IBOutlet UIButton* whenButton;
+@property (atomic, retain) IBOutlet UIButton* howButton;
+@property (atomic, retain) IBOutlet UIButton* whereButton;
+@property (atomic, retain) IBOutlet UIButton* whatButton;
+@property (atomic, retain) IBOutlet UIScrollView* scrollView;
+
+@property (atomic, retain) IBOutlet UIView* whoSection;
+@property (atomic, retain) IBOutlet UIView* whenSection;
+@property (atomic, retain) IBOutlet UIView* whatSection;
+@property (atomic, retain) IBOutlet UIView* whereSection;
+@property (atomic, retain) IBOutlet UIView* howSection;
+
+
 
 @end
