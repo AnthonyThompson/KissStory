@@ -82,33 +82,51 @@
 
 -(IBAction)acceptButtonTapped:(id)sender {
     //9901 save picked stuff
+    
+    NSString* senderTitle;
+    
     switch (_state) {
         case KISSER: {
-            [(ksKissUtilityView*)[self superview] setKissWhoObject:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            [[(ksKissUtilityView*)[self superview] kissObject] setKissWho:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            
+            senderTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
+            /*
             [[(ksKissUtilityView*)[self superview] kisserButton] setTitle:[self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] kisserButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] kisserButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+             */
         }
             break;
         case DATE: {
-            [(ksKissUtilityView*)[self superview] setKissDate:[_datePickerView date]];
+            [[(ksKissUtilityView*)[self superview] kissObject] setKissDate:[_datePickerView date]];
 
             NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            
+            senderTitle = [dateFormatter stringFromDate:[_datePickerView date]];
+            /*
             [[(ksKissUtilityView*)[self superview] dateButton] setTitle:[dateFormatter stringFromDate:[_datePickerView date]] forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] dateButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] dateButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+             */
         }
             break;
         case LOCATION: {
-            [(ksKissUtilityView*)[self superview] setKissWhereObject:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            [[(ksKissUtilityView*)[self superview] kissObject] setKissWhere:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            senderTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
+            
+            /*
             [[(ksKissUtilityView*)[self superview] locationButton] setTitle:[self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] locationButton] setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
             [[(ksKissUtilityView*)[self superview] locationButton] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+             */
         }
             break;
     }
+    
+    [sender setTitle:senderTitle forState:UIControlStateNormal];
+    [sender setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+    [sender setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+
     [self dismissPickerView];
 }
 

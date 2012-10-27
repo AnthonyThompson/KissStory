@@ -880,6 +880,8 @@
             _topRightButton.hidden = NO;
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
             
+            //need to retrieve values... maybe if the values were in an object?
+            
             [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [[[self.view subviews] lastObject] dismissUtilityView];
         }

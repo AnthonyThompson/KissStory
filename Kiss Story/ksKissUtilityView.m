@@ -12,11 +12,7 @@
 
 @implementation ksKissUtilityView
 
-@synthesize kissWhoObject = _kissWhoObject;
-@synthesize kissDate = _kissDate;
-@synthesize kissRating = _kissRating;
-@synthesize kissWhereObject = _kissWhereObject;
-@synthesize kissDescription = _kissDescription;
+@synthesize kissObject = _kissObject;
 
 #pragma mark - Inits
 
@@ -25,6 +21,7 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
         self = [nib objectAtIndex:0];
         self.frame = frame;
+        _kissObject = [[ksKissObject alloc]init];
     }
     
     return self;
@@ -32,35 +29,35 @@
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary {
     if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
+        
+        //generic all-cases inits
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
         _state = whichState;
         
+        [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
+        [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        
+        _locationMapView.showsUserLocation = YES;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+        
+        // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
+        [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
+                                                                    + _whoSection.frame.size.height + 5.0f
+                                                                    + _whenSection.frame.size.height + 5.0f
+                                                                    + _howSection.frame.size.height + 5.0f
+                                                                    + _whereSection.frame.size.height + 5.0f
+                                                                    + _whatSection.frame.size.height + 5.0f)];
+        
+        // needs must set the scrollView contentSize to the frame of it's view
+        _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
+
+        //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
             case STATE_ADD: {
-                _kissWhoObject = [[NSObject alloc]init];
-                _kissDate = [NSDate date];
-                _kissRating = 0;
-                _kissWhereObject = [[NSObject alloc]init];
-                _kissDescription = [[NSString alloc]init];
-                
-                [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
-                [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
-                [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
-                [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
-                
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
-
-                // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
-                [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
-                                                                            + _whoSection.frame.size.height + 5.0f
-                                                                            + _whenSection.frame.size.height + 5.0f
-                                                                            + _howSection.frame.size.height + 5.0f
-                                                                            + _whereSection.frame.size.height + 5.0f
-                                                                            + _whatSection.frame.size.height + 5.0f)];
-                
-                // needs must set the scrollView content to the frame of it's sole view
-                _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
             }
         }
     }
@@ -96,36 +93,42 @@
         _ratingHeart3.image = CCO_HEART_GREY;
         _ratingHeart4.image = CCO_HEART_GREY;
         _ratingHeart5.image = CCO_HEART_GREY;
+        _kissObject.kissRating = 0;
     } else if (_ratingSlider.value < 1.5f) {
         _ratingHeart1.image = CCO_HEART_BLUE;
         _ratingHeart2.image = CCO_HEART_GREY;
         _ratingHeart3.image = CCO_HEART_GREY;
         _ratingHeart4.image = CCO_HEART_GREY;
         _ratingHeart5.image = CCO_HEART_GREY;
+        _kissObject.kissRating = 1;
     } else if (_ratingSlider.value < 2.5f) {
         _ratingHeart1.image = CCO_HEART_BLUE;
         _ratingHeart2.image = CCO_HEART_GREEN;
         _ratingHeart3.image = CCO_HEART_GREY;
         _ratingHeart4.image = CCO_HEART_GREY;
         _ratingHeart5.image = CCO_HEART_GREY;
+        _kissObject.kissRating = 2;
     } else if (_ratingSlider.value < 3.5f) {
         _ratingHeart1.image = CCO_HEART_BLUE;
         _ratingHeart2.image = CCO_HEART_GREEN;
         _ratingHeart3.image = CCO_HEART_YELLOW;
         _ratingHeart4.image = CCO_HEART_GREY;
         _ratingHeart5.image = CCO_HEART_GREY;
+        _kissObject.kissRating = 3;
     } else if (_ratingSlider.value < 4.5f) {
         _ratingHeart1.image = CCO_HEART_BLUE;
         _ratingHeart2.image = CCO_HEART_GREEN;
         _ratingHeart3.image = CCO_HEART_YELLOW;
         _ratingHeart4.image = CCO_HEART_ORANGE;
         _ratingHeart5.image = CCO_HEART_GREY;
+        _kissObject.kissRating = 4;
     } else {
         _ratingHeart1.image = CCO_HEART_BLUE;
         _ratingHeart2.image = CCO_HEART_GREEN;
         _ratingHeart3.image = CCO_HEART_YELLOW;
         _ratingHeart4.image = CCO_HEART_ORANGE;
         _ratingHeart5.image = CCO_HEART_RED;
+        _kissObject.kissRating = 5;
     }
 }
 
@@ -146,7 +149,7 @@
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
-    
+    [_locationMapView setCenterCoordinate:[_locationMapView userLocation].coordinate animated:YES];
 }
 
 #pragma mark - Scroll Section Group
@@ -174,18 +177,15 @@
 #pragma mark - UITextView Delegate
 
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
-    NSLog(@"kWSN");
-    
-    // peg what_section to top
+    // peg what_section to top-of-view
     [_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
-    NSLog(@"kWHN");
     [_descTextView resignFirstResponder];
+    // slap descView to bottom of view
     [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
-
 
 -(void)displayUtilityView {
     [UIView animateWithDuration:0.5f animations:^{
@@ -202,6 +202,22 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    /*
+    if([text isEqualToString:@"\n"]) {
+        // Be sure to test for equality using the "isEqualToString" message
+        [textView resignFirstResponder];
+        
+        // Return FALSE so that the final '\n' character doesn't get added
+        return FALSE;
+    }
+    
+    // For any other character return TRUE so that the text gets added to the view
+    return TRUE;
+     */
+    
+    // need the length delimiting?
+    
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
     NSUInteger location = replacementTextRange.location;
