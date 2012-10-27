@@ -13,6 +13,7 @@
 @implementation ksKissUtilityView
 
 @synthesize kissObject = _kissObject;
+@synthesize locationMapView = _locationMapView;
 
 #pragma mark - Inits
 
@@ -21,17 +22,19 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
         self = [nib objectAtIndex:0];
         self.frame = frame;
-        _kissObject = [[ksKissObject alloc]init];
     }
     
     return self;
 }
 
--(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary {
+-(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary withManagedObjectContext:(NSManagedObjectContext*)managedObjectContext {
     if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
         
         //generic all-cases inits
+        _managedObjectContext = managedObjectContext;
+        
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
+        _kissObject = [[ksKissObject alloc] initWithManagedObjectContext:managedObjectContext];
         _state = whichState;
         
         [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
@@ -74,14 +77,14 @@
 
 -(IBAction)kisserButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]]];
+    [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME] withManagedObjectContext:_managedObjectContext]];
 }
 
 #pragma mark - Date Action Group
 
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
+    [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE] withManagedObjectContext:_managedObjectContext]];
 }
 
 #pragma mark - Rating Action Group
@@ -145,7 +148,7 @@
 
 -(IBAction)locationButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
+    [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME] withManagedObjectContext:_managedObjectContext]];
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
@@ -177,13 +180,13 @@
 #pragma mark - UITextView Delegate
 
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
-    // peg what_section to top-of-view
+    // peg whatSection to top-of-view
     [_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
     [_descTextView resignFirstResponder];
-    // slap descView to bottom of view
+    // slap whatSection to bottom of view
     [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
 
@@ -193,17 +196,31 @@
     }];
 }
 
--(void)dismissUtilityView {
-    [UIView animateWithDuration:0.5f animations:^{
-        self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
-    } completion:^(BOOL finished){
-        [self removeFromSuperview];
-    }];
+-(BOOL)dismissUtilityViewWithSave:(BOOL)save {
+    // kissObject validates save and returns BOOL
+    // (also screen control, activity indicator, messaging, &c)
+    // sets superview state to REFRESH I guess, to reload tables?
+    // YES then animate && remove
+    // NO do nothing
+    
+    // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
+    // otherwise you're left at utility view
+    if (!save || (save && [_kissObject saveKiss])) {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
+        } completion:^(BOOL finished){
+            [self removeFromSuperview];
+        }];
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
     /*
+     //9901 is this a solid replacement?
+     
     if([text isEqualToString:@"\n"]) {
         // Be sure to test for equality using the "isEqualToString" message
         [textView resignFirstResponder];
@@ -214,6 +231,7 @@
     
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
+     
      */
     
     // need the length delimiting?

@@ -10,7 +10,7 @@
 
 @interface ksPickerView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 
--(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults;
+-(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;
@@ -19,5 +19,7 @@
 @property (atomic, retain) IBOutlet UIButton* cancelButton;
 @property (atomic, retain) IBOutlet UIPickerView* stringPickerView;
 @property (atomic, retain) IBOutlet UIDatePicker* datePickerView;
+
+@property (atomic,retain) NSManagedObjectContext* managedObjectContext;
 
 @end

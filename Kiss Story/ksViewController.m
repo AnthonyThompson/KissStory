@@ -284,7 +284,7 @@
         // just need the coord once, and we know that there's always an object at index:0
         NSManagedObject* coordinateObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:0];
         
-        annotation.coordinate = CLLocationCoordinate2DMake([[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"long"]floatValue]);
+        annotation.coordinate = CLLocationCoordinate2DMake([[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lon"]floatValue]);
 
         // our temp arrays
         NSMutableArray* IDs = [[NSMutableArray alloc]init];
@@ -345,6 +345,52 @@
         dateString = @"Last Month";
     }
     return dateString;
+}
+
+#pragma mark - Top Button Action Group
+
+-(IBAction)topLeftButtonTapped:(id)sender {
+    switch (_state) {
+        case STATE_ADD: {
+            // cancelled
+            if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:NO]) {
+                _topLeftButton.hidden = YES;
+                [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
+                [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+    }
+}
+
+-(IBAction)topRightButtonTapped:(id)sender {
+    switch(_state) {
+        case STATE_KISSER:
+        case STATE_DATE:
+        case STATE_RATING:
+        case STATE_LOCATION:
+        case STATE_SETTINGS: {
+            // add a new kiss
+            _state = STATE_ADD;
+            _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
+            [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
+            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
+            _topRightButton.hidden = NO;
+            _topLeftButton.hidden = NO;
+            
+            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary withManagedObjectContext:[ksCD managedObjectContext]]];
+        }
+            break;
+        case STATE_ADD: {
+            // save kiss
+            if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:YES]) {
+                _topLeftButton.hidden = YES;
+                _topRightButton.hidden = NO;
+                [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
+                [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+            break;
+    }
 }
 
 #pragma mark - Kisser Action Group
@@ -487,8 +533,6 @@
 -(IBAction)wwwButtonTapped:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
 }
-
-
 
 #pragma mark - UITableView Group
 
@@ -840,55 +884,6 @@
         // and show the login UX if necessary.
         [appDelegate openSessionWithAllowLoginUI:YES];
         [sender setOn:YES];
-    }
-}
-
-#pragma mark - Top Button Action Group
-
--(IBAction)topLeftButtonTapped:(id)sender {
-    switch (_state) {
-        case STATE_ADD: {
-            // cancelled
-            _topLeftButton.hidden = YES;
-            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
-            
-            [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-            [[[self.view subviews] lastObject] dismissUtilityView];
-        }
-    }
-}
-
--(IBAction)topRightButtonTapped:(id)sender {
-    switch(_state) {
-        case STATE_KISSER:
-        case STATE_DATE:
-        case STATE_RATING:
-        case STATE_LOCATION:
-        case STATE_SETTINGS: {
-            // add a new kiss
-            _state = STATE_ADD;
-            
-            _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
-            [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
-            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
-            _topRightButton.hidden = NO;
-            _topLeftButton.hidden = NO;
-
-            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
-        }
-            break;
-        case STATE_ADD: {
-            // save kiss
-            _topLeftButton.hidden = YES;
-            _topRightButton.hidden = NO;
-            [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
-            
-            //need to retrieve values... maybe if the values were in an object?
-            
-            [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-            [[[self.view subviews] lastObject] dismissUtilityView];
-        }
-            break;
     }
 }
 

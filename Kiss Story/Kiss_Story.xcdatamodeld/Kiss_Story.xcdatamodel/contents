@@ -16,7 +16,7 @@
     <entity name="Where" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="long" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="kissRecord" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Kisses" inverseName="kissWhere" inverseEntity="Kisses" syncable="YES"/>
     </entity>
