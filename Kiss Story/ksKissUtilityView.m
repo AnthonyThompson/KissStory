@@ -44,10 +44,23 @@
                 _kissDescription = [[NSString alloc]init];
                 
                 [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
-                [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible80Pixel.png"] forState:UIControlStateNormal];
+                [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+                [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+                [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+
+                // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
+                [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
+                                                                            + _whoSection.frame.size.height + 5.0f
+                                                                            + _whenSection.frame.size.height + 5.0f
+                                                                            + _howSection.frame.size.height + 5.0f
+                                                                            + _whereSection.frame.size.height + 5.0f
+                                                                            + _whatSection.frame.size.height + 5.0f)];
+                
+                // needs must set the scrollView content to the frame of it's sole view
+                _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
             }
         }
     }
@@ -143,19 +156,19 @@
 }
 
 -(IBAction)whenButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whenSection.frame.origin.y - 2.0f) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whenSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 -(IBAction)whatButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 2.0f) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 -(IBAction)whereButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 2.0f) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 -(IBAction)howButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _howSection.frame.origin.y - 2.0f) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0.0f, _howSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 #pragma mark - UITextView Delegate
@@ -163,21 +176,23 @@
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
     NSLog(@"kWSN");
     
+    /*
     CGSize kbSize = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     double animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     CGPoint newCenter = self.center;
 
-    //newCenter = CGPointMake(newCenter.x, 216.0f - kbSize.height - self.frame.size.height/2);
-    newCenter = CGPointMake(newCenter.x, (kbSize.height - self.frame.size.height/2) + 50.0f);
+    newCenter = CGPointMake(newCenter.x, (kbSize.height - self.frame.size.height/2)+125.0f);
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:animationDuration];
     self.center = newCenter;
     [UIView commitAnimations];
+     */
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
     NSLog(@"kWHN");
+    [_descTextView resignFirstResponder];
 }
 
 
@@ -195,76 +210,22 @@
     }];
 }
 
-/*
--(BOOL)textFieldShouldReturn:(UITextField *)tField {
-    [tField resignFirstResponder];
-    NSMutableArray* dataTransfer = [[[NSMutableArray alloc] initWithArray:DISPLAY_DATA]autorelease];
-    
-    switch (SUBJECT) {
-        case KISS_0: {
-            //kiss desc
-            [dataTransfer replaceObjectAtIndex:4 withObject:[[[NSArray alloc] initWithObjects:[tField text], nil]autorelease]];
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    if (textView.text.length + text.length > 140){
+        if (location != NSNotFound){
+            [textView resignFirstResponder];
         }
-            break;
-        case WHO_1: {
-            // grabbing BOTH fields here, not just active field, and nested as an array of 2 arrays...
-            [dataTransfer replaceObjectAtIndex:0 withObject:[[[NSArray alloc]initWithObjects:[[[[[[[aedTableView visibleCells]objectAtIndex:0]subviews]objectAtIndex:1]subviews]objectAtIndex:0]text], nil]autorelease]];
-            [dataTransfer replaceObjectAtIndex:1 withObject:[[[NSArray alloc]initWithObjects:[[[[[[[aedTableView visibleCells]objectAtIndex:1]subviews]objectAtIndex:1]subviews]objectAtIndex:0]text], nil]autorelease]];
-        }
-            break;
-        case WHERE_2: {
-            //where name
-            [dataTransfer replaceObjectAtIndex:0 withObject:[[[NSArray alloc] initWithObjects:[tField text], nil]autorelease]];
-        }
-            break;
+        return NO;
     }
-    
-    [SET_DISPLAY_DATA:dataTransfer];
-    
-    // has to do with killing the field, et al, but I'm not ready to fly just yet...
-    return NO;
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)tField {
-    float offset = 0.0f;
-    
-    switch (SUBJECT) {
-        case KISS_0: {
-            offset = 210.0f;
-            //hide date to avoid display problems
-            [[aedTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] setHidden:YES];
-        }
-            break;
-        case WHO_1:
-            break;
-        case WHERE_2:
-            break;
+    else if (location != NSNotFound){
+        [textView resignFirstResponder];
+        return NO;
     }
-    
-    [aedTableView setBounds:CGRectMake(aedTableView.bounds.origin.x,
-                                       aedTableView.bounds.origin.x+offset,
-                                       aedTableView.bounds.size.width,
-                                       aedTableView.bounds.size.height)];
+    return YES;
 }
-
--(void)textFieldDidEndEditing:(UITextField *)tField {
-    switch (SUBJECT) {
-        case KISS_0: {
-            //display date to avoid display problems
-            [[aedTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] setHidden:NO];
-        }
-            break;
-        case WHO_1:
-        case WHERE_2:
-            break;
-    }
-    [aedTableView setBounds:CGRectMake(aedTableView.bounds.origin.x,
-                                       aedTableView.bounds.origin.x,
-                                       aedTableView.bounds.size.width,
-                                       aedTableView.bounds.size.height)];
-}
- */
-
 
 
 
