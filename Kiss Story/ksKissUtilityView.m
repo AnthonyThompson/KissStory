@@ -56,6 +56,7 @@
         // needs must set the scrollView contentSize to the frame of it's view
         _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
 
+        //9901
         //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
             case STATE_ADD: {
@@ -86,6 +87,15 @@
 }
 
 #pragma mark - Rating Action Group
+
+-(void)ratingSliderTapped:(UITapGestureRecognizer*)sender {
+    UISlider* slider = (UISlider*)sender.view;
+    CGFloat percent = [sender locationInView:slider].x/slider.bounds.size.width;
+    CGFloat delta = percent*(slider.maximumValue - slider.minimumValue);
+    CGFloat value = slider.minimumValue + delta;
+    [slider setValue:value animated:NO];
+    [self ratingSliderValueChanged:_ratingSlider];
+}
 
 -(IBAction)ratingSliderValueChanged:(id)sender {
     if (_ratingSlider.value < 0.5f) {
@@ -133,19 +143,14 @@
     }
 }
 
--(void)ratingSliderTapped:(UITapGestureRecognizer*)sender {
-    UISlider* slider = (UISlider*)sender.view;
-    CGFloat percent = [sender locationInView:slider].x/slider.bounds.size.width;
-    CGFloat delta = percent*(slider.maximumValue - slider.minimumValue);
-    CGFloat value = slider.minimumValue + delta;
-    [slider setValue:value animated:NO];
-    [self ratingSliderValueChanged:_ratingSlider];
-}
-
 #pragma mark - Location Action Group
 
 -(IBAction)locationButtonTapped:(id)sender {
     [sender setEnabled:NO];
+    // if it's not completely in view, slam to top
+    // also for map touches somewhere else...
+    
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 5.0f) animated:YES];
     [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
 }
 

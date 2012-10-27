@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ksCoreData.h"
 
 @interface ksKissObject : NSObject
 
@@ -20,10 +21,12 @@
 -(BOOL)saveKiss;
 
 @property (nonatomic, readwrite) int state;
-@property (atomic, retain) NSObject* kissWho;
-@property (atomic, readwrite) NSDate* kissDate;
-@property (atomic, readwrite) int kissRating;
-@property (atomic, retain) NSManagedObject* kissWhere;
-@property (atomic, retain) NSString* kissDescription;
+@property (nonatomic, retain) NSObject* kissWho;
+@property (nonatomic, readwrite) NSDate* kissDate;
+@property (nonatomic, readwrite) int kissRating;
+@property (nonatomic, retain) NSManagedObject* kissWhere;
+@property (nonatomic, retain) NSString* kissDescription;
+
+@property (nonatomic, retain) ksCoreData* coreData;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "ksKissObject.h"
-#import "ksCoreData.h"
 #import "ksViewController.h"
 
 @implementation ksKissObject
@@ -25,24 +24,13 @@
         _kissRating = 0;
         _kissDescription = [[NSString alloc]init];
         
-        ksCoreData* test = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
+        _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
 
-        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[test managedObjectContext]];
-        _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[test managedObjectContext]];
+        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
+        _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
         
-        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[test managedObjectContext]];
-        _kissWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[test managedObjectContext]];
-
-        /*
-         _managedObjectContext = managedObjectContext;
-        
-        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:_managedObjectContext];
-        _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:_managedObjectContext];
-        
-        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:_managedObjectContext];
-        _kissWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:_managedObjectContext];
-         */
-        
+        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
+        _kissWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
     }
     
     return self;

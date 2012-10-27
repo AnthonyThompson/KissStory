@@ -15,9 +15,9 @@
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;
 
-@property (atomic, retain) IBOutlet UIButton* acceptButton;
-@property (atomic, retain) IBOutlet UIButton* cancelButton;
-@property (atomic, retain) IBOutlet UIPickerView* stringPickerView;
-@property (atomic, retain) IBOutlet UIDatePicker* datePickerView;
+@property (nonatomic, retain) IBOutlet UIButton* acceptButton;
+@property (nonatomic, retain) IBOutlet UIButton* cancelButton;
+@property (nonatomic, retain) IBOutlet UIPickerView* stringPickerView;
+@property (nonatomic, retain) IBOutlet UIDatePicker* datePickerView;
 
 @end

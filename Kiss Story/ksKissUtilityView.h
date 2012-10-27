@@ -15,47 +15,47 @@
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save;
 
-@property (atomic, retain) NSDictionary* dataDictionary;
-@property (atomic, readwrite) int state;
-@property (atomic, retain) ksKissObject* kissObject;
+@property (nonatomic, retain) NSDictionary* dataDictionary;
+@property (nonatomic, readwrite) int state;
+@property (nonatomic, retain) ksKissObject* kissObject;
 
-@property (atomic, retain) IBOutlet UIView* kisserHeader;
-@property (atomic, retain) IBOutlet UILabel* kisserLabel;
-@property (atomic, retain) IBOutlet UIButton* kisserButton;
+@property (nonatomic, retain) IBOutlet UIView* kisserHeader;
+@property (nonatomic, retain) IBOutlet UILabel* kisserLabel;
+@property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 
-@property (atomic, retain) IBOutlet UIView* dateHeader;
-@property (atomic, retain) IBOutlet UILabel* dateLabel;
-@property (atomic, retain) IBOutlet UIButton* dateButton;
+@property (nonatomic, retain) IBOutlet UIView* dateHeader;
+@property (nonatomic, retain) IBOutlet UILabel* dateLabel;
+@property (nonatomic, retain) IBOutlet UIButton* dateButton;
 
-@property (atomic, retain) IBOutlet UIView* ratingHeader;
-@property (atomic, retain) IBOutlet UILabel* ratingLabel;
-@property (atomic, retain) IBOutlet UISlider* ratingSlider;
-@property (atomic, retain) IBOutlet UIImageView* ratingHeart1;
-@property (atomic, retain) IBOutlet UIImageView* ratingHeart2;
-@property (atomic, retain) IBOutlet UIImageView* ratingHeart3;
-@property (atomic, retain) IBOutlet UIImageView* ratingHeart4;
-@property (atomic, retain) IBOutlet UIImageView* ratingHeart5;
+@property (nonatomic, retain) IBOutlet UIView* ratingHeader;
+@property (nonatomic, retain) IBOutlet UILabel* ratingLabel;
+@property (nonatomic, retain) IBOutlet UISlider* ratingSlider;
+@property (nonatomic, retain) IBOutlet UIImageView* ratingHeart1;
+@property (nonatomic, retain) IBOutlet UIImageView* ratingHeart2;
+@property (nonatomic, retain) IBOutlet UIImageView* ratingHeart3;
+@property (nonatomic, retain) IBOutlet UIImageView* ratingHeart4;
+@property (nonatomic, retain) IBOutlet UIImageView* ratingHeart5;
 
-@property (atomic, retain) IBOutlet UIView* locationHeader;
-@property (atomic, retain) IBOutlet UILabel* locationLabel;
-@property (atomic, retain) IBOutlet UIButton* locationButton;
-@property (atomic, retain) IBOutlet MKMapView* locationMapView;
+@property (nonatomic, retain) IBOutlet UIView* locationHeader;
+@property (nonatomic, retain) IBOutlet UILabel* locationLabel;
+@property (nonatomic, retain) IBOutlet UIButton* locationButton;
+@property (nonatomic, retain) IBOutlet MKMapView* locationMapView;
 
-@property (atomic, retain) IBOutlet UIView* descHeader;
-@property (atomic, retain) IBOutlet UILabel* descLabel;
-@property (atomic, retain) IBOutlet UITextView* descTextView;
+@property (nonatomic, retain) IBOutlet UIView* descHeader;
+@property (nonatomic, retain) IBOutlet UILabel* descLabel;
+@property (nonatomic, retain) IBOutlet UITextView* descTextView;
 
-@property (atomic, retain) IBOutlet UIButton* whoButton;
-@property (atomic, retain) IBOutlet UIButton* whenButton;
-@property (atomic, retain) IBOutlet UIButton* howButton;
-@property (atomic, retain) IBOutlet UIButton* whereButton;
-@property (atomic, retain) IBOutlet UIButton* whatButton;
+@property (nonatomic, retain) IBOutlet UIButton* whoButton;
+@property (nonatomic, retain) IBOutlet UIButton* whenButton;
+@property (nonatomic, retain) IBOutlet UIButton* howButton;
+@property (nonatomic, retain) IBOutlet UIButton* whereButton;
+@property (nonatomic, retain) IBOutlet UIButton* whatButton;
 
-@property (atomic, retain) IBOutlet UIScrollView* scrollView;
-@property (atomic, retain) IBOutlet UIView* whoSection;
-@property (atomic, retain) IBOutlet UIView* whenSection;
-@property (atomic, retain) IBOutlet UIView* whatSection;
-@property (atomic, retain) IBOutlet UIView* whereSection;
-@property (atomic, retain) IBOutlet UIView* howSection;
+@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
+@property (nonatomic, retain) IBOutlet UIView* whoSection;
+@property (nonatomic, retain) IBOutlet UIView* whenSection;
+@property (nonatomic, retain) IBOutlet UIView* whatSection;
+@property (nonatomic, retain) IBOutlet UIView* whereSection;
+@property (nonatomic, retain) IBOutlet UIView* howSection;
 
 @end
