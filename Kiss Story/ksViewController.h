@@ -62,8 +62,6 @@
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSArray* cellSizeArray;
 
-//@property (nonatomic, retain) IBOutlet ksSecurityView* ksSecure;
-
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
 @property (nonatomic, retain) IBOutlet UIButton* ratingButton;
@@ -94,11 +92,9 @@
 
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;
+@property (nonatomic, retain) IBOutlet UIButton* centerMapButton;
 
 @property (nonatomic, retain) IBOutlet UIImageView* wallpaperView;
-
-//@property (nonatomic, retain) IBOutlet ksKissUtilityView* kissUtilityView;
-
 
 
 @end

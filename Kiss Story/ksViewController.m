@@ -84,9 +84,8 @@
     [_mainTableView reloadData];
     
     _mainMapView.showsUserLocation = YES;
-    
     [self annotateMap];
-    
+
     _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
                              [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
                              [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
@@ -436,6 +435,10 @@
     _mainTableView.hidden = YES;
     
     _state = STATE_LOCATION;
+}
+
+-(IBAction)mapCenterButtonTapped:(id)sender {
+    [_mainMapView setCenterCoordinate:[_mainMapView userLocation].coordinate animated:YES];
 }
 
 #pragma mark - Settings Action Group
