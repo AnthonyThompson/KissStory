@@ -17,7 +17,6 @@
 // pictures, sharing, &c. all from here
 // activity indicator for saves...
 
--(id)initWithManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
 -(BOOL)saveKiss;
 
 @property (nonatomic, readwrite) int state;
@@ -26,7 +25,5 @@
 @property (atomic, readwrite) int kissRating;
 @property (atomic, retain) NSManagedObject* kissWhere;
 @property (atomic, retain) NSString* kissDescription;
-
-@property (atomic, retain) NSManagedObjectContext* managedObjectContext;
 
 @end

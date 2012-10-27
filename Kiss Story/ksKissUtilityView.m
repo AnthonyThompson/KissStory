@@ -27,14 +27,12 @@
     return self;
 }
 
--(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary withManagedObjectContext:(NSManagedObjectContext*)managedObjectContext {
+-(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary {
     if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
         
         //generic all-cases inits
-        _managedObjectContext = managedObjectContext;
-        
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
-        _kissObject = [[ksKissObject alloc] initWithManagedObjectContext:managedObjectContext];
+        _kissObject = [[ksKissObject alloc] init];
         _state = whichState;
         
         [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
@@ -77,14 +75,14 @@
 
 -(IBAction)kisserButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME] withManagedObjectContext:_managedObjectContext]];
+    [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]]];
 }
 
 #pragma mark - Date Action Group
 
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE] withManagedObjectContext:_managedObjectContext]];
+    [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
 }
 
 #pragma mark - Rating Action Group
@@ -148,7 +146,7 @@
 
 -(IBAction)locationButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME] withManagedObjectContext:_managedObjectContext]];
+    [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {

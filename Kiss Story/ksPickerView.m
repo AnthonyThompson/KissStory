@@ -22,9 +22,8 @@
     return self;
 }
 
--(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+-(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults {
     if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
-        _managedObjectContext = managedObjectContext;
         _fetchedResults = [[NSFetchedResultsController alloc]init];
         _fetchedResults = fetchedResults;
         _state = whichState;

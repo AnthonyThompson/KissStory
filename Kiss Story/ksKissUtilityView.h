@@ -12,7 +12,7 @@
 
 @interface ksKissUtilityView : UIView <UITextViewDelegate>
 
--(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary withManagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+-(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save;
 
 @property (atomic, retain) NSDictionary* dataDictionary;
@@ -57,7 +57,5 @@
 @property (atomic, retain) IBOutlet UIView* whatSection;
 @property (atomic, retain) IBOutlet UIView* whereSection;
 @property (atomic, retain) IBOutlet UIView* howSection;
-
-@property (atomic,retain) NSManagedObjectContext* managedObjectContext;
 
 @end

@@ -377,7 +377,7 @@
             _topRightButton.hidden = NO;
             _topLeftButton.hidden = NO;
             
-            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary withManagedObjectContext:[ksCD managedObjectContext]]];
+            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
         }
             break;
         case STATE_ADD: {
