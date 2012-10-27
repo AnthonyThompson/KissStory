@@ -159,16 +159,16 @@
     [_scrollView setContentOffset:CGPointMake(0.0f, _whenSection.frame.origin.y - 5.0f) animated:YES];
 }
 
--(IBAction)whatButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 5.0f) animated:YES];
+-(IBAction)howButtonTapped:(id)sender {
+    [_scrollView setContentOffset:CGPointMake(0.0f, _howSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 -(IBAction)whereButtonTapped:(id)sender {
     [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 5.0f) animated:YES];
 }
 
--(IBAction)howButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _howSection.frame.origin.y - 5.0f) animated:YES];
+-(IBAction)whatButtonTapped:(id)sender {
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 5.0f) animated:YES];
 }
 
 #pragma mark - UITextView Delegate
@@ -176,23 +176,14 @@
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
     NSLog(@"kWSN");
     
-    /*
-    CGSize kbSize = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    double animationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    CGPoint newCenter = self.center;
-
-    newCenter = CGPointMake(newCenter.x, (kbSize.height - self.frame.size.height/2)+125.0f);
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:animationDuration];
-    self.center = newCenter;
-    [UIView commitAnimations];
-     */
+    // peg what_section to top
+    [_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
     NSLog(@"kWHN");
     [_descTextView resignFirstResponder];
+    [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
 
 
