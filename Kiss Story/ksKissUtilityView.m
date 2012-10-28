@@ -75,6 +75,7 @@
 #pragma mark - Kisser Action Group
 
 -(IBAction)kisserButtonTapped:(id)sender {
+    [sender setBackgroundColor:CCO_BASE_GREY];
     [sender setEnabled:NO];
     [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]]];
 }
@@ -82,6 +83,7 @@
 #pragma mark - Date Action Group
 
 -(IBAction)dateButtonTapped:(id)sender {
+    [sender setBackgroundColor:CCO_BASE_GREY];
     [sender setEnabled:NO];
     [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
 }
@@ -146,6 +148,7 @@
 #pragma mark - Location Action Group
 
 -(IBAction)locationButtonTapped:(id)sender {
+    [sender setBackgroundColor:CCO_BASE_GREY];
     [sender setEnabled:NO];
     // 9901 also for map touches somewhere else???
     

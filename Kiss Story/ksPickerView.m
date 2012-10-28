@@ -132,6 +132,9 @@
         [[(ksKissUtilityView*)[self superview] kisserButton] setEnabled:YES];
         [[(ksKissUtilityView*)[self superview] dateButton] setEnabled:YES];
         [[(ksKissUtilityView*)[self superview] locationButton] setEnabled:YES];
+        [[(ksKissUtilityView*)[self superview] kisserButton] setBackgroundColor:CCO_BASE_CREAM];
+        [[(ksKissUtilityView*)[self superview] dateButton] setBackgroundColor:CCO_BASE_CREAM];
+        [[(ksKissUtilityView*)[self superview] locationButton] setBackgroundColor:CCO_BASE_CREAM];
         [self enableHeaderButtons];
         [self removeFromSuperview];
     }];
