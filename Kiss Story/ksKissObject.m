@@ -37,6 +37,16 @@
 }
 
 -(BOOL)saveKiss {
+    // grey, uiai
+    // validate values
+    // if !OK, then pop-over
+    // if OK, then save
+    //      insert into context
+    //      save context
+    //
+    //      rebuild frcs?
+    //      reload table data?
+    
     return NO;
 }
 

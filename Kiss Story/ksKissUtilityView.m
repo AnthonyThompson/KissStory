@@ -147,10 +147,10 @@
 
 -(IBAction)locationButtonTapped:(id)sender {
     [sender setEnabled:NO];
-    // if it's not completely in view, slam to top
-    // also for map touches somewhere else...
+    // 9901 also for map touches somewhere else???
     
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 5.0f) animated:YES];
+    // if it's not completely in view, slam to top
+    [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
 }
 

@@ -81,6 +81,8 @@
 @property (nonatomic, retain) IBOutlet UIButton* wwwButton;
 @property (nonatomic, retain) IBOutlet UIButton* emailButton;
 
+@property (nonatomic, retain) IBOutlet UIView* mapContainer;
+
 @property (nonatomic, retain) IBOutlet UIView* twitterBookView;
 @property (nonatomic, retain) IBOutlet UILabel* twitterBookLabel;
 @property (nonatomic, retain) IBOutlet UILabel* unameLabel;

@@ -406,7 +406,7 @@
     [self buttonControl:sender];
     
     _mainTableView.hidden = NO;
-    _mainMapView.hidden = YES;
+    _mapContainer.hidden = YES;
     _settingsView.hidden = YES;
     
     _state = STATE_KISSER;
@@ -433,7 +433,7 @@
     [self buttonControl:sender];
 
     _mainTableView.hidden = NO;
-    _mainMapView.hidden = YES;
+    _mapContainer.hidden = YES;
     _settingsView.hidden = YES;
     
     _state = STATE_DATE;
@@ -455,7 +455,7 @@
     [self buttonControl:sender];
     
     _mainTableView.hidden = NO;
-    _mainMapView.hidden = YES;
+    _mapContainer.hidden = YES;
     _settingsView.hidden = YES;
     
     _state = STATE_RATING;
@@ -476,7 +476,7 @@
     _topBarView.image = [UIImage imageNamed:@"TitleLocationCream.png"];
     [self buttonControl:sender];
 
-    _mainMapView.hidden = NO;
+    _mapContainer.hidden = NO;
     _settingsView.hidden = YES;
     _mainTableView.hidden = YES;
     
@@ -504,7 +504,7 @@
     [self buttonControl:sender];
     
     _settingsView.hidden = NO;
-    _mainMapView.hidden = YES;
+    _mapContainer.hidden = YES;
     _mainTableView.hidden = YES;
 
     _state = STATE_SETTINGS;
