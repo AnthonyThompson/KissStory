@@ -137,6 +137,7 @@
     if ([ksSecurityView securityCheck:_settingsDictionary]) {
         [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary]];
     } else {
+        // fade-out privacy filter
         [UIView animateWithDuration:0.5f animations:^{
             _wallpaperView.alpha = 0.0f;
         }];
@@ -804,6 +805,7 @@
             break;
     }
     
+    //9901 WILL BE POOP-OVER IF STILL NEEDED?
     [UIView animateWithDuration:0.5f animations:^{
         _twitterBookView.frame = CGRectMake(0.0, 0.0, 320.0, 480.0);
     }];
@@ -852,6 +854,8 @@
 }
 
 -(void)dismissTwitterBookView {
+    // 9901
+    // WILL BE POOP-AWAY IF STILL NEEDED
     [UIView animateWithDuration:0.5f animations:^{
         _twitterBookView.frame = CGRectMake(0.0, 430.0, 320.0, 386.0);
     }];

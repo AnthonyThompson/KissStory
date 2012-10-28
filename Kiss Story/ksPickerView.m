@@ -23,7 +23,7 @@
 }
 
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults {
-    if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
+    if ([self initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 436.0f)]) {
         _fetchedResults = [[NSFetchedResultsController alloc]init];
         _fetchedResults = fetchedResults;
         _state = whichState;
@@ -46,9 +46,19 @@
                 break;
         }
     }
-    
-    [UIView animateWithDuration:0.5f animations:^{
-        self.frame = CGRectMake(0.0f, 0.0f, 320.0f, 436.0f);
+
+    self.transform = CGAffineTransformScale(self.transform, 0.01f, 0.01f);
+
+    [UIView animateWithDuration:0.33f animations:^{
+        self.transform = CGAffineTransformScale(self.transform, 125.0f, 125.0f);
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:0.15f animations:^{
+            self.transform = CGAffineTransformScale(self.transform, 0.64f, 0.64f);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15f animations:^{
+                self.transform = CGAffineTransformScale(self.transform, 1.25f, 1.25f);
+            }];
+        }];
     }];
 
     return self;
@@ -126,8 +136,8 @@
 }
 
 -(void)dismissPickerView{
-    [UIView animateWithDuration:0.5f animations:^{
-        self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
+    [UIView animateWithDuration:0.33f animations:^{
+        self.transform = CGAffineTransformScale(self.transform, 0.01f, 0.01f);
     } completion:^(BOOL finished){
         [[(ksKissUtilityView*)[self superview] kisserButton] setEnabled:YES];
         [[(ksKissUtilityView*)[self superview] dateButton] setEnabled:YES];

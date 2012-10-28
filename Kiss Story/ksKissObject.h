@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ksCoreData.h"
 
-@interface ksKissObject : NSObject
+@interface ksKissObject : UIView
 
 // this is going to have a state
 // and all the dataholders =for an object
