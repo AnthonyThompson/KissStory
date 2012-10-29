@@ -32,7 +32,8 @@
         
         //generic all-cases inits
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
-        _kissObject = [[ksKissObject alloc] init];
+        _kissObject = [[ksKissObject alloc] initWithFrame:CGRectMake(0.0f, -44.0f, 320.0f, 480.0f)];
+        [self addSubview:_kissObject];
         _state = whichState;
         
         [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
@@ -212,7 +213,8 @@
     
     // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
     // otherwise you're left at utility view
-    if (!save || (save && [_kissObject saveKiss])) {
+    
+    if (!save || (save && [(ksKissObject*)_kissObject saveKiss])) {
         // a slide-down, not a poop-out
         [UIView animateWithDuration:0.5f animations:^{
             self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);

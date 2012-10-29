@@ -21,12 +21,18 @@
 -(BOOL)saveKiss;
 
 @property (nonatomic, readwrite) int state;
-@property (nonatomic, retain) NSObject* kissWho;
+@property (nonatomic, retain) NSManagedObject* kissWho;
+@property (nonatomic, retain) NSManagedObject* kissKiss;
 @property (nonatomic, readwrite) NSDate* kissDate;
 @property (nonatomic, readwrite) int kissRating;
 @property (nonatomic, retain) NSManagedObject* kissWhere;
 @property (nonatomic, retain) NSString* kissDescription;
 
 @property (nonatomic, retain) ksCoreData* coreData;
+
+@property (nonatomic, retain) UIImageView* uiiv;
+@property (nonatomic, retain) UIImage* jamesImage;
+
+@property (nonatomic, retain) IBOutlet UIView* testView;
 
 @end
