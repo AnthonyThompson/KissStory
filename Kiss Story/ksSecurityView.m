@@ -16,11 +16,13 @@
 #pragma mark - Inits
 
 - (id)initForProcess:(int)whichProcess withData:(NSDictionary*)settingsDictionary {
-    self = [super initWithFrame:CGRectMake(43.5f, 83.5f, 233.0f, 313.0f)];
+    self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 253.0f, 337.0f)];
     if (self) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
         
-        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(10.0f, 10.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
+        //_popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
+        
+        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
 
         _whichProcess = whichProcess;
         _passcode = [settingsDictionary valueForKey:@"passcode"];
