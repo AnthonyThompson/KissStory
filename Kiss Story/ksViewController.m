@@ -137,7 +137,8 @@
 
 -(void)viewCameAlive {
     if ([ksSecurityView securityCheck:_settingsDictionary]) {
-        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary]];
+        _wallpaperView.alpha = 0.0f;
+        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary];
     } else {
         // fade-out privacy filter
         [UIView animateWithDuration:0.5f animations:^{
@@ -898,10 +899,12 @@
 -(IBAction)passcodeSwitchSwitched:(id)sender {
     if ([(UISwitch*)sender isOn]) {
         // was off, is now ON, so set a new passcode
-        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary]];
+        //[self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary]];
+        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
     } else {
         // was on, is now OFF, so disable current passcode
-        [self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary]];
+        //[self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary]];
+        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
     }
 }
 
@@ -919,6 +922,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initGuiObjects];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self viewCameAlive];
 }
 

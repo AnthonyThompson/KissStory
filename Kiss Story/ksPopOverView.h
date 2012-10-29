@@ -10,7 +10,7 @@
 
 @interface ksPopOverView : UIView
 
--(void)displayPopOverViewWithContent:(UIView*)containerView inSuperView:(UIView*)superView;
+-(void)displayPopOverViewWithContent:(UIView*)containerView withBacking:(UIView*)backingView inSuperView:(UIView*)superView;
 -(void)dismissPopOverViewInSuperView:(UIView*)superView;
 
 @property (nonatomic, retain) IBOutlet UIView* containerView;

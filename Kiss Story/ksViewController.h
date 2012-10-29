@@ -62,6 +62,7 @@
 @property (nonatomic, readwrite) float iOSVersion;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSArray* cellSizeArray;
+@property (nonatomic, retain) ksSecurityView* securityView;
 
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;

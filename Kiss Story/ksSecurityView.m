@@ -9,27 +9,22 @@
 #import "ksSecurityView.h"
 #import "ksViewController.h"
 #import "ksColorCell.h"
+#import "ksPopOverView.h"
 
 @implementation ksSecurityView
 
 #pragma mark - Inits
 
 - (id)initForProcess:(int)whichProcess withData:(NSDictionary*)settingsDictionary {
-    self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f)];
+    self = [super initWithFrame:CGRectMake(43.5f, 83.5f, 233.0f, 313.0f)];
     if (self) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil];
-        self = [nib objectAtIndex:0];
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
+        
+        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(10.0f, 10.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
 
         _whichProcess = whichProcess;
         _passcode = [settingsDictionary valueForKey:@"passcode"];
         _securityEnabled = [ksSecurityView securityCheck:settingsDictionary];
-
-        if (_whichProcess != SEC_PROCESS_RUNTIMELOGIN)
-            _privacyView.hidden = YES;
-        
-        //_loginView.frame = CGRectMake(0.0f, 480.0f, 320.0f, 480.0f);
-        _loginView.frame = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
-        _shadeView.frame = CGRectMake(0.0f, 480.0f, 320.0f, 480.0f);
 
         [self displayLoginView];
     }
@@ -50,11 +45,14 @@
     [self clearPasscodeWindows];
     _passcodeStatusLabel.text = @"";
     _passcodeStatusLabel.backgroundColor = [UIColor clearColor];
-    _passcodeTitleLabel.hidden = YES;
+    
+    UIImageView* privacyView;
     
     switch(_whichProcess) {
         case SEC_PROCESS_RUNTIMELOGIN: {
             _passcodeTitleLabel.text = @"Enter Passcode";
+            privacyView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"WindowPrivacy.png"]];
+            privacyView.frame = CGRectMake(0.0f,0.0f,320.0f,480.0f);
         }
             break;
         case SEC_PROCESS_SETNEW: {
@@ -71,34 +69,13 @@
             break;
     }
     
-    _loginView.transform = CGAffineTransformScale(_loginView.transform, 0.01f, 0.01f);
-    _shadeView.transform = CGAffineTransformScale(_shadeView.transform, 0.01f, 0.01f);
+    _popOverView.containerView = self;
 
-    // a poop-over
-    [UIView animateWithDuration:0.33f animations:^{
-        _loginView.transform = CGAffineTransformScale(_loginView.transform, 125.0f, 125.0f);
-        _shadeView.transform = CGAffineTransformScale(_shadeView.transform, 100.0f, 100.0f);
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:0.15f animations:^{
-            _loginView.transform = CGAffineTransformScale(_loginView.transform, 0.64f, 0.64f);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15f animations:^{
-                _loginView.transform = CGAffineTransformScale(_loginView.transform, 1.25f, 1.25f);
-                _passcodeTitleLabel.hidden = NO;
-            }];
-        }];
-    }];
+    [_popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
 -(void)dismissLoginView {
-    // a poop-away
-    [UIView animateWithDuration:0.33f animations:^{
-        _loginView.transform = CGAffineTransformScale(_loginView.transform, 0.01f, 0.01f);
-        _shadeView.transform = CGAffineTransformScale(_shadeView.transform, 0.01f, 0.01f);
-        [[(ksViewController*) [[self window] rootViewController] wallpaperView] setAlpha:0.0f];
-    } completion:^(BOOL finished){
-        [self removeFromSuperview];
-     }];
+    [_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
 #pragma mark - IBActions
@@ -209,7 +186,7 @@
         
         switch(_whichProcess) {
             case SEC_PROCESS_RUNTIMELOGIN: {
-                _privacyView.hidden = YES;
+                //_privacyView.hidden = YES;
                 _passcodeStatusLabel.text = @"Passcode Correct";
                 [self dismissLoginView];
             }

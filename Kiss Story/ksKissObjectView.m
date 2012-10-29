@@ -45,7 +45,6 @@
 }
 
 -(BOOL)validateValues {
-    NSLog(@"kKOV vV");
     int validity = VALID_DATA;
     
     if ([[_kissWho valueForKey:@"id"] doubleValue] == 0.0f) validity++;
@@ -72,22 +71,8 @@
     }
     
     _popOverText.text = popOverText;
-    
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 10.0f, self.frame.size.height + 10.0f)];
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(160.0f - (_popOverView.frame.size.width/2),240.0f - (_popOverView.frame.size.height/2), _popOverView.frame.size.width, _popOverView.frame.size.height)];
-    
-    _popOverView.resizableImageView.frame = CGRectMake(0.0f,0.0f,_popOverView.frame.size.width,_popOverView.frame.size.height);
-    _popOverView.containerView.frame = CGRectMake(0.0f,0.0f,_popOverView.frame.size.width - 30.0f,_popOverView.frame.size.height - 30.0f);
-    
-    
-    [_popOverView displayPopOverViewWithContent:self inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
-    
-    //[_popOverView.containerView addSubview:self];
-    
-    //_popOverView.transform = CGAffineTransformScale(_popOverView.transform, 0.01f, 0.01f);
-    //[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] addSubview:_popOverView];
-    //[_popOverView displayPopOverView];
 
+    [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 
     return NO;
 }

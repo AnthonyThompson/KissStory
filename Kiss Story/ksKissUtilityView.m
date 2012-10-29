@@ -19,7 +19,6 @@
 
 -(id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        //NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
     }

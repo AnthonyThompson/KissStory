@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ksPopOverView.h"
 
 #define SEC_CANCEL_KEY 10
 #define SEC_BACK_KEY 11
@@ -49,9 +50,10 @@
 @property (nonatomic, readwrite) BOOL securityEnabled;
 @property (nonatomic, readwrite) NSString* passcode;
 
-@property (nonatomic, retain) IBOutlet UIView* privacyView;
-@property (nonatomic, retain) IBOutlet UIView* shadeView;
+//@property (nonatomic, retain) IBOutlet UIView* privacyView;
 @property (nonatomic, retain) IBOutlet UIView* loginView;
 @property (nonatomic, retain) UISwitch* passcodeSwitch;
+
+@property (nonatomic, retain) ksPopOverView* popOverView;
 
 @end

@@ -17,6 +17,7 @@
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksPopOverView" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
         _resizableImageView.image = [[UIImage imageNamed:@"PopoverStretchCap.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(34, 19, 34, 19)];
+        //[self updateConstraints];
         self.hidden = YES;
     }
     return self;
@@ -26,13 +27,19 @@
     [super awakeFromNib];
 }
 
--(void)displayPopOverViewWithContent:(UIView*)containerView inSuperView:(UIView*)superView {
+-(void)displayPopOverViewWithContent:(UIView*)containerView withBacking:(UIView*)backingView inSuperView:(UIView*)superView {
+
+    if (!backingView) {
+        backingView = [[[NSBundle mainBundle] loadNibNamed:@"ksPopOverView" owner:self options:nil] objectAtIndex:1];
+    }
+
+    self.frame = CGRectMake(160.0f - (self.frame.size.width/2.0f),240.0f - (self.frame.size.height/2.0f),self.frame.size.width,self.frame.size.height);
 
     [self addSubview:containerView];
     self.transform = CGAffineTransformScale(self.transform, 0.01f, 0.01f);
     self.hidden = NO;
     
-    [superView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"ksPopOverView" owner:self options:nil] objectAtIndex:1]];
+    [superView addSubview:backingView];
     [superView addSubview:self];
 
     [UIView animateWithDuration:0.33f animations:^{

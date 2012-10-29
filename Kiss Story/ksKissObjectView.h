@@ -30,7 +30,6 @@
 @property (nonatomic, retain) ksCoreData* coreData;
 
 @property (nonatomic, retain) ksPopOverView* popOverView;
-//@property (nonatomic, retain) IBOutlet UIView* popOverContainerView;
 @property (nonatomic, retain) IBOutlet UILabel* popOverTitle;
 @property (nonatomic, retain) IBOutlet UILabel* popOverText;
 @property (nonatomic, retain) IBOutlet UIButton* popOverButton;
