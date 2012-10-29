@@ -49,6 +49,7 @@
 }
 
 -(void)buildSettingsDictionary;
+-(void)buildDataSet;
 
 #pragma mark - @properties
 

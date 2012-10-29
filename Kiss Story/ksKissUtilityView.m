@@ -19,8 +19,8 @@
 
 -(id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
-        self = [nib objectAtIndex:0];
+        //NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil];
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
     }
     
@@ -32,8 +32,7 @@
         
         //generic all-cases inits
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
-        _kissObject = [[ksKissObject alloc] initWithFrame:CGRectMake(0.0f, -44.0f, 320.0f, 480.0f)];
-        [self addSubview:_kissObject];
+        _kissObject = [[ksKissObjectView alloc]initWithFrame:CGRectMake(10.0f, 10.0f, 240.0f, 182.0f)];
         _state = whichState;
         
         [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
@@ -159,6 +158,8 @@
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
+    // if it's not completely in view, slam to top
+    [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     [_locationMapView setCenterCoordinate:[_locationMapView userLocation].coordinate animated:YES];
 }
 
@@ -198,24 +199,17 @@
 }
 
 -(void)displayUtilityView {
-    // a slide-up, not a poop-over
+    // a slide-up reveal, not a poop-over
     [UIView animateWithDuration:0.5f animations:^{
         self.frame = CGRectMake(0.0f, 44.0f, 320.0f, 436.0f);
     }];
 }
 
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save {
-    // kissObject validates save and returns BOOL
-    // (also screen control, activity indicator, messaging, &c)
-    // sets superview state to REFRESH I guess, to reload tables?
-    // YES then animate && remove
-    // NO do nothing
-    
     // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
     // otherwise you're left at utility view
-    
-    if (!save || (save && [(ksKissObject*)_kissObject saveKiss])) {
-        // a slide-down, not a poop-out
+    if (!save || (save && [(ksKissObjectView*)_kissObject saveKiss])) {
+        // a slide-down dismiss, not a poop-out
         [UIView animateWithDuration:0.5f animations:^{
             self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
         } completion:^(BOOL finished){
@@ -223,6 +217,7 @@
         }];
         return YES;
     }
+
     return NO;
 }
 

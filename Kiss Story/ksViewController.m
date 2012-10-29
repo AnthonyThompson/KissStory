@@ -26,35 +26,35 @@
 
     ksCD = [[ksCoreData alloc]init];
 
-    // build FRC array
     _fetchedResultsControllerArray = [[NSArray alloc]init];
+    _dataDictionary = [[NSMutableDictionary alloc]init];
+    _settingsDictionary = [[NSMutableDictionary alloc]init];
+    _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
+    _annotationArray = [[NSMutableArray alloc]init];
+
+    //9901 check the order of these two?
+    [self buildDataSet];
+    [self initLocationManager];
+    
+    //9901
+    // default launch state, may be useful later?
+    _state = STATE_NEUTRAL;
+}
+
+-(void)buildDataSet {
     NSMutableArray* tempArray = [[NSMutableArray alloc]initWithObjects:nil];
     for (int i = 0; i< 5; i++) {
         [tempArray addObject:[ksCD fetchedResultsController:i]];
     }
     _fetchedResultsControllerArray = tempArray;
     
-    // build dataDictionary here
-    _dataDictionary = [[NSMutableDictionary alloc]init];
     [self buildDataDictionary];
-    
-    // build settingsDictionary here
-    _settingsDictionary = [[NSMutableDictionary alloc]init];
     [self buildSettingsDictionary];
-    
-    // build cellSise array here
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
-    
-    // annotationArray
-    _annotationArray = [[NSMutableArray alloc]init];
     [self buildAnnotationArray];
-    
-    //location manager
-    [self initLocationManager];
-    
-    //9901
-    // default launch state, may be useful later?
-    _state = STATE_NEUTRAL;
+    [self annotateMap];
+
+    // re-region maps?
 }
 
 #pragma mark - GUI control
@@ -84,7 +84,9 @@
     [_mainTableView reloadData];
     
     _mainMapView.showsUserLocation = YES;
-    [self annotateMap];
+    //9901
+    // moved up
+    //[self annotateMap];
 
     _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
                              [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
