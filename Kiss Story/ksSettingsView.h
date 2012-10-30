@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
 #import "ksPopOverView.h"
 
-@interface ksSettingsView : UIView <MFMailComposeViewControllerDelegate>
+@interface ksSettingsView : UIView
 
 -(void)displaySettingsView;
 

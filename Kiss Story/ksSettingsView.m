@@ -78,7 +78,7 @@
 -(IBAction)emailButtonTapped:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-        mailer.mailComposeDelegate = self;
+        mailer.mailComposeDelegate = (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController];
         mailer.subject = @"Question or comment about KissStory";
         NSArray *toRecipients = [NSArray arrayWithObjects:@"ksfeedback@geekgamerguy.com",nil];
         mailer.toRecipients = toRecipients;

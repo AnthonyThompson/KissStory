@@ -9,9 +9,11 @@
 #import "ksViewController.h"
 #import "ksAppDelegate.h"
 
+/*
 @interface ksViewController ()
 
 @end
+ */
 
 @implementation ksViewController
 

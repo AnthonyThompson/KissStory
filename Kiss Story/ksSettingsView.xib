@@ -349,6 +349,24 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">emailButtonTapped:</string>
+						<reference key="source" ref="515114261"/>
+						<reference key="destination" ref="517434589"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">343</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">wwwButtonTapped:</string>
+						<reference key="source" ref="706343097"/>
+						<reference key="destination" ref="517434589"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">344</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">passcodeSwitchSwitched:</string>
 						<reference key="source" ref="570128185"/>
 						<reference key="destination" ref="517434589"/>
@@ -1128,7 +1146,7 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">342</int>
+			<int key="maxID">344</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1143,6 +1161,30 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">ksSettingsView</string>
 					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dismissButtonTapped:">id</string>
+						<string key="emailButtonTapped:">id</string>
+						<string key="passcodeSwitchSwitched:">id</string>
+						<string key="wwwButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dismissButtonTapped:">
+							<string key="name">dismissButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="emailButtonTapped:">
+							<string key="name">emailButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="passcodeSwitchSwitched:">
+							<string key="name">passcodeSwitchSwitched:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="wwwButtonTapped:">
+							<string key="name">wwwButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="bigVersionLabel">UILabel</string>
 						<string key="dismissButton">UIButton</string>
