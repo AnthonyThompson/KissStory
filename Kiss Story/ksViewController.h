@@ -80,17 +80,6 @@
 
 @property (nonatomic, retain) IBOutlet UIView* mapContainer;
 
-/*
-@property (nonatomic, retain) IBOutlet UIView* twitterBookView;
-@property (nonatomic, retain) IBOutlet UILabel* twitterBookLabel;
-@property (nonatomic, retain) IBOutlet UILabel* unameLabel;
-@property (nonatomic, retain) IBOutlet UILabel* pwordLabel;
-@property (nonatomic, retain) IBOutlet UITextField* unameField;
-@property (nonatomic, retain) IBOutlet UITextField* pwordField;
-@property (nonatomic, retain) IBOutlet UIButton* twitterBookSaveButton;
-@property (nonatomic, retain) IBOutlet UIButton* twitterBookCancelButton;
- */
-
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;
 @property (nonatomic, retain) IBOutlet UIButton* centerMapButton;

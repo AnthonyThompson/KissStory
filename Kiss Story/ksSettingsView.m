@@ -14,23 +14,19 @@
 - (id)init {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 288.0f, 368.0f)]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSettingsView" owner:self options:nil] objectAtIndex:0];
-        
+        _settingsDictionary = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] settingsDictionary];
 
         _facebookSwitch.on = NO;
-        /*
         if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
             _facebookSwitch.on = YES;
         }
-         */
         
         _twitterSwitch.on = NO;
-        /*
         if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
             _twitterSwitch.on = YES;
         }
-         */
         
-        //_passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
+        _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
 
         _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
                                  [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
@@ -64,10 +60,10 @@
 -(IBAction)passcodeSwitchSwitched:(id)sender {
     if ([(UISwitch*)sender isOn]) {
         // was off, is now ON, so set a new passcode
-        //_securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
+        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
     } else {
         // was on, is now OFF, so disable current passcode
-        //_securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
+        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
     }
 }
 

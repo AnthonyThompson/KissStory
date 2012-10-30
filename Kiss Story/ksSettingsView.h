@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "ksPopOverView.h"
+#import "ksSecurityView.h"
 
 @interface ksSettingsView : UIView
 
 -(void)displaySettingsView;
 
 @property (nonatomic, retain) ksPopOverView* popOverView;
+
+@property (nonatomic, retain) NSDictionary* settingsDictionary;
+
+@property (nonatomic, retain) ksSecurityView* securityView;
 
 @property (nonatomic, retain) IBOutlet UILabel* bigVersionLabel;
 @property (nonatomic, retain) IBOutlet UILabel* littleVersionLabel;
