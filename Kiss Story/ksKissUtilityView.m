@@ -40,7 +40,11 @@
         [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         
         _locationMapView.showsUserLocation = YES;
-        
+        [_locationMapView removeAnnotations:[_locationMapView annotations]];
+        //9901 why come no annotations on minimap?
+        [_locationMapView addAnnotations:[(ksViewController*) [[self window] rootViewController] annotationArray]];
+        _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.002f, 0.002f));
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
         

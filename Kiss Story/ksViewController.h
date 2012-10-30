@@ -18,6 +18,7 @@
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
 #import "ksSettingsView.h"
+#import "ksImagePickerViewController.h"
 
 #define STATE_KISSER 0
 #define STATE_DATE 1
@@ -35,6 +36,7 @@
 #define DATE 1
 #define RATING 2
 #define LOCATION 3
+#define PHOTO 4
 
 #define TWITTERBOOK_FACEBOOK 0
 #define TWITTERBOOK_TWITTER 1
@@ -56,17 +58,18 @@
 
 #pragma mark - @properties
 
-@property (nonatomic, retain) ksCoreData* ksCD;
+@property (nonatomic, readwrite) float iOSVersion;
+@property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSMutableDictionary* dataDictionary;
 @property (nonatomic, retain) NSMutableDictionary* settingsDictionary;
 @property (nonatomic, retain) NSArray* fetchedResultsControllerArray;
 @property (nonatomic, retain) CLLocationManager* locationManager;
 @property (nonatomic, retain) NSMutableArray* annotationArray;
-@property (nonatomic, readwrite) float iOSVersion;
-@property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSArray* cellSizeArray;
+@property (nonatomic, retain) ksCoreData* ksCD;
 @property (nonatomic, retain) ksSettingsView* settingsView;
 @property (nonatomic, retain) ksSecurityView* securityView;
+@property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;
 
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
@@ -82,6 +85,8 @@
 
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;
+@property (nonatomic, retain) IBOutlet UIView* mainGalleryView;
+
 @property (nonatomic, retain) IBOutlet UIButton* centerMapButton;
 
 @property (nonatomic, retain) IBOutlet UIImageView* wallpaperView;

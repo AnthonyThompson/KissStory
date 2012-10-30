@@ -103,7 +103,7 @@
         saveKissCount++;
         [[NSUserDefaults standardUserDefaults] setInteger:saveKissCount forKey:@"savedKisses"];
         
-        if (saveKissCount > 4) {
+        if (saveKissCount > 99999) {
             
             //9901 poop-over here
             NSString* titleString = [[NSString alloc]initWithFormat:@"Having fun with %@?",[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleName"]];

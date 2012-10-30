@@ -53,7 +53,8 @@
     [self buildSettingsDictionary];
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
     [self buildAnnotationArray];
-    [self annotateMap];
+    // this is premature here...
+    //[self annotateMap];
 
     // 9901
     // re-region maps?
@@ -73,6 +74,8 @@
     [_mainTableView reloadData];
     
     _mainMapView.showsUserLocation = YES;
+    [self annotateMap];
+    _mainMapView.region = [self getMapRegion];
 }
 
 -(void)buttonControl:(id)sender {
@@ -100,11 +103,19 @@
                          forState:UIControlStateNormal];
     }
     
-    if ([sender tag] != 4 ) {
+    if ([sender tag] != PHOTO ) {
         _photoButton.frame = CGRectMake(256.0f, 440.0f, 64.0f, 40.0f);
         [_photoButton setImage:[UIImage imageNamed:@"ButtonPhotoUnselected.png"]
                          forState:UIControlStateNormal];
     }
+}
+
+-(void)mainViewDisplay:(id)sender {
+    _mainTableView.hidden = YES;
+    _mapContainer.hidden = YES;
+    _mainGalleryView.hidden = YES;
+    
+    [sender setHidden:NO];
 }
 
 -(void)viewCameAlive {
@@ -253,7 +264,8 @@
     
     // dataDict is two arrays: headers and sections
     // gotta skip headers, so only object at index:1 is interesting
-    for (int i = 0; i < [[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]count]; i++) {
+    int dataIndex = 1;
+    for (int i = 0; i < [[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:dataIndex]count]; i++) {
         ksMapAnnotation* annotation = [[ksMapAnnotation alloc]init];
 
         // extract the data beyond the header array (index:1), at the array of fetched objects
@@ -261,38 +273,43 @@
         NSManagedObject* coordinateObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:0];
         
         annotation.coordinate = CLLocationCoordinate2DMake([[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lon"]floatValue]);
-
-        // our temp arrays
-        NSMutableArray* IDs = [[NSMutableArray alloc]init];
-        NSMutableArray* locations = [[NSMutableArray alloc]init];
-        NSMutableArray* kissers = [[NSMutableArray alloc]init];
-        NSMutableArray* ratings = [[NSMutableArray alloc]init];
-        NSMutableArray* dates = [[NSMutableArray alloc]init];
-        NSMutableArray* descriptions = [[NSMutableArray alloc]init];
         
-        // now loop through all of the elements and break into separate arrays for ksMapAnnotation storage
-        for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
-            NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j];
-
-            // fill temp arrays
-            [IDs addObject:[locationObject valueForKey:@"id"]];
-            [locations addObject:[[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"]];
-            [kissers addObject:[[locationObject valueForKey:@"kissWho"]valueForKey:@"name"]];
-            [ratings addObject:[locationObject valueForKey:@"score"]];
-            [dates addObject:[locationObject valueForKey:@"when"]];
-            [descriptions addObject:[locationObject valueForKey:@"desc"]];
+        //9901
+        // this is a 0,0 location discriminator, won't be needed after data is purged?
+        if (!((annotation.coordinate.latitude == 0.0f) && (annotation.coordinate.longitude == 0.0f))) {
+            
+            // our temp arrays
+            NSMutableArray* IDs = [[NSMutableArray alloc]init];
+            NSMutableArray* locations = [[NSMutableArray alloc]init];
+            NSMutableArray* kissers = [[NSMutableArray alloc]init];
+            NSMutableArray* ratings = [[NSMutableArray alloc]init];
+            NSMutableArray* dates = [[NSMutableArray alloc]init];
+            NSMutableArray* descriptions = [[NSMutableArray alloc]init];
+            
+            // now loop through all of the elements and break into separate arrays for ksMapAnnotation storage
+            for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
+                NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j];
+                
+                // fill temp arrays
+                [IDs addObject:[locationObject valueForKey:@"id"]];
+                [locations addObject:[[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"]];
+                [kissers addObject:[[locationObject valueForKey:@"kissWho"]valueForKey:@"name"]];
+                [ratings addObject:[locationObject valueForKey:@"score"]];
+                [dates addObject:[locationObject valueForKey:@"when"]];
+                [descriptions addObject:[locationObject valueForKey:@"desc"]];
+            }
+            
+            // add arrays to the ksMapAnnotation object
+            annotation.IDArray = [[NSArray alloc]initWithArray:IDs];
+            annotation.locationArray = [[NSArray alloc]initWithArray:locations];
+            annotation.kisserArray = [[NSArray alloc]initWithArray:kissers];
+            annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
+            annotation.dateArray = [[NSArray alloc]initWithArray:dates];
+            annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
+            
+            // add the ksMapAnnotation to the annotation array
+            [_annotationArray addObject:annotation];
         }
-        
-        // add arrays to the ksMapAnnotation object
-        annotation.IDArray = [[NSArray alloc]initWithArray:IDs];
-        annotation.locationArray = [[NSArray alloc]initWithArray:locations];
-        annotation.kisserArray = [[NSArray alloc]initWithArray:kissers];
-        annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
-        annotation.dateArray = [[NSArray alloc]initWithArray:dates];
-        annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
-
-        // add the ksMapAnnotation to the annotation array
-        [_annotationArray addObject:annotation];
     }
 }
 
@@ -394,11 +411,8 @@
     _topBarLabel.text = @"Kissers";
 
     [self buttonControl:sender];
-    
-    _mainTableView.hidden = NO;
-    _mapContainer.hidden = YES;
-    _settingsView.hidden = YES;
-    
+    [self mainViewDisplay:_mainTableView];
+
     _state = STATE_KISSER;
     [_mainTableView reloadData];
     
@@ -420,11 +434,9 @@
     [_dateButton setImage:[UIImage imageNamed:@"ButtonDateSelected.png"]
                  forState:UIControlStateNormal];
     _topBarLabel.text = @"Dates";
+    
     [self buttonControl:sender];
-
-    _mainTableView.hidden = NO;
-    _mapContainer.hidden = YES;
-    _settingsView.hidden = YES;
+    [self mainViewDisplay:_mainTableView];
     
     _state = STATE_DATE;
     [_mainTableView reloadData];
@@ -442,11 +454,9 @@
     [_ratingButton setImage:[UIImage imageNamed:@"ButtonRatingSelected.png"]
                    forState:UIControlStateNormal];
     _topBarLabel.text = @"Ratings";
-    [self buttonControl:sender];
     
-    _mainTableView.hidden = NO;
-    _mapContainer.hidden = YES;
-    _settingsView.hidden = YES;
+    [self buttonControl:sender];
+    [self mainViewDisplay:_mainTableView];
     
     _state = STATE_RATING;
     [_mainTableView reloadData];
@@ -464,11 +474,9 @@
     [_locationButton setImage:[UIImage imageNamed:@"ButtonLocationSelected.png"]
                      forState:UIControlStateNormal];
     _topBarLabel.text = @"Locations";
+    
     [self buttonControl:sender];
-
-    _mapContainer.hidden = NO;
-    _settingsView.hidden = YES;
-    _mainTableView.hidden = YES;
+    [self mainViewDisplay:_mapContainer];
     
     _state = STATE_LOCATION;
 }
@@ -489,6 +497,7 @@
     _topBarLabel.text = @"Photos";
     
     [self buttonControl:sender];
+    [self mainViewDisplay:_mainGalleryView];
     
     _state = STATE_PHOTO;
 }
@@ -661,10 +670,10 @@
     double maxLat=-360.0f,maxLon=-360.0f;
     
     for (ksMapAnnotation* annotation in [_mainMapView annotations]) {
-        if (annotation.coordinate.latitude < minLat) minLat = annotation.coordinate.latitude;
-        if (annotation.coordinate.latitude > maxLat) maxLat = annotation.coordinate.latitude;
-        if (annotation.coordinate.longitude < minLon) minLon = annotation.coordinate.longitude;
-        if (annotation.coordinate.longitude > maxLon) maxLon = annotation.coordinate.longitude;
+            if (annotation.coordinate.latitude < minLat) minLat = annotation.coordinate.latitude;
+            if (annotation.coordinate.latitude > maxLat) maxLat = annotation.coordinate.latitude;
+            if (annotation.coordinate.longitude < minLon) minLon = annotation.coordinate.longitude;
+            if (annotation.coordinate.longitude > maxLon) maxLon = annotation.coordinate.longitude;
     }
     
     // if the mins are maxed or the maxes are minned, then they were not set by annotations; therefore, manually adjust to a reasonable window
@@ -697,17 +706,17 @@
     return MKCoordinateRegionMake(newCenter.coordinate, MKCoordinateSpanMake(latSpan, lonSpan));
 }
 
-
 -(void)annotateMap {
+
     // kill all existing annotations
-    [_mainMapView removeAnnotations:_annotationArray];
+    [_mainMapView removeAnnotations:[_mainMapView annotations]];
 
     // add all annotations
     [_mainMapView addAnnotations:_annotationArray];
 }
 
 -(ksAnnotationView*)mapView:(MKMapView*)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    
+
     ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:(ksMapAnnotation*)annotation reuseIdentifier:@"resuableIdentifier"];
 
     // I guess we don't want to annotate user location?
@@ -716,11 +725,7 @@
     }
 
     annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksMapAnnotation*)annotation color]]objectAtIndex:CCO_PIN];
-    
-    if ([annotation isMemberOfClass:[MKUserLocation class]]) {
-        annotationView.image = [UIImage imageNamed:@"IconHeartRedShadow.png"];
-    }
-    
+
     //9901
     //re-size on fly or re-build image?
     //mAV.frame = CGRectMake(mAV.bounds.origin.x, mAV.bounds.origin.y, mAV.frame.size.width/1.5f, mAV.frame.size.height/1.5f);

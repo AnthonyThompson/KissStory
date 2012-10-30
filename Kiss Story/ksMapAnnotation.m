@@ -10,9 +10,6 @@
 
 @implementation ksMapAnnotation
 
-//@synthesize coordinate;
-//@synthesize ID;
-
 -(id)init {
     self = [super init];
     if (self) {
