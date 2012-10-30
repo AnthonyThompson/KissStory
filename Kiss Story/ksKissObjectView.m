@@ -26,14 +26,12 @@
         _kissDate = [NSDate date];
         _kissRating = 0;
         _kissDescription = [[NSString alloc]init];
+        
+        _kissKiss = [[NSObject alloc]init];
+        _kissWho = [[NSObject alloc]init];
+        _kissWhere = [[NSObject alloc]init];
 
         _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
-
-        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
-        _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
-        
-        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
-        _kissWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
     }
     
     return self;
@@ -82,20 +80,23 @@
         return NO;
     }
 
-    _kissKiss = [NSEntityDescription insertNewObjectForEntityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
+    NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
+    NSManagedObject* newKiss = [[NSManagedObject alloc]initWithEntity:kissEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
 
-    [_kissKiss setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
-    [_kissKiss setValue:_kissWho forKey:@"kissWho"];
-    [_kissKiss setValue:_kissWhere forKey:@"kissWhere"];
-    [_kissKiss setValue:[NSNumber numberWithDouble:[_kissDate timeIntervalSince1970]] forKey:@"when"];
-    [_kissKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
-    [_kissKiss setValue:_kissDescription forKey:@"desc"];
+    [newKiss setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+    [newKiss setValue:_kissWho forKey:@"kissWho"];
+    [newKiss setValue:_kissWhere forKey:@"kissWhere"];
+    [newKiss setValue:[NSNumber numberWithDouble:[_kissDate timeIntervalSince1970]] forKey:@"when"];
+    [newKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
+    [newKiss setValue:_kissDescription forKey:@"desc"];
 
     NSMutableSet* whoKey = [_kissWho mutableSetValueForKey:@"kissRecord"];
-    [whoKey addObject:_kissKiss];
+    [whoKey addObject:newKiss];
     NSMutableSet* whereKey = [_kissWhere mutableSetValueForKey:@"kissRecord"];
-    [whereKey addObject:_kissKiss];
-    
+    [whereKey addObject:newKiss];
+
+    //9901 rate app stuff
+    /*
     int saveKissCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"savedKisses"];
     
     // -1 is the turn-off key
@@ -116,6 +117,7 @@
             [alert show];
         }
     }
+     */
     
     [_coreData saveContext];
     [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] buildDataSet];

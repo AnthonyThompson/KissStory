@@ -820,7 +820,7 @@
 												<bool key="IBUIDelaysContentTouches">NO</bool>
 												<bool key="IBUICanCancelContentTouches">NO</bool>
 												<bool key="IBUIBouncesZoom">NO</bool>
-												<string key="IBUIText">123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j123456789k123456789L123456789m123456789n</string>
+												<string key="IBUIText"/>
 												<object class="NSColor" key="IBUITextColor">
 													<int key="NSColorSpace">2</int>
 													<bytes key="NSRGB">MC45NjA3ODQzNzU3IDAuMzY4NjI3NDU4OCAwLjMxNzY0NzA2OTcAA</bytes>
@@ -1623,12 +1623,52 @@
 					<string key="className">ksKissUtilityView</string>
 					<string key="superclassName">UIView</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dateButtonTapped:">id</string>
+						<string key="howButtonTapped:">id</string>
+						<string key="kisserButtonTapped:">id</string>
+						<string key="locationButtonTapped:">id</string>
+						<string key="locationCenterMapButtonTapped:">id</string>
 						<string key="ratingSliderValueChanged:">id</string>
+						<string key="whatButtonTapped:">id</string>
+						<string key="whenButtonTapped:">id</string>
+						<string key="whereButtonTapped:">id</string>
 						<string key="whoButtonTapped:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dateButtonTapped:">
+							<string key="name">dateButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="howButtonTapped:">
+							<string key="name">howButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="kisserButtonTapped:">
+							<string key="name">kisserButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="locationButtonTapped:">
+							<string key="name">locationButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="locationCenterMapButtonTapped:">
+							<string key="name">locationCenterMapButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="ratingSliderValueChanged:">
 							<string key="name">ratingSliderValueChanged:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="whatButtonTapped:">
+							<string key="name">whatButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="whenButtonTapped:">
+							<string key="name">whenButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="whereButtonTapped:">
+							<string key="name">whereButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="whoButtonTapped:">

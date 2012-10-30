@@ -17,7 +17,6 @@
     if (self = [super initWithFrame:frame]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksPickerView" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
-        
     }
     return self;
 }
@@ -91,7 +90,14 @@
 
     switch (_state) {
         case KISSER: {
+            NSLog(@"%i",[_stringPickerView selectedRowInComponent:0]);
+            
             // 9901 discriminate for add new
+            
+            if ([_stringPickerView selectedRowInComponent:0] == 0) {
+                NSLog(@"+ add new");
+            }
+            
             [[(ksKissUtilityView*)[[self superview] superview] kissObject] setKissWho:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
 
             receiverButton = [(ksKissUtilityView*)[[self superview] superview] kisserButton];

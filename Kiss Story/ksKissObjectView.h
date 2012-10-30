@@ -20,11 +20,14 @@
 -(BOOL)saveKiss;
 
 @property (nonatomic, readwrite) int state;
-@property (nonatomic, retain) NSManagedObject* kissWho;
-@property (nonatomic, retain) NSManagedObject* kissKiss;
+//@property (nonatomic, retain) NSManagedObject* kissWho;
+//@property (nonatomic, retain) NSManagedObject* kissWhere;
+//@property (nonatomic, retain) NSManagedObject* kissKiss;
+@property (nonatomic, retain) NSObject* kissWho;
+@property (nonatomic, retain) NSObject* kissWhere;
+@property (nonatomic, retain) NSObject* kissKiss;
 @property (nonatomic, readwrite) NSDate* kissDate;
 @property (nonatomic, readwrite) int kissRating;
-@property (nonatomic, retain) NSManagedObject* kissWhere;
 @property (nonatomic, retain) NSString* kissDescription;
 
 @property (nonatomic, retain) ksCoreData* coreData;
