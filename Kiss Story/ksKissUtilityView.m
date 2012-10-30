@@ -76,7 +76,11 @@
 -(IBAction)kisserButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]]];
+    //9901
+    _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
+    
+    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    [_pickerView displayPickerView];
 }
 
 #pragma mark - Date Action Group
@@ -84,7 +88,11 @@
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
     [sender setEnabled:NO];
-    [self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
+    //9901
+    _pickerView = [[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]];
+    [_pickerView displayPickerView];
+
+    //[self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
 }
 
 #pragma mark - Rating Action Group
@@ -153,7 +161,11 @@
     
     // if it's not completely in view, slam to top
     [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
+    _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
+    
+    [_pickerView displayPickerView];
+
+    //[self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
@@ -200,7 +212,7 @@
 -(void)displayUtilityView {
     // a slide-up reveal, not a poop-over
     [UIView animateWithDuration:0.5f animations:^{
-        self.frame = CGRectMake(0.0f, 44.0f, 320.0f, 436.0f);
+        self.frame = CGRectMake(0.0f, 42.0f, 320.0f, 436.0f);
     }];
 }
 

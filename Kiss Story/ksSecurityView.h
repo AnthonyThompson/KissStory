@@ -50,7 +50,6 @@
 @property (nonatomic, readwrite) BOOL securityEnabled;
 @property (nonatomic, readwrite) NSString* passcode;
 
-//@property (nonatomic, retain) IBOutlet UIView* privacyView;
 @property (nonatomic, retain) IBOutlet UIView* loginView;
 @property (nonatomic, retain) UISwitch* passcodeSwitch;
 

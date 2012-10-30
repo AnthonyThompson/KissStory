@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ksPopOverView.h"
 
 @interface ksPickerView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults;
+-(void)displayPickerView;
 
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;
+@property (nonatomic, retain) ksPopOverView* popOverView;
+@property (nonatomic, retain) UIView* screenView;
 
 @property (nonatomic, retain) IBOutlet UIButton* acceptButton;
 @property (nonatomic, retain) IBOutlet UIButton* cancelButton;

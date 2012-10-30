@@ -32,9 +32,8 @@
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
     _annotationArray = [[NSMutableArray alloc]init];
 
-    //9901 check the order of these two?
-    [self buildDataSet];
     [self initLocationManager];
+    [self buildDataSet];
     
     //9901
     // default launch state, may be useful later?
@@ -54,6 +53,7 @@
     [self buildAnnotationArray];
     [self annotateMap];
 
+    // 9901
     // re-region maps?
 }
 
@@ -61,22 +61,9 @@
 
 -(void)initGuiObjects {
     [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    _topLeftButton.hidden = YES;
     _mainMapView.delegate = self;
     
-    _facebookSwitch.on = NO;
-    if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
-        _facebookSwitch.on = YES;
-    }
-    
-    _twitterSwitch.on = NO;
-    if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
-        _twitterSwitch.on = YES;
-    }
-    
     _wallpaperView.alpha = 1.0f;
-    
-    _twitterBookView.frame = CGRectMake(0.0, 480.0, 320.0, 480.0);
     
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
@@ -84,22 +71,6 @@
     [_mainTableView reloadData];
     
     _mainMapView.showsUserLocation = YES;
-    //9901
-    // moved up
-    //[self annotateMap];
-
-    _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
-                             [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
-                             [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
-                             [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey],
-#ifdef DEBUG
-                             @"d"
-#else
-                             @""
-#endif
-                             ];
-    _littleVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ logo and app are\n© 2012 Geek Gamer Guy Mobile LLC\nAll rights reserved",
-                                [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"]];
 }
 
 -(void)buttonControl:(id)sender {
@@ -128,10 +99,9 @@
     }
     
     if ([sender tag] != 4 ) {
-        _settingsButton.frame = CGRectMake(256.0f, 440.0f, 64.0f, 40.0f);
-        [_settingsButton setImage:[UIImage imageNamed:@"ButtonSettingsUnselected.png"]
+        _photoButton.frame = CGRectMake(256.0f, 440.0f, 64.0f, 40.0f);
+        [_photoButton setImage:[UIImage imageNamed:@"ButtonPhotoUnselected.png"]
                          forState:UIControlStateNormal];
-        _topRightButton.hidden = NO;
     }
 }
 
@@ -355,14 +325,25 @@
 
 -(IBAction)topLeftButtonTapped:(id)sender {
     switch (_state) {
+        case STATE_KISSER:
+        case STATE_DATE:
+        case STATE_RATING:
+        case STATE_LOCATION:
+        case STATE_PHOTO: {
+            // gear button/settings
+            _settingsView = [[ksSettingsView alloc]init];
+            [_settingsView displaySettingsView];
+        }
+            break;
         case STATE_ADD: {
             // cancelled
             if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:NO]) {
-                _topLeftButton.hidden = YES;
+                [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
         }
+            break;
     }
 }
 
@@ -372,14 +353,12 @@
         case STATE_DATE:
         case STATE_RATING:
         case STATE_LOCATION:
-        case STATE_SETTINGS: {
+        case STATE_PHOTO: {
             // add a new kiss
             _state = STATE_ADD;
-            _topBarView.image = [UIImage imageNamed:@"TitleAddKissCream.png"];
+            _topBarLabel.text = @"Add A Kiss";
             [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
-            _topRightButton.hidden = NO;
-            _topLeftButton.hidden = NO;
             
             [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
         }
@@ -387,14 +366,18 @@
         case STATE_ADD: {
             // save kiss
             if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:YES]) {
-                _topLeftButton.hidden = YES;
-                _topRightButton.hidden = NO;
+                [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
         }
             break;
     }
+}
+
+-(void)enableTopButtons:(BOOL)enable {
+    _topLeftButton.enabled = enable;
+    _topRightButton.enabled = enable;
 }
 
 #pragma mark - Kisser Action Group
@@ -406,7 +389,8 @@
     _kisserButton.frame = CGRectMake(0.0f, 416.0f, 64.0f, 64.0f);
     [_kisserButton setImage:[UIImage imageNamed:@"ButtonKisserSelected.png"]
                    forState:UIControlStateNormal];
-    _topBarView.image = [UIImage imageNamed:@"TitleKisserCream.png"];
+    _topBarLabel.text = @"Kissers";
+
     [self buttonControl:sender];
     
     _mainTableView.hidden = NO;
@@ -433,7 +417,7 @@
     _dateButton.frame = CGRectMake(64.0f, 416.0f, 64.0f, 64.0f);
     [_dateButton setImage:[UIImage imageNamed:@"ButtonDateSelected.png"]
                  forState:UIControlStateNormal];
-    _topBarView.image = [UIImage imageNamed:@"TitleDateCream.png"];
+    _topBarLabel.text = @"Dates";
     [self buttonControl:sender];
 
     _mainTableView.hidden = NO;
@@ -455,7 +439,7 @@
     _ratingButton.frame = CGRectMake(128.0f, 416.0f, 64.0f, 64.0f);
     [_ratingButton setImage:[UIImage imageNamed:@"ButtonRatingSelected.png"]
                    forState:UIControlStateNormal];
-    _topBarView.image = [UIImage imageNamed:@"TitleRatingCream.png"];
+    _topBarLabel.text = @"Ratings";
     [self buttonControl:sender];
     
     _mainTableView.hidden = NO;
@@ -477,7 +461,7 @@
     _locationButton.frame = CGRectMake(192.0f, 416.0f, 64.0f, 64.0f);
     [_locationButton setImage:[UIImage imageNamed:@"ButtonLocationSelected.png"]
                      forState:UIControlStateNormal];
-    _topBarView.image = [UIImage imageNamed:@"TitleLocationCream.png"];
+    _topBarLabel.text = @"Locations";
     [self buttonControl:sender];
 
     _mapContainer.hidden = NO;
@@ -491,51 +475,20 @@
     [_mainMapView setCenterCoordinate:[_mainMapView userLocation].coordinate animated:YES];
 }
 
-#pragma mark - Settings Action Group
+#pragma mark - Photo Action Group
 
--(IBAction)settingsButtonTapped:(id)sender {
-    if (_state == STATE_SETTINGS)
+-(IBAction)photoButtonTapped:(id)sender {
+    if (_state == STATE_PHOTO)
         return;
     
-    _settingsButton.frame = CGRectMake(256.0f, 416.0f, 64.0f, 64.0f);
-    [_settingsButton setImage:[UIImage imageNamed:@"ButtonSettingsSelected.png"]
+    _photoButton.frame = CGRectMake(256.0f, 416.0f, 64.0f, 64.0f);
+    [_photoButton setImage:[UIImage imageNamed:@"ButtonPhotoSelected.png"]
                      forState:UIControlStateNormal];
-    _topBarView.image = [UIImage imageNamed:@"TitleSettingsCream.png"];
-    _topRightButton.hidden = YES;
-
-    _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
-
+    _topBarLabel.text = @"Photos";
+    
     [self buttonControl:sender];
     
-    _settingsView.hidden = NO;
-    _mapContainer.hidden = YES;
-    _mainTableView.hidden = YES;
-
-    _state = STATE_SETTINGS;
-}
-
--(IBAction)emailButtonTapped:(id)sender {
-    if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-        mailer.mailComposeDelegate = self;
-        mailer.subject = @"Question or comment about KissStory";
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"ksfeedback@geekgamerguy.com",nil];
-        mailer.toRecipients = toRecipients;
-        [self presentViewController:mailer
-                           animated:YES
-                         completion:NULL];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Disabled"
-                                                        message:@"Your device cannot compose a mail message"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
--(IBAction)wwwButtonTapped:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
+    _state = STATE_PHOTO;
 }
 
 #pragma mark - UITableView Group
@@ -779,133 +732,6 @@
     int offSetWidth = annotationView.image.size.width/2/3;
     annotationView.centerOffset = CGPointMake(offSetWidth,offSetHeight);
     return annotationView;
-}
-
-
-#pragma mark - TwitterBook Group
-
--(void)displayTwitterBookView:(int)whichView {
-    switch (whichView) {
-        case TWITTERBOOK_FACEBOOK: {
-            _twitterBookLabel.text = @"Facebook Identity";
-            _unameLabel.text = @"Facebook User Name";
-            _pwordLabel.text = @"Facebook Password";
-            _unameField.text = [_settingsDictionary valueForKey:@"facebookName"];
-            _pwordField.text = [_settingsDictionary valueForKey:@"facebookPass"];
-            _twitterBookSaveButton.tag = TWITTERBOOK_FACEBOOK;
-            _twitterBookCancelButton.tag = TWITTERBOOK_FACEBOOK;
-        }
-            break;
-        case TWITTERBOOK_TWITTER: {
-            _twitterBookLabel.text = @"Twitter Identity";
-            _unameLabel.text = @"Twitter User Name";
-            _pwordLabel.text = @"Twitter Password";
-            _unameField.text = [_settingsDictionary valueForKey:@"twitterName"];
-            _pwordField.text = [_settingsDictionary valueForKey:@"twitterPass"];
-            _twitterBookSaveButton.tag = TWITTERBOOK_TWITTER;
-            _twitterBookCancelButton.tag = TWITTERBOOK_TWITTER;
-        }
-            break;
-    }
-    
-    //9901 WILL BE POOP-OVER IF STILL NEEDED?
-    [UIView animateWithDuration:0.5f animations:^{
-        _twitterBookView.frame = CGRectMake(0.0, 0.0, 320.0, 480.0);
-    }];
-}
-
--(IBAction)twitterbookCancelButtonTapped:(id)sender {
-    switch ([sender tag]) {
-        case TWITTERBOOK_FACEBOOK: {
-            if ([_facebookSwitch isOn]) {
-                _facebookSwitch.on = NO;
-            } else {
-                _facebookSwitch.on = YES;
-            }
-        }
-            break;
-        case TWITTERBOOK_TWITTER: {
-            if ([_twitterSwitch isOn]) {
-                _twitterSwitch.on = NO;
-            } else {
-                _twitterSwitch.on = YES;
-            }
-        }
-            break;
-    }
-    [self dismissTwitterBookView];
-}
-
--(IBAction)twitterbookSaveButtonTapped:(id)sender {
-    switch ([sender tag]) {
-        case TWITTERBOOK_FACEBOOK: {
-            //[appDelegate openSessionWithAllowLoginUI:YES];
-            NSLog(@"FB");
-            ksAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-            [appDelegate openSessionWithAllowLoginUI:YES];
-        }
-            break;
-        case TWITTERBOOK_TWITTER: {
-            
-        }
-            break;
-    }
-    
-    //test login
-    // if pass then save & dismiss
-    // if fail then error message
-}
-
--(void)dismissTwitterBookView {
-    // 9901
-    // WILL BE POOP-AWAY IF STILL NEEDED
-    [UIView animateWithDuration:0.5f animations:^{
-        _twitterBookView.frame = CGRectMake(0.0, 430.0, 320.0, 386.0);
-    }];
-}
-
-#pragma mark - Twitter Group
-
--(IBAction)twitterSwitchSwitched:(id)sender {
-    if ([(UISwitch*)sender isOn]) {
-        // was off, is now ON
-        [self displayTwitterBookView:TWITTERBOOK_TWITTER];
-    } else {
-        // was on, is now OFF
-        // set the bit off
-    }
-}
-
-#pragma mark - Facebook Group
-
--(IBAction)facebookSwitchSwitched:(id)sender {
-    ksAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-
-    // If the user is authenticated, log out when the button is clicked.
-    // If the user is not authenticated, log in when the button is clicked.
-    if (FBSession.activeSession.isOpen) {
-        [appDelegate closeSession];
-        [sender setOn:NO];
-    } else {
-        // The user has initiated a login, so call the openSession method
-        // and show the login UX if necessary.
-        [appDelegate openSessionWithAllowLoginUI:YES];
-        [sender setOn:YES];
-    }
-}
-
-#pragma mark - Passcode Action Group
-
--(IBAction)passcodeSwitchSwitched:(id)sender {
-    if ([(UISwitch*)sender isOn]) {
-        // was off, is now ON, so set a new passcode
-        //[self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary]];
-        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
-    } else {
-        // was on, is now OFF, so disable current passcode
-        //[self.view addSubview:[[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary]];
-        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
-    }
 }
 
 #pragma mark - VC super class

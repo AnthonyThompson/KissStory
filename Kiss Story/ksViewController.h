@@ -17,17 +17,19 @@
 #import "ksMapAnnotation.h"
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
+#import "ksSettingsView.h"
 
 #define STATE_KISSER 0
 #define STATE_DATE 1
 #define STATE_RATING 2
 #define STATE_LOCATION 3
-#define STATE_SETTINGS 4
+#define STATE_PHOTO 4
 #define STATE_NEUTRAL 5
 #define STATE_ADD 6
 #define STATE_EDIT 7
 #define STATE_DELETE 8
 #define STATE_SECURITY 9
+#define STATE_SETTINGS 10
 
 #define KISSER 0
 #define DATE 1
@@ -50,6 +52,7 @@
 
 -(void)buildSettingsDictionary;
 -(void)buildDataSet;
+-(void)enableTopButtons:(BOOL)enable;
 
 #pragma mark - @properties
 
@@ -62,29 +65,22 @@
 @property (nonatomic, readwrite) float iOSVersion;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSArray* cellSizeArray;
+@property (nonatomic, retain) ksSettingsView* settingsView;
 @property (nonatomic, retain) ksSecurityView* securityView;
 
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
 @property (nonatomic, retain) IBOutlet UIButton* ratingButton;
 @property (nonatomic, retain) IBOutlet UIButton* locationButton;
-@property (nonatomic, retain) IBOutlet UIButton* settingsButton;
+@property (nonatomic, retain) IBOutlet UIButton* photoButton;
 
-@property (nonatomic, retain) IBOutlet UIImageView* topBarView;
 @property (nonatomic, retain) IBOutlet UIButton* topLeftButton;
 @property (nonatomic, retain) IBOutlet UIButton* topRightButton;
-
-@property (nonatomic, retain) IBOutlet UIView* settingsView;
-@property (nonatomic, retain) IBOutlet UILabel* bigVersionLabel;
-@property (nonatomic, retain) IBOutlet UILabel* littleVersionLabel;
-@property (nonatomic, retain) IBOutlet UISwitch* facebookSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch* twitterSwitch;
-@property (nonatomic, retain) IBOutlet UISwitch* passcodeSwitch;
-@property (nonatomic, retain) IBOutlet UIButton* wwwButton;
-@property (nonatomic, retain) IBOutlet UIButton* emailButton;
+@property (nonatomic, retain) IBOutlet UILabel* topBarLabel;
 
 @property (nonatomic, retain) IBOutlet UIView* mapContainer;
 
+/*
 @property (nonatomic, retain) IBOutlet UIView* twitterBookView;
 @property (nonatomic, retain) IBOutlet UILabel* twitterBookLabel;
 @property (nonatomic, retain) IBOutlet UILabel* unameLabel;
@@ -93,6 +89,7 @@
 @property (nonatomic, retain) IBOutlet UITextField* pwordField;
 @property (nonatomic, retain) IBOutlet UIButton* twitterBookSaveButton;
 @property (nonatomic, retain) IBOutlet UIButton* twitterBookCancelButton;
+ */
 
 @property (nonatomic, retain) IBOutlet UITableView* mainTableView;
 @property (nonatomic, retain) IBOutlet MKMapView* mainMapView;

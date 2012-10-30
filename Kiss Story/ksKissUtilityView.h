@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "ksKissObjectView.h"
+#import "ksPickerView.h"
 
 @interface ksKissUtilityView : UIView <UITextViewDelegate>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, retain) NSDictionary* dataDictionary;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) ksKissObjectView* kissObject;
+@property (nonatomic, retain) ksPickerView* pickerView;
 
 @property (nonatomic, retain) IBOutlet UIView* kisserHeader;
 @property (nonatomic, retain) IBOutlet UILabel* kisserLabel;

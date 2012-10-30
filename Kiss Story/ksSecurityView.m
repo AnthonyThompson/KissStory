@@ -20,8 +20,6 @@
     if (self) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
         
-        //_popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
-        
         _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
 
         _whichProcess = whichProcess;
@@ -107,7 +105,8 @@
                 case SEC_PROCESS_SETNEW:
                 case SEC_PROCESS_CONFIRMNEW:
                 case SEC_PROCESS_DISABLE: {
-                    [[(ksViewController*) [[self window] rootViewController] passcodeSwitch] setOn:[ksSecurityView securityCheck:[(ksViewController*) [[self window] rootViewController] settingsDictionary]]];
+                    // 9901 SETTINGS CLEAN-UP
+                    //[[(ksViewController*) [[self window] rootViewController] passcodeSwitch] setOn:[ksSecurityView securityCheck:[(ksViewController*) [[self window] rootViewController] settingsDictionary]]];
                 }
             }
 

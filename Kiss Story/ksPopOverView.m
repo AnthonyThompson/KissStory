@@ -35,27 +35,27 @@
     [self addSubview:containerView];
     
     self.frame = CGRectMake(160.0f - (self.frame.size.width/2.0f),240.0f - (self.frame.size.height/2.0f),self.frame.size.width,self.frame.size.height);
-    self.transform = CGAffineTransformScale(self.transform, 0.1f, 0.1f);
+    self.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
 
     [superView addSubview:backingView];
     [superView addSubview:self];
 
-    [UIView animateWithDuration:0.33f animations:^{
-        self.transform = CGAffineTransformScale(self.transform, 12.50f, 12.50f);
+    [UIView animateWithDuration:0.3f animations:^{
+        self.transform = CGAffineTransformMakeScale(1.25f, 1.25f);
     } completion:^(BOOL finished){
         [UIView animateWithDuration:0.15f animations:^{
-            self.transform = CGAffineTransformScale(self.transform, 0.64f, 0.64f);
+            self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.15f animations:^{
-                self.transform = CGAffineTransformScale(self.transform, 1.25f, 1.25f);
+                self.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
             }];
         }];
     }];
 }
 
 -(void)dismissPopOverViewInSuperView:(UIView*)superView {
-    [UIView animateWithDuration:0.33f animations:^{
-        self.transform = CGAffineTransformScale(self.transform, 0.01f, 0.01f);
+    [UIView animateWithDuration:0.3f animations:^{
+        self.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
     } completion:^(BOOL finished){
         [[[superView subviews] lastObject] removeFromSuperview];
         [[[superView subviews] lastObject] removeFromSuperview];
