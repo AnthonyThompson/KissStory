@@ -178,16 +178,7 @@
     [addWhere setValue:@"+ Add a new place to kiss" forKey:@"name"];
     [addWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
     [addWhere setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lon"];
-    
-    //9901 is this needed now?
-    /*
-    NSManagedObject* currentLoc = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
-    [currentLoc setValue:[NSNumber numberWithDouble:-2.0f] forKey:@"id"];
-    [currentLoc setValue:@"(Use current location)" forKey:@"name"];
-    [currentLoc setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
-    [currentLoc setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lon"];
-     */
-    
+
     NSManagedObject* s0 = [NSEntityDescription insertNewObjectForEntityForName:[settingsEntity name] inManagedObjectContext:[self managedObjectContext]];
     [s0 setValue:@"securityEnabled" forKey:@"keyName"];
     [s0 setValue:@"NO" forKey:@"keyValue"];
@@ -226,11 +217,14 @@
     NSEntityDescription* kissesEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[self managedObjectContext]];
     
     if (_runTime == KSCD_DEBUGDATA) {
+        /*
+        
         NSManagedObject* jessicadrew = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [jessicadrew setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [jessicadrew setValue:@"Jessica Drew" forKey:@"name"];
         [jessicadrew setValue:@"" forKey:@"desc"];
         
+         */
         NSManagedObject* nauticathorn = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [nauticathorn setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [nauticathorn setValue:@"Nautica Thorn" forKey:@"name"];
@@ -245,6 +239,7 @@
         [jvd setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [jvd setValue:@"Janet van Dyne" forKey:@"name"];
         [jvd setValue:@"waspy woman" forKey:@"desc"];
+        /*
         
         NSManagedObject* j = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [j setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
@@ -255,6 +250,7 @@
         [mk setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [mk setValue:@"Misty Knight" forKey:@"name"];
         [mk setValue:@"Tastes like robot?" forKey:@"desc"];
+         */
         
         NSManagedObject* EveMendez = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [EveMendez setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
@@ -276,6 +272,7 @@
         [fc setValue:@"Francesca \"Captain\" Cook" forKey:@"name"];
         [fc setValue:@"Frankie" forKey:@"desc"];
         
+        /*
         NSManagedObject* JessicaWerd = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [JessicaWerd setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [JessicaWerd setValue:@"Jessica Werd" forKey:@"name"];
@@ -300,6 +297,7 @@
         [Soleil setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
         [Soleil setValue:@"Soleil" forKey:@"name"];
         [Soleil setValue:@"" forKey:@"desc"];
+         */
         
         NSManagedObject* ea = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [ea setValue:[NSNumber numberWithDouble:([[NSDate date] timeIntervalSinceReferenceDate]+clicker++)] forKey:@"id"];
@@ -310,15 +308,17 @@
         [el setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [el setValue:@"evangeline lilly" forKey:@"name"];
         [el setValue:@"Smoke much?" forKey:@"desc"];
+        /*
         
         NSManagedObject* Brunchillda = [NSEntityDescription insertNewObjectForEntityForName:[whoEntity name] inManagedObjectContext:[self managedObjectContext]];
         [Brunchillda setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [Brunchillda setValue:@"Brünchillda" forKey:@"name"];
         [Brunchillda setValue:@"" forKey:@"desc"];
+         */
         
         NSManagedObject* theClub = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [theClub setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
-        [theClub setValue:@"Telephone Club" forKey:@"name"];
+        [theClub setValue:@"Gold Club" forKey:@"name"];
         [theClub setValue:[NSNumber numberWithFloat:37.78592773467008f] forKey:@"lat"];
         [theClub setValue:[NSNumber numberWithFloat:-122.39942193031311f] forKey:@"lon"];
         
@@ -340,11 +340,13 @@
         [Marriott setValue:[NSNumber numberWithFloat:37.60283375930652f] forKey:@"lat"];
         [Marriott setValue:[NSNumber numberWithFloat:-122.37298607826233f] forKey:@"lon"];
         
-        NSManagedObject* volvo = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
+        /*
+        NSManagedObject* parkPlace = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [volvo setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
-        [volvo setValue:@"the Trusty Volvo" forKey:@"name"];
-        [volvo setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
-        [volvo setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lon"];
+        [volvo setValue:@"Park Place (in the park)" forKey:@"name"];
+        [volvo setValue:[NSNumber numberWithFloat:37.892169f] forKey:@"lat"];
+        [volvo setValue:[NSNumber numberWithFloat:-122.272682f] forKey:@"lon"];
+         */
         
         NSManagedObject* Ranch = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [Ranch setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
@@ -357,24 +359,26 @@
         [tesoro setValue:@"El Tesoro (back room)" forKey:@"name"];
         [tesoro setValue:[NSNumber numberWithFloat:35.253513f] forKey:@"lat"];
         [tesoro setValue:[NSNumber numberWithFloat:-80.825839f] forKey:@"lon"];
-        
+
         NSManagedObject* Submarine = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [Submarine setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
-        [Submarine setValue:@"Submarine" forKey:@"name"];
-        [Submarine setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
-        [Submarine setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lon"];
-        
+        [Submarine setValue:@"Sub Shop" forKey:@"name"];
+        [Submarine setValue:[NSNumber numberWithFloat:37.71735f] forKey:@"lat"];
+        [Submarine setValue:[NSNumber numberWithFloat:-122.216721f] forKey:@"lon"];
+
         NSManagedObject* ef = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [ef setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [ef setValue:@"Enchanted forest" forKey:@"name"];
-        [ef setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lat"];
-        [ef setValue:[NSNumber numberWithFloat:0.0f] forKey:@"lon"];
+        [ef setValue:[NSNumber numberWithFloat:37.88039f] forKey:@"lat"];
+        [ef setValue:[NSNumber numberWithFloat:-122.295771f] forKey:@"lon"];
+        /*
         
         NSManagedObject* hustler = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
         [hustler setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
         [hustler setValue:@"The Hustler" forKey:@"name"];
-        [hustler setValue:[NSNumber numberWithFloat:37.7749295f] forKey:@"lat"];
-        [hustler setValue:[NSNumber numberWithFloat:-122.4194155f] forKey:@"lon"];
+        [hustler setValue:[NSNumber numberWithFloat:37.797483f] forKey:@"lat"];
+        [hustler setValue:[NSNumber numberWithFloat:-122.405917f] forKey:@"lon"];
+         */
         
         NSMutableSet* mystKisserK = [mystKisser mutableSetValueForKey:@"kissRecord"];
         NSMutableSet* RivieraMayaK = [RivieraMaya mutableSetValueForKey:@"kissRecord"];
