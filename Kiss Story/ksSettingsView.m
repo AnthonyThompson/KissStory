@@ -15,7 +15,6 @@
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 288.0f, 368.0f)]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSettingsView" owner:self options:nil] objectAtIndex:0];
         
-        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
 
         _facebookSwitch.on = NO;
         /*
@@ -52,6 +51,7 @@
 }
 
 -(void)displaySettingsView {
+    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
     [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
@@ -82,12 +82,9 @@
         mailer.subject = @"Question or comment about KissStory";
         NSArray *toRecipients = [NSArray arrayWithObjects:@"ksfeedback@geekgamerguy.com",nil];
         mailer.toRecipients = toRecipients;
-        //9901 figure this out: delegate here or in VC?
-        /*
-        [self presentViewController:mailer
+        [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:mailer
                            animated:YES
                          completion:NULL];
-         */
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Disabled"
                                                         message:@"Your device cannot compose a mail message"

@@ -26,10 +26,9 @@
         _kissDate = [NSDate date];
         _kissRating = 0;
         _kissDescription = [[NSString alloc]init];
-        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
 
         _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
-        
+
         NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
         _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
         
@@ -52,7 +51,7 @@
     
     if (validity == VALID_DATA) return YES;
     
-    _popOverTitle.text = @"Missing Details!";
+    _popOverTitle.text = @"Missing Kiss Details!";
     NSString* popOverText;
     
     switch (validity) {
@@ -71,7 +70,7 @@
     }
     
     _popOverText.text = popOverText;
-
+    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
     [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 
     return NO;

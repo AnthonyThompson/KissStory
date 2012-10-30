@@ -25,8 +25,6 @@
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults {
     if ([self initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 302.0f)]) {
         
-        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 322.0f)];
-
         _fetchedResults = [[NSFetchedResultsController alloc]init];
         _fetchedResults = fetchedResults;
         _state = whichState;
@@ -60,6 +58,7 @@
 }
 
 -(void)displayPickerView {
+    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 322.0f)];
     [_popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
 }
 

@@ -75,8 +75,6 @@
 
 -(IBAction)kisserButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
-    [sender setEnabled:NO];
-    //9901
     _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
     
     [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
@@ -87,12 +85,10 @@
 
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
-    [sender setEnabled:NO];
-    //9901
     _pickerView = [[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]];
+    
+    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
     [_pickerView displayPickerView];
-
-    //[self addSubview:[[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]]];
 }
 
 #pragma mark - Rating Action Group
@@ -156,16 +152,14 @@
 
 -(IBAction)locationButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
-    [sender setEnabled:NO];
     // 9901 also for map touches somewhere else???
     
     // if it's not completely in view, slam to top
     [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
     
+    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
     [_pickerView displayPickerView];
-
-    //[self addSubview:[[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]]];
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {

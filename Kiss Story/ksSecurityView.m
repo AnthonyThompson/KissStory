@@ -19,8 +19,6 @@
     self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 253.0f, 337.0f)];
     if (self) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
-        
-        _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
 
         _whichProcess = whichProcess;
         _passcode = [settingsDictionary valueForKey:@"passcode"];
@@ -68,9 +66,8 @@
         }
             break;
     }
-    
-    _popOverView.containerView = self;
 
+    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
     [_popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
