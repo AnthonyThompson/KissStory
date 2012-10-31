@@ -90,18 +90,25 @@
 
     switch (_state) {
         case KISSER: {
-            NSLog(@"%i",[_stringPickerView selectedRowInComponent:0]);
-            
             // 9901 discriminate for add new
             
             if ([_stringPickerView selectedRowInComponent:0] == 0) {
                 NSLog(@"+ add new");
+                //9901 subroutine that passes it back I suppose...
+                //9901 what is teh flow of changing one's mind?
             }
             
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setKissWho:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
+            //9901
+            // if saving from picker, save name as "name" in dictionary kissWho
+            // save fetched results as "who" in dictionary kissWho
+            // if creating new, save name as "name" in dictionary kissWho
+
 
             receiverButton = [(ksKissUtilityView*)[[self superview] superview] kisserButton];
             receiverTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
+            
+            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWho] setValue:receiverTitle forKey:@"name"];
+            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWho] setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"who"];
         }
             break;
         case DATE: {
@@ -116,13 +123,20 @@
             break;
         case LOCATION: {
             // 9901 discriminate for add new
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setKissWhere:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]]];
-
-            // adjust map to reflect this location
-            [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lat"] doubleValue], [[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lon"] doubleValue]) animated:YES];
+            
+            if ([_stringPickerView selectedRowInComponent:0] == 0) {
+                NSLog(@"+ add new");
+            }
 
             receiverButton = [(ksKissUtilityView*)[[self superview] superview] locationButton];
             receiverTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
+            
+            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] setValue:receiverTitle forKey:@"name"];
+            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"where"];
+            
+            // adjust map to reflect this location
+            [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lat"] doubleValue], [[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lon"] doubleValue]) animated:YES];
+
         }
             break;
     }

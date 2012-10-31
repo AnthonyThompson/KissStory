@@ -58,7 +58,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{160, 240}</string>
 								<reference key="NSSuperview" ref="545702826"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<string key="NSHuggingPriority">{1, 1}</string>
 								<string key="NSAntiCompressionPriority">{1, 1}</string>
@@ -99,7 +98,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="296007774"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>

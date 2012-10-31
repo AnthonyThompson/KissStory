@@ -27,9 +27,8 @@
         _kissRating = 0;
         _kissDescription = [[NSString alloc]init];
         
-        _kissKiss = [[NSObject alloc]init];
-        _kissWho = [[NSObject alloc]init];
-        _kissWhere = [[NSObject alloc]init];
+        _kissWho = [[NSMutableDictionary alloc]init];
+        _kissWhere = [[NSMutableDictionary alloc]init];
 
         _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
     }
@@ -44,8 +43,9 @@
 -(BOOL)validateValues {
     int validity = VALID_DATA;
     
-    if ([[_kissWho valueForKey:@"id"] doubleValue] == 0.0f) validity++;
-    if ([[_kissWhere valueForKey:@"id"] doubleValue] == 0.0f) validity+=2;
+    // if no name, then the dictionary is empty
+    if (![_kissWho valueForKey:@"name"]) validity++;
+    if (![_kissWhere valueForKey:@"name"]) validity+=2;
     
     if (validity == VALID_DATA) return YES;
     
@@ -80,19 +80,43 @@
         return NO;
     }
 
+    if (![_kissWho objectForKey:@"who"]) {
+        // no who, so new object to insert
+        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
+        NSManagedObject* newWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+        
+        [newWho setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+        [newWho setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
+        
+        [_kissWho setValue:newWho forKey:@"who"];
+    }
+    
+    if (![_kissWhere objectForKey:@"where"]) {
+        // no where, so new object to insert
+        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
+        NSManagedObject* newWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+        
+        [newWhere setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+        [newWhere setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lat"] floatValue]] forKey:@"lat"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lon"] floatValue]] forKey:@"lon"];
+        
+        [_kissWhere setValue:newWhere forKey:@"where"];
+    }
+
     NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
     NSManagedObject* newKiss = [[NSManagedObject alloc]initWithEntity:kissEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
 
-    [newKiss setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
-    [newKiss setValue:_kissWho forKey:@"kissWho"];
-    [newKiss setValue:_kissWhere forKey:@"kissWhere"];
-    [newKiss setValue:[NSNumber numberWithDouble:[_kissDate timeIntervalSince1970]] forKey:@"when"];
+    [newKiss setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+    [newKiss setValue:[_kissWho valueForKey:@"who"] forKey:@"kissWho"];
+    [newKiss setValue:[_kissWhere valueForKey:@"where"] forKey:@"kissWhere"];
+    [newKiss setValue:[NSNumber numberWithFloat:[_kissDate timeIntervalSince1970]] forKey:@"when"];
     [newKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
     [newKiss setValue:_kissDescription forKey:@"desc"];
 
-    NSMutableSet* whoKey = [_kissWho mutableSetValueForKey:@"kissRecord"];
+    NSMutableSet* whoKey = [[_kissWho valueForKey:@"who"] mutableSetValueForKey:@"kissRecord"];
     [whoKey addObject:newKiss];
-    NSMutableSet* whereKey = [_kissWhere mutableSetValueForKey:@"kissRecord"];
+    NSMutableSet* whereKey = [[_kissWhere valueForKey:@"where"] mutableSetValueForKey:@"kissRecord"];
     [whereKey addObject:newKiss];
 
     //9901 rate app stuff
