@@ -79,6 +79,10 @@
 }
 
 -(IBAction)cancelButtonTapped:(id)sender {
+    [(ksKissUtilityView*)[[self superview] superview] kisserButton].backgroundColor = CCO_BASE_CREAM;
+    [(ksKissUtilityView*)[[self superview] superview] dateButton].backgroundColor = CCO_BASE_CREAM;
+    [(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
+
     [self dismissPickerView];
 }
 
@@ -151,6 +155,7 @@
 
 -(void)dismissPickerView{
     [(ksViewController*)[[self window] rootViewController] enableTopButtons:YES];
+    
     [_popOverView dismissPopOverViewInSuperView:[[self superview] superview]];
     [self removeFromSuperview];
 }
