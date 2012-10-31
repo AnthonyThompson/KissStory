@@ -20,103 +20,107 @@
 
 -(id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil];
-        self = [nib objectAtIndex:0];
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
-        self.hidden = YES;
-
+        
         _kissDate = [NSDate date];
         _kissRating = 0;
         _kissDescription = [[NSString alloc]init];
         
-        _jamesImage = [[UIImage imageNamed:@"PopoverStretchCap.png"]
-                                    resizableImageWithCapInsets:UIEdgeInsetsMake(34, 19, 34, 19)];
-        _uiiv = [[UIImageView alloc]initWithImage:_jamesImage];
-        _uiiv.frame = CGRectMake(0,0,160,240);
-        [_testView addSubview:_uiiv];
-        
-        _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
+        _kissWho = [[NSMutableDictionary alloc]init];
+        _kissWhere = [[NSMutableDictionary alloc]init];
 
-        /*
-        NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
-        _kissKiss = [[NSManagedObject alloc]initWithEntity:kissEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
-         */
-        
-        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
-        _kissWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
-        
-        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
-        _kissWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+        _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
     }
     
     return self;
 }
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+}
+
+-(BOOL)validateValues {
+    int validity = VALID_DATA;
+    
+    // if no name, then the dictionary is empty
+    if (![_kissWho valueForKey:@"name"]) validity++;
+    if (![_kissWhere valueForKey:@"name"]) validity+=2;
+    
+    if (validity == VALID_DATA) return YES;
+    
+    _popOverTitle.text = @"Missing Kiss Details!";
+    NSString* popOverText;
+    
+    switch (validity) {
+        case INVALID_WHO_ENTITY: {
+            popOverText = @"Who did you kiss?";
+        }
+            break;
+        case INVALID_WHERE_ENTITY: {
+            popOverText = @"Where did you kiss?";
+        }
+            break;
+        case INVALID_WHO_AND_WHERE_ENTITY: {
+            popOverText = @"Who did you kiss, and where did you kiss them?";
+        }
+            break;
+    }
+    
+    _popOverText.text = popOverText;
+    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
+    [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+
+    return NO;
+}
+
 -(BOOL)saveKiss {
-    return NO;
     
-    self.hidden = NO;
-    
-    [UIView animateWithDuration:1.5f animations:^{
-        //_testView.transform = CGAffineTransformScale(_testView.transform, 125.0f, 125.0f);
-        //_testView.frame=CGRectMake(200, 200, 200, 200);
-        _uiiv.frame=CGRectMake(_uiiv.frame.origin.x, _uiiv.frame.origin.y, 200, 200);
-    }];
-    
-    return NO;
-    
-    //9901
-    
-    //1st validate name and location
-    
-    // if not validated
-    //  poop-over (confirm buttons dimiss poop-over, hide self, return NO)
+    if (![self validateValues]) {
+        return NO;
+    }
 
-    // 
+    if (![_kissWho objectForKey:@"who"]) {
+        // no who, so new object to insert
+        NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
+        NSManagedObject* newWho = [[NSManagedObject alloc]initWithEntity:whoEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+        
+        [newWho setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+        [newWho setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
+        
+        [_kissWho setValue:newWho forKey:@"who"];
+    }
     
-    
-    
-    
-    
-    
-    //9901
-    //where does this happen?
-    //[self removeFromSuperview];
-    
-    
-    
+    if (![_kissWhere objectForKey:@"where"]) {
+        // no where, so new object to insert
+        NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
+        NSManagedObject* newWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+        
+        [newWhere setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+        [newWhere setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lat"] floatValue]] forKey:@"lat"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lon"] floatValue]] forKey:@"lon"];
+        
+        [_kissWhere setValue:newWhere forKey:@"where"];
+    }
 
-    // grey, uiai
-    // validate values
-    // if !OK, then pop-over
-    // if OK, then save
-    //      insert into context
-    //      save context
-    //
-    //      rebuild frcs?
-    //      reload table data?
-    
+    NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
+    NSManagedObject* newKiss = [[NSManagedObject alloc]initWithEntity:kissEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
+
+    [newKiss setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+    [newKiss setValue:[_kissWho valueForKey:@"who"] forKey:@"kissWho"];
+    [newKiss setValue:[_kissWhere valueForKey:@"where"] forKey:@"kissWhere"];
+    [newKiss setValue:[NSNumber numberWithFloat:[_kissDate timeIntervalSince1970]] forKey:@"when"];
+    [newKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
+    [newKiss setValue:_kissDescription forKey:@"desc"];
+
+    NSMutableSet* whoKey = [[_kissWho valueForKey:@"who"] mutableSetValueForKey:@"kissRecord"];
+    [whoKey addObject:newKiss];
+    NSMutableSet* whereKey = [[_kissWhere valueForKey:@"where"] mutableSetValueForKey:@"kissRecord"];
+    [whereKey addObject:newKiss];
+
+    //9901 rate app stuff
     /*
-    
-    NSString* titleString;
-    NSEntityDescription* entity;
-    NSManagedObject* manObj;
-    NSMutableSet* whoKey;
-    NSMutableSet* whereKey;
-
-    _kissKiss = [NSEntityDescription insertNewObjectForEntityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
-    [_kissKiss setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
-    [_kissKiss setValue:_kissWho forKey:@"kissWho"];
-    [_kissKiss setValue:_kissWhere forKey:@"kissWhere"];
-    [_kissKiss setValue:[NSNumber numberWithDouble:[_kissDate timeIntervalSince1970]] forKey:@"when"];
-    [_kissKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
-    [_kissKiss setValue:_kissDescription forKey:@"desc"];
-
-    whoKey = [_kissWho mutableSetValueForKey:@"kissRecord"];
-    [whoKey addObject:_kissKiss];
-    whereKey = [_kissWhere mutableSetValueForKey:@"kissRecord"];
-    [whereKey addObject:_kissKiss];
-    
     int saveKissCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"savedKisses"];
     
     // -1 is the turn-off key
@@ -124,7 +128,7 @@
         saveKissCount++;
         [[NSUserDefaults standardUserDefaults] setInteger:saveKissCount forKey:@"savedKisses"];
         
-        if (saveKissCount > 4) {
+        if (saveKissCount > 99999) {
             
             //9901 poop-over here
             NSString* titleString = [[NSString alloc]initWithFormat:@"Having fun with %@?",[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleName"]];
@@ -137,11 +141,17 @@
             [alert show];
         }
     }
+     */
     
     [_coreData saveContext];
-    
+    [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] buildDataSet];
+
     return YES;
-     */
 }
+
+-(IBAction)popOverButtonTapped:(id)sender {
+    [_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+}
+
 
 @end
