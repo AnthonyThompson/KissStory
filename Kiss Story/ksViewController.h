@@ -39,6 +39,8 @@
 #define TWITTERBOOK_FACEBOOK 0
 #define TWITTERBOOK_TWITTER 1
 
+#define UPTHECHAIN [[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] objectAtIndex:[[[[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] count] -3]
+
 @interface ksViewController : UIViewController <NSFetchedResultsControllerDelegate,
                                                 UITableViewDelegate,
                                                 UITableViewDataSource,

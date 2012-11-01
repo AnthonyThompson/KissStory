@@ -162,8 +162,8 @@
 
     // the newW pop-over
     [(ksPopOverView*)[self superview] dismissPopOverView];
-    // sending a dismiss message to the Utility view, -(2+1) from the end
-    [[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] objectAtIndex:[[[[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] count] -3] pickerView] cancelButtonTapped:sender];
+    //dismiss pickerView
+    [[UPTHECHAIN pickerView] cancelButtonTapped:sender];
 }
 -(IBAction)addCancelButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];

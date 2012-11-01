@@ -8,8 +8,8 @@
 
 #import "ksSecurityView.h"
 #import "ksViewController.h"
-#import "ksColorCell.h"
 #import "ksPopOverView.h"
+#import "ksSettingsView.h"
 
 @implementation ksSecurityView
 
@@ -100,8 +100,8 @@
                 case SEC_PROCESS_SETNEW:
                 case SEC_PROCESS_CONFIRMNEW:
                 case SEC_PROCESS_DISABLE: {
-                    // 9901 SETTINGS CLEAN-UP
-                    //[[(ksViewController*) [[self window] rootViewController] passcodeSwitch] setOn:[ksSecurityView securityCheck:[(ksViewController*) [[self window] rootViewController] settingsDictionary]]];
+                    // re-set passcodeSwitch because we're not really changing here
+                    [[(ksSettingsView*)[[UPTHECHAIN subviews] lastObject] passcodeSwitch] setOn:_securityEnabled];
                 }
             }
 
@@ -110,6 +110,7 @@
             _passcodeStatusLabel.backgroundColor = CCO_BASE_RED;
             _passcodeStatusLabel.text = @"Passcode Cancelled";
             _passcodeStatusLabel.hidden = NO;
+            
             [self dismissLoginView];
         }
             break;
@@ -182,7 +183,6 @@
         
         switch(_whichProcess) {
             case SEC_PROCESS_RUNTIMELOGIN: {
-                //_privacyView.hidden = YES;
                 _passcodeStatusLabel.text = @"Passcode Correct";
                 [self dismissLoginView];
             }
