@@ -17,6 +17,7 @@
 @synthesize kissRating = _kissRating;
 @synthesize kissWhere = _kissWhere;
 @synthesize kissDescription = _kissDescription;
+@synthesize addTitle = _addTitle;
 
 -(id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -49,28 +50,28 @@
     
     if (validity == VALID_DATA) return YES;
     
-    _popOverTitle.text = @"Missing Kiss Details!";
-    NSString* popOverText;
+    ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
     
+    content.popOverTitle.text = @"Missing Kiss Details!";
+
     switch (validity) {
         case INVALID_WHO_ENTITY: {
-            popOverText = @"Who did you kiss?";
+            content.popOverText.text = @"Who did you kiss?";
         }
             break;
         case INVALID_WHERE_ENTITY: {
-            popOverText = @"Where did you kiss?";
+            content.popOverText.text = @"Where did you kiss?";
         }
             break;
         case INVALID_WHO_AND_WHERE_ENTITY: {
-            popOverText = @"Who did you kiss, and where did you kiss them?";
+            content.popOverText.text = @"Who did you kiss, and where did you kiss them?";
         }
             break;
     }
-    
-    _popOverText.text = popOverText;
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20.0f, self.frame.size.height + 20.0f)];
-    [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 
+    [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    
     return NO;
 }
 
@@ -149,9 +150,22 @@
     return YES;
 }
 
--(IBAction)popOverButtonTapped:(id)sender {
-    [_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+-(IBAction)dismissButtonTapped:(id)sender {
+    [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
 }
 
+-(IBAction)addAcceptButtonTapped:(id)sender {
+    //9901
+    //OK< so what happens here?
+    // 1 fill who/where field
+
+    // the newW pop-over
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+    // sending a dismiss message to the Utility view, -(2+1) from the end
+    [[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] objectAtIndex:[[[[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] count] -3] pickerView] cancelButtonTapped:sender];
+}
+-(IBAction)addCancelButtonTapped:(id)sender {
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+}
 
 @end

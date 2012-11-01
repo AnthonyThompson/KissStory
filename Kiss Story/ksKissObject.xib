@@ -57,11 +57,11 @@
 							<bytes key="NSRGB">MC45NjA3ODQzNzU3IDAuMzY4NjI3NDU4OCAwLjMxNzY0NzA2OTcAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
-						<object class="NSColor" key="IBUIShadowColor" id="510348900">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
+						<object class="NSColor" key="IBUIShadowColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4yMTE3NjQ3MDU5IDAuMTg0MzEzNzI1NSAwLjE3NjQ3MDU4ODIAA</bytes>
 						</object>
-						<string key="IBUIShadowOffset">{0, 0}</string>
+						<string key="IBUIShadowOffset">{0, 1}</string>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumScaleFactor">0.10000000149011612</float>
 						<int key="IBUITextAlignment">1</int>
@@ -161,7 +161,10 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1032939177"/>
-				<reference key="IBUIBackgroundColor" ref="510348900"/>
+				<object class="NSColor" key="IBUIBackgroundColor" id="510348900">
+					<int key="NSColorSpace">3</int>
+					<bytes key="NSWhite">MCAwAA</bytes>
+				</object>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics" id="48909908">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
@@ -170,7 +173,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="279590847">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextField" id="810088308">
@@ -178,8 +181,10 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{10, 70}, {280, 30}}</string>
 						<reference key="NSSuperview" ref="279590847"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="283570571"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="574780710"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -209,6 +214,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{75, 20}, {150, 30}}</string>
 						<reference key="NSSuperview" ref="279590847"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="810088308"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -233,6 +239,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 120}, {64, 40}}</string>
 						<reference key="NSSuperview" ref="279590847"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="790860120"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -257,6 +264,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{206, 120}, {64, 40}}</string>
 						<reference key="NSSuperview" ref="279590847"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -277,6 +285,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{300, 180}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1037054346"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="510348900"/>
@@ -303,21 +313,47 @@
 					<int key="connectionID">322</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">popOverButton</string>
-						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="1015095895"/>
-					</object>
-					<int key="connectionID">323</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">popOverButtonTapped:</string>
+						<string key="label">dismissButtonTapped:</string>
 						<reference key="source" ref="1015095895"/>
 						<reference key="destination" ref="191373211"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">325</int>
+					<int key="connectionID">580</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">addText</string>
+						<reference key="source" ref="279590847"/>
+						<reference key="destination" ref="810088308"/>
+					</object>
+					<int key="connectionID">586</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">addTitle</string>
+						<reference key="source" ref="279590847"/>
+						<reference key="destination" ref="1037054346"/>
+					</object>
+					<int key="connectionID">587</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">addCancelButtonTapped:</string>
+						<reference key="source" ref="283570571"/>
+						<reference key="destination" ref="279590847"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">589</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">addAcceptButtonTapped:</string>
+						<reference key="source" ref="790860120"/>
+						<reference key="destination" ref="279590847"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">588</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1036,6 +1072,7 @@
 				</array>
 				<boolean value="NO" key="3.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="347.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="348.CustomClassName">ksKissObject</string>
 				<string key="348.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="348.IBViewMetadataConstraints">
 					<reference ref="886126298"/>
@@ -1107,7 +1144,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">578</int>
+			<int key="maxID">589</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1122,26 +1159,39 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ksKissObject</string>
 					<string key="superclassName">UIView</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">popOverButtonTapped:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">popOverButtonTapped:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">popOverButtonTapped:</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addAcceptButtonTapped:">id</string>
+						<string key="addCancelButtonTapped:">id</string>
+						<string key="dismissButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addAcceptButtonTapped:">
+							<string key="name">addAcceptButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+						<object class="IBActionInfo" key="addCancelButtonTapped:">
+							<string key="name">addCancelButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="dismissButtonTapped:">
+							<string key="name">dismissButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="popOverButton">UIButton</string>
+						<string key="addText">UITextField</string>
+						<string key="addTitle">UILabel</string>
 						<string key="popOverText">UILabel</string>
 						<string key="popOverTitle">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="popOverButton">
-							<string key="name">popOverButton</string>
-							<string key="candidateClassName">UIButton</string>
+						<object class="IBToOneOutletInfo" key="addText">
+							<string key="name">addText</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="addTitle">
+							<string key="name">addTitle</string>
+							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="popOverText">
 							<string key="name">popOverText</string>

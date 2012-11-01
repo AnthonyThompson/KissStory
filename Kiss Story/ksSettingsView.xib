@@ -36,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="517434589">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="515114261">
@@ -44,7 +44,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 182}, {288, 48}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="570128185"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -79,7 +78,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 135}, {288, 48}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="55497818"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -101,7 +99,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 135}, {288, 232}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="515114261"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -116,7 +113,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 8}, {288, 30}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="177000546"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -151,7 +147,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{-0, 54}, {288, 60}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="706343097"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -188,7 +183,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{166, 237}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="87531931"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -206,7 +200,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{166, 284}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="771325994"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -224,7 +217,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{166, 330}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="862551443"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -242,7 +234,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{112, 381}, {64, 40}}</string>
 						<reference key="NSSuperview" ref="517434589"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -264,8 +255,6 @@ QwpBbGwgcmlnaHRzIHJlc2VydmVkA</string>
 					</object>
 				</array>
 				<string key="NSFrameSize">{288, 430}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="531537580"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSHuggingPriority">{1, 1}</string>

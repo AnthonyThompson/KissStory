@@ -31,7 +31,8 @@
         backingView = [[[NSBundle mainBundle] loadNibNamed:@"ksPopOverView" owner:self options:nil] objectAtIndex:1];
     }
 
-    containerView.frame = CGRectMake(10,10,containerView.frame.size.width,containerView.frame.size.height);
+    containerView.frame = CGRectMake(10.0f,10.0f,containerView.frame.size.width,containerView.frame.size.height);
+    self.frame = CGRectMake(0.0f,0.0f,containerView.frame.size.width + 20.0f,containerView.frame.size.height +20.0f);
     [self addSubview:containerView];
     
     self.frame = CGRectMake(160.0f - (self.frame.size.width/2.0f),240.0f - (self.frame.size.height/2.0f),self.frame.size.width,self.frame.size.height);
@@ -53,12 +54,13 @@
     }];
 }
 
--(void)dismissPopOverViewInSuperView:(UIView*)superView {
+-(void)dismissPopOverView {
     [UIView animateWithDuration:0.3f animations:^{
         self.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
     } completion:^(BOOL finished){
-        [[[superView subviews] lastObject] removeFromSuperview];
-        [[[superView subviews] lastObject] removeFromSuperview];
+        UIView* sv = [self superview];
+        [[[sv subviews] lastObject] removeFromSuperview];
+        [[[sv subviews] lastObject] removeFromSuperview];
     }];
 }
 

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ksCoreData.h"
-#import "ksPopOverView.h"
 
 #define VALID_DATA 0
 #define INVALID_WHO_ENTITY 1
@@ -28,10 +27,12 @@
 
 @property (nonatomic, retain) ksCoreData* coreData;
 
-@property (nonatomic, retain) ksPopOverView* popOverView;
 @property (nonatomic, retain) IBOutlet UILabel* popOverTitle;
 @property (nonatomic, retain) IBOutlet UILabel* popOverText;
-@property (nonatomic, retain) IBOutlet UIButton* popOverButton;
+
+@property (nonatomic, retain) IBOutlet UILabel* addTitle;
+@property (nonatomic, retain) IBOutlet UITextField* addText;
+
 
 
 @end

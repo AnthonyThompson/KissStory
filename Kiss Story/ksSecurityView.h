@@ -53,6 +53,7 @@
 @property (nonatomic, retain) IBOutlet UIView* loginView;
 @property (nonatomic, retain) UISwitch* passcodeSwitch;
 
-@property (nonatomic, retain) ksPopOverView* popOverView;
+//9901 TEST
+//@property (nonatomic, retain) ksPopOverView* popOverView;
 
 @end

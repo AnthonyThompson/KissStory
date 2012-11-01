@@ -350,8 +350,8 @@
         case STATE_LOCATION:
         case STATE_PHOTO: {
             // gear button/settings
-            _settingsView = [[ksSettingsView alloc]init];
-            [_settingsView displaySettingsView];
+            ksSettingsView* settingsView = [[ksSettingsView alloc]init];
+            [settingsView displaySettingsView];
         }
             break;
         case STATE_ADD: {

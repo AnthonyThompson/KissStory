@@ -47,12 +47,16 @@
 }
 
 -(void)displaySettingsView {
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
-    [_popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:self.frame];
+    [popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
 -(void)dismissSettingsView {
-    [_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    //9901 TEST
+    //[_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+
 }
 
 #pragma mark - Passcode Action Group

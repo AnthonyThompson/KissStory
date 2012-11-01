@@ -67,7 +67,7 @@
 @property (nonatomic, retain) NSMutableArray* annotationArray;
 @property (nonatomic, retain) NSArray* cellSizeArray;
 @property (nonatomic, retain) ksCoreData* ksCD;
-@property (nonatomic, retain) ksSettingsView* settingsView;
+//@property (nonatomic, retain) ksSettingsView* settingsView;
 @property (nonatomic, retain) ksSecurityView* securityView;
 @property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;
 

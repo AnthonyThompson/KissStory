@@ -14,8 +14,6 @@
 
 -(void)displaySettingsView;
 
-@property (nonatomic, retain) ksPopOverView* popOverView;
-
 @property (nonatomic, retain) NSDictionary* settingsDictionary;
 
 @property (nonatomic, retain) ksSecurityView* securityView;

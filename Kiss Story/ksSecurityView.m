@@ -67,12 +67,16 @@
             break;
     }
 
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width + 20, self.frame.size.height + 20)];
-    [_popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:self.frame];
+    [popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
 }
 
 -(void)dismissLoginView {
-    [_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    //[_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    
+    //9901 test
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+
 }
 
 #pragma mark - IBActions

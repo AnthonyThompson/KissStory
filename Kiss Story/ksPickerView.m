@@ -57,8 +57,12 @@
 }
 
 -(void)displayPickerView {
-    _popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 322.0f)];
-    [_popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
+    ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
+
+    
+    //ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 322.0f)];
+    [popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
 }
 
 #pragma mark - UIPickerViewDelegate
@@ -94,12 +98,15 @@
 
     switch (_state) {
         case KISSER: {
-            // 9901 discriminate for add new
-            
             if ([_stringPickerView selectedRowInComponent:0] == 0) {
-                NSLog(@"+ add new");
-                //9901 subroutine that passes it back I suppose...
-                //9901 what is teh flow of changing one's mind?
+                ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+
+                content.addTitle.text = @"Who did you kiss?";
+                
+                ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
+                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+
+                return;
             }
             
             //9901
@@ -129,7 +136,14 @@
             // 9901 discriminate for add new
             
             if ([_stringPickerView selectedRowInComponent:0] == 0) {
-                NSLog(@"+ add new");
+                ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+                
+                content.addTitle.text = @"Where did you kiss?";
+                
+                ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
+                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+                
+                return;
             }
 
             receiverButton = [(ksKissUtilityView*)[[self superview] superview] locationButton];
@@ -156,7 +170,7 @@
 -(void)dismissPickerView{
     [(ksViewController*)[[self window] rootViewController] enableTopButtons:YES];
     
-    [_popOverView dismissPopOverViewInSuperView:[[self superview] superview]];
+    [(ksPopOverView*)[self superview] dismissPopOverView];
     [self removeFromSuperview];
 }
 
