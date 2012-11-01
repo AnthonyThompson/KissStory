@@ -13,11 +13,9 @@
 #import <MessageUI/MessageUI.h>
 #import "ksCoreData.h"
 #import "ksColorCell.h"
-#import "ksSecurityView.h"
 #import "ksMapAnnotation.h"
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
-#import "ksSettingsView.h"
 #import "ksImagePickerViewController.h"
 
 #define STATE_KISSER 0
@@ -67,8 +65,6 @@
 @property (nonatomic, retain) NSMutableArray* annotationArray;
 @property (nonatomic, retain) NSArray* cellSizeArray;
 @property (nonatomic, retain) ksCoreData* ksCD;
-//@property (nonatomic, retain) ksSettingsView* settingsView;
-@property (nonatomic, retain) ksSecurityView* securityView;
 @property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;
 
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;

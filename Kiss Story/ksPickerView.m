@@ -8,6 +8,7 @@
 
 #import "ksPickerView.h"
 #import "ksViewController.h"
+#import "ksPopOverView.h"
 
 @implementation ksPickerView
 
@@ -60,8 +61,6 @@
     ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
 
-    
-    //ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 322.0f)];
     [popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ksPopOverView.h"
 
 #define SEC_CANCEL_KEY 10
 #define SEC_BACK_KEY 11
@@ -22,7 +21,9 @@
 
 @interface ksSecurityView : UIView
 
-- (id)initForProcess:(int)whichProcess withData:(NSDictionary*)dataDictionary;
+-(id)initForProcess:(int)whichProcess withData:(NSDictionary*)dataDictionary;
+-(void)displaySecurityView;
+
 +(BOOL)securityCheck:(NSDictionary*)dataDictionary;
 
 @property (nonatomic, retain) IBOutlet UILabel* passcodeTitleLabel;
@@ -52,8 +53,5 @@
 
 @property (nonatomic, retain) IBOutlet UIView* loginView;
 @property (nonatomic, retain) UISwitch* passcodeSwitch;
-
-//9901 TEST
-//@property (nonatomic, retain) ksPopOverView* popOverView;
 
 @end

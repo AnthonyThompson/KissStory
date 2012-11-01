@@ -8,12 +8,8 @@
 
 #import "ksViewController.h"
 #import "ksAppDelegate.h"
-
-/*
-@interface ksViewController ()
-
-@end
- */
+#import "ksSettingsView.h"
+#import "ksSecurityView.h"
 
 @implementation ksViewController
 
@@ -121,7 +117,8 @@
 -(void)viewCameAlive {
     if ([ksSecurityView securityCheck:_settingsDictionary]) {
         _wallpaperView.alpha = 0.0f;
-        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary];
+        ksSecurityView* securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_RUNTIMELOGIN withData:_settingsDictionary];
+        [securityView displaySecurityView];
     } else {
         // fade-out privacy filter
         [UIView animateWithDuration:0.5f animations:^{

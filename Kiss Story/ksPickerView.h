@@ -14,8 +14,6 @@
 -(void)displayPickerView;
 -(IBAction)cancelButtonTapped:(id)sender;
 
-//-(void)dismissPickerView;
-
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) UIView* screenView;

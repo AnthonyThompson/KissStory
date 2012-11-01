@@ -32,7 +32,7 @@
     }
 
     containerView.frame = CGRectMake(10.0f,10.0f,containerView.frame.size.width,containerView.frame.size.height);
-    self.frame = CGRectMake(0.0f,0.0f,containerView.frame.size.width + 20.0f,containerView.frame.size.height +20.0f);
+    self.frame = CGRectMake(0.0f,0.0f,containerView.frame.size.width + 20.0f,containerView.frame.size.height + 30.0f);
     [self addSubview:containerView];
     
     self.frame = CGRectMake(160.0f - (self.frame.size.width/2.0f),240.0f - (self.frame.size.height/2.0f),self.frame.size.width,self.frame.size.height);

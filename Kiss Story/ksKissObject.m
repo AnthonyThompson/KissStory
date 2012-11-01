@@ -8,6 +8,7 @@
 
 #import "ksKissObject.h"
 #import "ksViewController.h"
+#import "ksPopOverView.h"
 
 @implementation ksKissObject
 

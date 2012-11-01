@@ -7,6 +7,7 @@
 //
 
 #import "ksSettingsView.h"
+#import "ksSecurityView.h"
 #import "ksViewController.h"
 
 @implementation ksSettingsView
@@ -52,23 +53,23 @@
 }
 
 -(void)dismissSettingsView {
-    //9901 TEST
-    //[_popOverView dismissPopOverViewInSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
-    
     [(ksPopOverView*)[self superview] dismissPopOverView];
-
 }
 
 #pragma mark - Passcode Action Group
 
 -(IBAction)passcodeSwitchSwitched:(id)sender {
+    ksSecurityView* securityView;
+    
     if ([(UISwitch*)sender isOn]) {
         // was off, is now ON, so set a new passcode
-        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
+        securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_SETNEW withData:_settingsDictionary];
     } else {
         // was on, is now OFF, so disable current passcode
-        _securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
+        securityView = [[ksSecurityView alloc]initForProcess:SEC_PROCESS_DISABLE withData:_settingsDictionary];
     }
+    
+    [securityView displaySecurityView];
 }
 
 -(IBAction)dismissButtonTapped:(id)sender {
