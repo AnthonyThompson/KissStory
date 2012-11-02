@@ -15,6 +15,7 @@
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save;
+-(BOOL)dismissUtilityViewWithDelete;
 -(void)displayUtilityView;
 
 @property (nonatomic, retain) NSDictionary* dataDictionary;

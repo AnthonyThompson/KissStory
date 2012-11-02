@@ -33,7 +33,8 @@
         _kissWho = [[NSMutableDictionary alloc]init];
         _kissWhere = [[NSMutableDictionary alloc]init];
 
-        _coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
+        //_coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
+        _coreData = [ROOT ksCD];
     }
     
     return self;
@@ -72,7 +73,8 @@
             break;
     }
 
-    [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    //[popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
     
     return NO;
 }
@@ -103,8 +105,12 @@
         [newWhere setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
         [newWhere setValue:[_kissWhere objectForKey:@"name"] forKey:@"name"];
         //pulling lat/lon from current map cooords
+        /*
         [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].latitude] forKey:@"lat"];
         [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].longitude] forKey:@"lon"];
+         */
+        [newWhere setValue:[NSNumber numberWithFloat:[[[[[ROOT view] subviews] lastObject] locationMapView] centerCoordinate].latitude] forKey:@"lat"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[[[[ROOT view] subviews] lastObject] locationMapView] centerCoordinate].longitude] forKey:@"lon"];
 
         [_kissWhere setValue:newWhere forKey:@"where"];
         [_kissWhere removeObjectForKey:@"name"];
@@ -151,10 +157,28 @@
     }
      */
     
+    /*
     [_coreData saveContext];
     [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] buildDataSet];
     [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] mapUpdate];
+     */
 
+    [self dataRebuild];
+    return YES;
+}
+
+-(void)dataRebuild {
+    [_coreData saveContext];
+    [ROOT buildDataSet];
+    [ROOT mapUpdate];
+}
+
+-(BOOL)deleteKiss {
+    // check for sure?
+    // locate kiss, delete
+    //save context
+    
+    [self dataRebuild];
     return YES;
 }
 

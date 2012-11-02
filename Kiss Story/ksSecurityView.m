@@ -66,7 +66,8 @@
     }
 
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:self.frame];
-    [popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    //[popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+    [popOverView displayPopOverViewWithContent:self withBacking:privacyView inSuperView:[ROOT view]];
 }
 
 -(void)dismissLoginView {
@@ -197,16 +198,27 @@
             case SEC_PROCESS_CONFIRMNEW: {
                 //9901
                 _passcodeStatusLabel.text = @"Passcode Confirmed";
+                /*
                 [[(ksViewController*) [[self window] rootViewController] ksCD] updateSecurity:@"YES" passcode:_tempPasscode];
                 [(ksViewController*) [[self window] rootViewController] buildSettingsDictionary];
+                 */
+                [[ROOT ksCD] updateSecurity:@"YES" passcode:_tempPasscode];
+                [ROOT buildSettingsDictionary];
+
                 [self dismissLoginView];
             }
                 break;
             case SEC_PROCESS_DISABLE: {
                 [self clearPasscodeWindows];
                 _passcodeStatusLabel.text = @"Passcode Disabled";
+                /*
                 [[(ksViewController*) [[self window] rootViewController] ksCD] updateSecurity:@"NO" passcode:@""];
                 [(ksViewController*) [[self window] rootViewController] buildSettingsDictionary];
+                 */
+                
+                [[ROOT ksCD] updateSecurity:@"NO" passcode:@""];
+                [ROOT buildSettingsDictionary];
+
                 [self dismissLoginView];
             }
                 break;

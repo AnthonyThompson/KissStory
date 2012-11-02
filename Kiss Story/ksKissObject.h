@@ -17,6 +17,7 @@
 @interface ksKissObject : UIView <UITextFieldDelegate>
 
 -(BOOL)saveKiss;
+-(BOOL)deleteKiss;
 
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSMutableDictionary* kissWho;

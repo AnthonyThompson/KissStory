@@ -355,6 +355,7 @@
             [settingsView displaySettingsView];
         }
             break;
+        case STATE_EDIT:
         case STATE_ADD: {
             // cancelled
             if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:NO]) {
@@ -386,6 +387,15 @@
         case STATE_ADD: {
             // save kiss
             if ([[[self.view subviews] lastObject] dismissUtilityViewWithSave:YES]) {
+                [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
+                [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
+                [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+            break;
+        case STATE_EDIT: {
+            //9901 DELETE KISS
+            if ([[[self.view subviews] lastObject] dismissUtilityViewWithDelete]) {
                 [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -647,7 +657,15 @@
 -(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //9901
     
-    // opens the individual kiss view
+    
+    _topBarLabel.text = @"Kiss Details";
+    [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderOK.png"] forState:UIControlStateNormal];
+    [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderDelete.png"] forState:UIControlStateNormal];
+    [_dataDictionary setObject:[[[_dataDictionary objectForKey:[NSString stringWithFormat:@"tableData%i",_state]] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] forKey:@"viewKiss"];
+    
+    _state = STATE_EDIT;
+    
+    [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
     return indexPath;
 }
 

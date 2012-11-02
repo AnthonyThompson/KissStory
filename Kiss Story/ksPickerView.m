@@ -61,7 +61,8 @@
     ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
 
-    [popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
+    //[popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
+    [popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[ROOT view] subviews] lastObject]];
 }
 
 #pragma mark - UIPickerViewDelegate
@@ -137,7 +138,8 @@
                 content.addTitle.text = @"Where did you kiss?";
                 
                 ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
-                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+                //[popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
+                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
                 
                 return;
             }
@@ -155,30 +157,6 @@
                 
                 [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lat"] doubleValue], [[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lon"] doubleValue]) animated:YES];
             }
-            
-
-            /*
-            if ([_stringPickerView selectedRowInComponent:0] == 0) {
-                ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
-                
-                content.addTitle.text = @"Where did you kiss?";
-                
-                ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
-                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
-                
-                return;
-            }
-            
-            receiverButton = [(ksKissUtilityView*)[[self superview] superview] locationButton];
-            receiverTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
-            
-            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] setValue:receiverTitle forKey:@"name"];
-            [[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"where"];
-            
-            // adjust map to reflect this location
-            [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lat"] doubleValue], [[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lon"] doubleValue]) animated:YES];
-             */
-            
         }
             break;
     }
@@ -196,7 +174,8 @@
 }
 
 -(void)dismissPickerView{
-    [(ksViewController*)[[self window] rootViewController] enableTopButtons:YES];
+    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:YES];
+    [ROOT enableTopButtons:YES];
     
     [(ksPopOverView*)[self superview] dismissPopOverView];
     [self removeFromSuperview];

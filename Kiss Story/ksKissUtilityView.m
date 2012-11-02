@@ -39,10 +39,12 @@
         [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         
-        _locationMapView.delegate = (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+        //_locationMapView.delegate = (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+        _locationMapView.delegate = ROOT;
         _locationMapView.showsUserLocation = YES;
         [_locationMapView removeAnnotations:[_locationMapView annotations]];
-        [_locationMapView addAnnotations:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] annotationArray]];
+        //[_locationMapView addAnnotations:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] annotationArray]];
+        [_locationMapView addAnnotations:[ROOT annotationArray]];
         _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.002f, 0.002f));
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
@@ -59,10 +61,13 @@
         // needs must set the scrollView contentSize to the frame of it's view
         _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
 
-        //9901
         //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
-            case STATE_ADD: {
+            case STATE_NEUTRAL: {
+                //9901
+                // set-up exit/delete buttons
+                // fill values for all cells
+                // disbale interaction for all cells
             }
                 break;
         }
@@ -81,9 +86,11 @@
 -(IBAction)kisserButtonTapped:(id)sender {
     _state = KISSER;
     [sender setBackgroundColor:CCO_BASE_GREY];
-    _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
+    //_pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
+    _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
     
-    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
 
@@ -91,9 +98,11 @@
 
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
-    _pickerView = [[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]];
+    //_pickerView = [[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]];
     
-    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    _pickerView = [[ksPickerView alloc]initForState:DATE withData:[[ROOT ksCD] fetchedResultsController:DATE]];
+    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
 
@@ -164,9 +173,11 @@
     
     // if it's not completely in view, slam to top
     [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
+    //_pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
+    _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
     
-    [(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
+    [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
 
@@ -233,6 +244,21 @@
 
     return NO;
 }
+
+-(BOOL)dismissUtilityViewWithDelete {
+    if ([(ksKissObject*)_kissObject deleteKiss]) {
+        // a slide-down dismiss, not a poop-out
+        [UIView animateWithDuration:0.5f animations:^{
+            self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
+        } completion:^(BOOL finished){
+            [self removeFromSuperview];
+        }];
+        return YES;
+    }
+    
+    return NO;
+}
+
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     /*
