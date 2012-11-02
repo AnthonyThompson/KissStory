@@ -47,6 +47,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{300, 216}</string>
 								<reference key="NSSuperview" ref="997214667"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="660051010"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -63,6 +64,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{300, 216}</string>
 								<reference key="NSSuperview" ref="997214667"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="354450417"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -105,6 +107,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{14, 232}, {64, 40}}</string>
 								<reference key="NSSuperview" ref="997214667"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="68991129"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -142,6 +145,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{224, 232}, {64, 40}}</string>
 								<reference key="NSSuperview" ref="997214667"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -163,22 +167,22 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</array>
 						<string key="NSFrame">{{0, 20}, {300, 292}}</string>
 						<reference key="NSSuperview" ref="516825916"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1050339398"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="622271548">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
-						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
 				<string key="NSFrameSize">{300, 302}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="997214667"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<reference key="IBUIBackgroundColor" ref="622271548"/>
-				<bool key="IBUIAutoresizesSubviews">NO</bool>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
 					<string key="IBUIDisplayName">Freeform</string>
@@ -834,6 +838,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<object class="IBPartialClassDescription">
 					<string key="className">ksPickerView</string>
 					<string key="superclassName">UIView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="acceptButtonTapped:">id</string>
+						<string key="cancelButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="acceptButtonTapped:">
+							<string key="name">acceptButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cancelButtonTapped:">
+							<string key="name">cancelButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="acceptButton">UIButton</string>
 						<string key="cancelButton">UIButton</string>

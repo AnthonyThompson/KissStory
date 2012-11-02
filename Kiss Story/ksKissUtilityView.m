@@ -8,7 +8,6 @@
 
 #import "ksKissUtilityView.h"
 #import "ksViewController.h"
-#import "ksPickerView.h"
 #import "ksMapAnnotation.h"
 
 @implementation ksKissUtilityView
@@ -80,6 +79,7 @@
 #pragma mark - Kisser Action Group
 
 -(IBAction)kisserButtonTapped:(id)sender {
+    _state = KISSER;
     [sender setBackgroundColor:CCO_BASE_GREY];
     _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
     
@@ -157,6 +157,8 @@
 #pragma mark - Location Action Group
 
 -(IBAction)locationButtonTapped:(id)sender {
+    _state = LOCATION;
+
     [sender setBackgroundColor:CCO_BASE_GREY];
     // 9901 also for map touches somewhere else???
     
@@ -233,7 +235,6 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
     /*
      //9901 is this a solid replacement?
      

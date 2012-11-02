@@ -14,7 +14,7 @@
 #define INVALID_WHERE_ENTITY 2
 #define INVALID_WHO_AND_WHERE_ENTITY 3
 
-@interface ksKissObject : UIView
+@interface ksKissObject : UIView <UITextFieldDelegate>
 
 -(BOOL)saveKiss;
 
@@ -32,6 +32,9 @@
 
 @property (nonatomic, retain) IBOutlet UILabel* addTitle;
 @property (nonatomic, retain) IBOutlet UITextField* addText;
+
+@property (nonatomic, retain) IBOutlet UIButton* addAcceptButton;
+
 
 
 

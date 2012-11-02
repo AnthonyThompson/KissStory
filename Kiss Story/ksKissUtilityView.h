@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSDictionary* dataDictionary;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) ksKissObject* kissObject;
+// need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
 
 @property (nonatomic, retain) IBOutlet UIView* kisserHeader;

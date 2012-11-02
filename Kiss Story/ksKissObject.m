@@ -9,6 +9,7 @@
 #import "ksKissObject.h"
 #import "ksViewController.h"
 #import "ksPopOverView.h"
+#import "ksKissUtilityView.h"
 
 @implementation ksKissObject
 
@@ -77,7 +78,7 @@
 }
 
 -(BOOL)saveKiss {
-    
+
     if (![self validateValues]) {
         return NO;
     }
@@ -98,7 +99,7 @@
         NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
         NSManagedObject* newWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
         
-        [newWhere setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+        [newWhere setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
         [newWhere setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
         [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lat"] floatValue]] forKey:@"lat"];
         [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lon"] floatValue]] forKey:@"lon"];
@@ -109,7 +110,7 @@
     NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
     NSManagedObject* newKiss = [[NSManagedObject alloc]initWithEntity:kissEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
 
-    [newKiss setValue:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
+    [newKiss setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
     [newKiss setValue:[_kissWho valueForKey:@"who"] forKey:@"kissWho"];
     [newKiss setValue:[_kissWhere valueForKey:@"where"] forKey:@"kissWhere"];
     [newKiss setValue:[NSNumber numberWithFloat:[_kissDate timeIntervalSince1970]] forKey:@"when"];
@@ -147,6 +148,7 @@
     
     [_coreData saveContext];
     [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] buildDataSet];
+    [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] mapUpdate];
 
     return YES;
 }
@@ -156,17 +158,44 @@
 }
 
 -(IBAction)addAcceptButtonTapped:(id)sender {
-    //9901
-    //OK< so what happens here?
-    // 1 fill who/where field
-
-    // the newW pop-over
+    // dismiss newW pop-over
     [(ksPopOverView*)[self superview] dismissPopOverView];
-    //dismiss pickerView
-    [[UPTHECHAIN pickerView] cancelButtonTapped:sender];
+
+    // dismiss pickerView && save
+    [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }
 -(IBAction)addCancelButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self superview].frame=CGRectOffset([self superview].frame, 0.0f, -55.0f);
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    switch ([textField tag]) {
+        case KISSER: {
+            [_kissWho removeObjectForKey:@"who"];
+            [_kissWho setValue:textField.text forKey:@"name"];
+            [[UPTHECHAIN kissObject] setKissWho:_kissWho];
+        }
+            break;
+        case LOCATION: {
+            [_kissWhere removeObjectForKey:@"where"];
+            [_kissWhere setValue:textField.text forKey:@"name"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
+            [[UPTHECHAIN kissObject] setKissWhere:_kissWhere];
+        }
+            break;
+    }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    _addAcceptButton.hidden = NO;
+    [self superview].frame=CGRectOffset([self superview].frame, 0.0f, 55.0f);
+    return YES;
 }
 
 @end

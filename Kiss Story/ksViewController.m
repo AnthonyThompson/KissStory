@@ -70,6 +70,10 @@
     [_mainTableView reloadData];
     
     _mainMapView.showsUserLocation = YES;
+    [self mapUpdate];
+}
+
+-(void)mapUpdate {
     [self annotateMap];
     _mainMapView.region = [self getMapRegion];
 }

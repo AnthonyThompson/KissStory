@@ -46,7 +46,7 @@
                                                 UITableViewDataSource,
                                                 UIActionSheetDelegate,
                                                 UINavigationControllerDelegate,
-                                                UITextFieldDelegate,
+//UITextFieldDelegate,
                                                 MKMapViewDelegate,
                                                 CLLocationManagerDelegate,
                                                 MFMailComposeViewControllerDelegate> {
@@ -55,6 +55,7 @@
 -(void)buildSettingsDictionary;
 -(void)buildDataSet;
 -(void)enableTopButtons:(BOOL)enable;
+-(void)mapUpdate;
 
 #pragma mark - @properties
 
