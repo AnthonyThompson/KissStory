@@ -92,6 +92,8 @@
         [newWho setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
         
         [_kissWho setValue:newWho forKey:@"who"];
+        [_kissWho removeObjectForKey:@"name"];
+
     }
     
     if (![_kissWhere objectForKey:@"where"]) {
@@ -100,11 +102,14 @@
         NSManagedObject* newWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
         
         [newWhere setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
-        [newWhere setValue:[_kissWho objectForKey:@"name"] forKey:@"name"];
-        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lat"] floatValue]] forKey:@"lat"];
-        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWho objectForKey:@"lon"] floatValue]] forKey:@"lon"];
+        [newWhere setValue:[_kissWhere objectForKey:@"name"] forKey:@"name"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWhere objectForKey:@"lat"] floatValue]] forKey:@"lat"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWhere objectForKey:@"lon"] floatValue]] forKey:@"lon"];
         
         [_kissWhere setValue:newWhere forKey:@"where"];
+        [_kissWhere removeObjectForKey:@"name"];
+        [_kissWhere removeObjectForKey:@"lat"];
+        [_kissWhere removeObjectForKey:@"lon"];
     }
 
     NSEntityDescription* kissEntity = [NSEntityDescription entityForName:@"Kisses" inManagedObjectContext:[_coreData managedObjectContext]];
