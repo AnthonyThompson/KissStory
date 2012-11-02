@@ -93,19 +93,19 @@
         
         [_kissWho setValue:newWho forKey:@"who"];
         [_kissWho removeObjectForKey:@"name"];
-
     }
     
     if (![_kissWhere objectForKey:@"where"]) {
         // no where, so new object to insert
         NSEntityDescription* whereEntity = [NSEntityDescription entityForName:@"Where" inManagedObjectContext:[_coreData managedObjectContext]];
         NSManagedObject* newWhere = [[NSManagedObject alloc]initWithEntity:whereEntity insertIntoManagedObjectContext:[_coreData managedObjectContext]];
-        
+
         [newWhere setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
         [newWhere setValue:[_kissWhere objectForKey:@"name"] forKey:@"name"];
-        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWhere objectForKey:@"lat"] floatValue]] forKey:@"lat"];
-        [newWhere setValue:[NSNumber numberWithFloat:[[_kissWhere objectForKey:@"lon"] floatValue]] forKey:@"lon"];
-        
+        //pulling lat/lon from current map cooords
+        [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].latitude] forKey:@"lat"];
+        [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].longitude] forKey:@"lon"];
+
         [_kissWhere setValue:newWhere forKey:@"where"];
         [_kissWhere removeObjectForKey:@"name"];
         [_kissWhere removeObjectForKey:@"lat"];
@@ -188,8 +188,8 @@
         case LOCATION: {
             [_kissWhere removeObjectForKey:@"where"];
             [_kissWhere setValue:textField.text forKey:@"name"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[UPTHECHAIN locationMapView] centerCoordinate].latitude] forKey:@"lat"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[UPTHECHAIN locationMapView] centerCoordinate].longitude] forKey:@"lon"];
             [[UPTHECHAIN kissObject] setKissWhere:_kissWhere];
         }
             break;
