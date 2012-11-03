@@ -24,6 +24,8 @@
 // need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
 
+
+//9901 DO I NEED THE HEADERS HOOKEDUP???
 @property (nonatomic, retain) IBOutlet UIView* kisserHeader;
 @property (nonatomic, retain) IBOutlet UILabel* kisserLabel;
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
@@ -44,17 +46,23 @@
 @property (nonatomic, retain) IBOutlet UIView* locationHeader;
 @property (nonatomic, retain) IBOutlet UILabel* locationLabel;
 @property (nonatomic, retain) IBOutlet UIButton* locationButton;
+@property (nonatomic, retain) IBOutlet UIButton* locationMapCenterButton;
 @property (nonatomic, retain) IBOutlet MKMapView* locationMapView;
 
 @property (nonatomic, retain) IBOutlet UIView* descHeader;
 @property (nonatomic, retain) IBOutlet UILabel* descLabel;
 @property (nonatomic, retain) IBOutlet UITextView* descTextView;
 
+@property (nonatomic, retain) IBOutlet UIView* picHeader;
+@property (nonatomic, retain) IBOutlet UILabel* picLabel;
+@property (nonatomic, retain) IBOutlet UIButton* picButton;
+
 @property (nonatomic, retain) IBOutlet UIButton* whoButton;
 @property (nonatomic, retain) IBOutlet UIButton* whenButton;
 @property (nonatomic, retain) IBOutlet UIButton* howButton;
 @property (nonatomic, retain) IBOutlet UIButton* whereButton;
 @property (nonatomic, retain) IBOutlet UIButton* whatButton;
+@property (nonatomic, retain) IBOutlet UIButton* whyButton;
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, retain) IBOutlet UIView* whoSection;
@@ -62,5 +70,6 @@
 @property (nonatomic, retain) IBOutlet UIView* whatSection;
 @property (nonatomic, retain) IBOutlet UIView* whereSection;
 @property (nonatomic, retain) IBOutlet UIView* howSection;
+@property (nonatomic, retain) IBOutlet UIView* whySection;
 
 @end

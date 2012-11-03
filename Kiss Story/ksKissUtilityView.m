@@ -32,9 +32,10 @@
         //generic all-cases inits
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
         _kissObject = [[ksKissObject alloc]initWithFrame:CGRectMake(10.0f, 10.0f, 240.0f, 182.0f)];
+        
         _state = whichState;
         
-        [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
+        //[_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
         [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
@@ -47,6 +48,7 @@
         [_locationMapView addAnnotations:[ROOT annotationArray]];
         _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.002f, 0.002f));
 
+        /*
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
         
@@ -56,25 +58,91 @@
                                                                     + _whenSection.frame.size.height + 5.0f
                                                                     + _howSection.frame.size.height + 5.0f
                                                                     + _whereSection.frame.size.height + 5.0f
-                                                                    + _whatSection.frame.size.height + 5.0f)];
+                                                                    + _whatSection.frame.size.height + 5.0f
+                                                                    + _whySection.frame.size.height)];
+
         
         // needs must set the scrollView contentSize to the frame of it's view
         _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
+         
+         */
+
 
         //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
-            case STATE_NEUTRAL: {
-                //9901
-                // set-up exit/delete buttons
-                // fill values for all cells
-                // disbale interaction for all cells
+            case STATE_ADD: {
+                [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+            }
+                break;
+            case STATE_EDIT: {
+                
+                _kisserLabel.text = @"A kiss with";
+                [self prepareButton:_kisserButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
+
+                _dateLabel.text = @"A kiss on";
+
+                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+                [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+
+                [self prepareButton:_dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
+                
+                _ratingLabel.text = @"The kiss felt like";
+                _ratingSlider.value = [[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
+                [self ratingSliderValueChanged:_ratingSlider];
+                _ratingSlider.enabled = NO;
+                
+                _locationLabel.text = @"A kiss at";
+                [self prepareButton:_locationButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
+
+                [_locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
+                _locationMapView.scrollEnabled = NO;
+                _locationMapView.zoomEnabled = NO;
+                _locationMapCenterButton.hidden = YES;
+                
+                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
+                    _descLabel.text = @"With kiss details";
+                    [_descTextView setText:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
+                } else {
+                    _whatSection.hidden = YES;
+                    _whatSection.frame = CGRectMake(0, 0, 0, -10);
+                }
+
+                if ([[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]) {
+                    _picLabel.text = @"With picture";
+                    [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
+                } else {
+                    _whySection.hidden = YES;
+                    _whySection.frame = CGRectMake(0, 0, 0, -10);
+                }
             }
                 break;
         }
     }
+
+    // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
+    [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
+                                                                + _whoSection.frame.size.height + 5.0f
+                                                                + _whenSection.frame.size.height + 5.0f
+                                                                + _howSection.frame.size.height + 5.0f
+                                                                + _whereSection.frame.size.height + 5.0f
+                                                                + _whatSection.frame.size.height + 5.0f
+                                                                + _whySection.frame.size.height)];
     
+    // needs must set the scrollView contentSize to the frame of it's view
+    _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
+
     [self displayUtilityView];
     return self;
+}
+
+-(void)prepareButton:(UIButton*)button withTitle:(NSString*)title {
+    button.enabled = NO;
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+    [button setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
 }
 
 -(void)awakeFromNib {
@@ -207,6 +275,10 @@
 
 -(IBAction)whatButtonTapped:(id)sender {
     [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 5.0f) animated:YES];
+}
+
+-(IBAction)whyButtonTapped:(id)sender {
+    [_scrollView setContentOffset:CGPointMake(0.0f, _whySection.frame.origin.y - 5.0f) animated:YES];
 }
 
 #pragma mark - UITextView Delegate
