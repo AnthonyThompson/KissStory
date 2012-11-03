@@ -40,10 +40,6 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
     [[_kissStoryViewController ksCD] saveContext];
-    
-    //9901 ???
-    //[[[[[kqRVC mainNavCon] viewControllers] lastObject] view] addSubview:[kqRVC privacyView]];
-    // set the future security bit
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

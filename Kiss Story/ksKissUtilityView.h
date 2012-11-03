@@ -23,17 +23,16 @@
 // need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
 
-
 //9901 DO I NEED THE HEADERS HOOKEDUP???
-@property (nonatomic, retain) IBOutlet UIView* kisserHeader;
+//@property (nonatomic, retain) IBOutlet UIView* kisserHeader;
 @property (nonatomic, retain) IBOutlet UILabel* kisserLabel;
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 
-@property (nonatomic, retain) IBOutlet UIView* dateHeader;
+//@property (nonatomic, retain) IBOutlet UIView* dateHeader;
 @property (nonatomic, retain) IBOutlet UILabel* dateLabel;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
 
-@property (nonatomic, retain) IBOutlet UIView* ratingHeader;
+//@property (nonatomic, retain) IBOutlet UIView* ratingHeader;
 @property (nonatomic, retain) IBOutlet UILabel* ratingLabel;
 @property (nonatomic, retain) IBOutlet UISlider* ratingSlider;
 @property (nonatomic, retain) IBOutlet UIImageView* ratingHeart1;
@@ -42,17 +41,17 @@
 @property (nonatomic, retain) IBOutlet UIImageView* ratingHeart4;
 @property (nonatomic, retain) IBOutlet UIImageView* ratingHeart5;
 
-@property (nonatomic, retain) IBOutlet UIView* locationHeader;
+//@property (nonatomic, retain) IBOutlet UIView* locationHeader;
 @property (nonatomic, retain) IBOutlet UILabel* locationLabel;
 @property (nonatomic, retain) IBOutlet UIButton* locationButton;
 @property (nonatomic, retain) IBOutlet UIButton* locationMapCenterButton;
 @property (nonatomic, retain) IBOutlet MKMapView* locationMapView;
 
-@property (nonatomic, retain) IBOutlet UIView* descHeader;
+//@property (nonatomic, retain) IBOutlet UIView* descHeader;
 @property (nonatomic, retain) IBOutlet UILabel* descLabel;
 @property (nonatomic, retain) IBOutlet UITextView* descTextView;
 
-@property (nonatomic, retain) IBOutlet UIView* picHeader;
+//@property (nonatomic, retain) IBOutlet UIView* picHeader;
 @property (nonatomic, retain) IBOutlet UILabel* picLabel;
 @property (nonatomic, retain) IBOutlet UIButton* picButton;
 

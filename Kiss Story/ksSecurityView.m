@@ -196,12 +196,7 @@
             }
                 break;
             case SEC_PROCESS_CONFIRMNEW: {
-                //9901
                 _passcodeStatusLabel.text = @"Passcode Confirmed";
-                /*
-                [[(ksViewController*) [[self window] rootViewController] ksCD] updateSecurity:@"YES" passcode:_tempPasscode];
-                [(ksViewController*) [[self window] rootViewController] buildSettingsDictionary];
-                 */
                 [[ROOT ksCD] updateSecurity:@"YES" passcode:_tempPasscode];
                 [ROOT buildSettingsDictionary];
 
@@ -211,12 +206,7 @@
             case SEC_PROCESS_DISABLE: {
                 [self clearPasscodeWindows];
                 _passcodeStatusLabel.text = @"Passcode Disabled";
-                /*
-                [[(ksViewController*) [[self window] rootViewController] ksCD] updateSecurity:@"NO" passcode:@""];
-                [(ksViewController*) [[self window] rootViewController] buildSettingsDictionary];
-                 */
-                
-                [[ROOT ksCD] updateSecurity:@"NO" passcode:@""];
+[[ROOT ksCD] updateSecurity:@"NO" passcode:@""];
                 [ROOT buildSettingsDictionary];
 
                 [self dismissLoginView];

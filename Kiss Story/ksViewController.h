@@ -60,6 +60,7 @@
 -(void)buildDataSet;
 -(void)enableTopButtons:(BOOL)enable;
 -(void)mapUpdate;
+-(void)resetMainView;
 
 #pragma mark - @properties
 

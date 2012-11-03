@@ -31,33 +31,6 @@
     return self;
 }
 
--(id)initWarning {
-    if (self = [self init]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
-        [self initData];
-    }
-    
-    return self;
-}
-
--(id)initAddWhoWhere {
-    if (self = [self init]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
-        [self initData];
-    }
-    
-    return self;
-}
-
--(id)initConfirm {
-    if (self = [super init]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:2];
-        [self initData];
-    }
-    
-    return self;
-}
-
 -(id)initWithConfiguration:(int)configuration {
     if (self = [super init]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:configuration];
@@ -203,13 +176,12 @@
     [[_coreData managedObjectContext] deleteObject:[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"]];
     [self dataRebuild];
     [UPTHECHAIN dismissUtilityViewWithSave:NO];
+    [ROOT resetMainView];
 }
 
 -(void)dataRebuild {
     [_coreData saveContext];
-    [ROOT setState:KISSER];
     [ROOT buildDataSet];
-    [[ROOT mainTableView] reloadData];
     [ROOT mapUpdate];
 }
 

@@ -60,8 +60,7 @@
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     _mainTableView.clipsToBounds = YES;
-    [_mainTableView reloadData];
-    
+
     _mainMapView.showsUserLocation = YES;
     [self mapUpdate];
 }
@@ -122,6 +121,40 @@
             _wallpaperView.alpha = 0.0f;
         }];
     }
+}
+
+-(void)resetMainView {
+    [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
+    [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
+    
+    //9901 this does not sufficiently track prior-to-edit/delete state
+    int tempState = _state;
+    tempState = STATE_KISSER;
+    _state = STATE_NEUTRAL;
+    switch (tempState) {
+        case STATE_KISSER: {
+            [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case STATE_DATE: {
+            [_dateButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case STATE_RATING: {
+            [_ratingButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case STATE_LOCATION: {
+            [_locationButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case STATE_PHOTO: {
+            [_photoButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+    }
+    
+    [_mainTableView reloadData];
 }
 
 #pragma mark - Data Build Group
@@ -270,6 +303,7 @@
         
         //9901
         // this is a 0,0 location discriminator, won't be needed after data is purged?
+        // or still needed for added locations??
         if (!((annotation.coordinate.latitude == 0.0f) && (annotation.coordinate.longitude == 0.0f))) {
             
             // our temp arrays
@@ -388,21 +422,10 @@
         }
             break;
         case STATE_EDIT: {
-            //9901 DELETE KISS
-            //ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:2];
-            //content = [[ksKissObject alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 225.0f, 135.0f)];
-            
+            // delete kiss
             ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:CONFIRM];
             ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
             [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:self.view];
-            
-            /*
-            if ([[[self.view subviews] lastObject] dismissUtilityViewWithDelete]) {
-                [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
-                [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
-                [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-            }
-             */
         }
             break;
     }
@@ -412,6 +435,7 @@
     _topLeftButton.enabled = enable;
     _topRightButton.enabled = enable;
 }
+
 
 #pragma mark - Kisser Action Group
 
