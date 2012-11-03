@@ -58,7 +58,10 @@
 }
 
 -(void)displayPickerView {
-    ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+    //9901 WHY DOES POPOVERVIEW SELF AND NOT CONTENT???
+    
+    //ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+    ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:MISSINGWHOWHERE];
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
 
     //[popOverView displayPopOverViewWithContent:self withBacking:_screenView inSuperView:[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject]];
@@ -97,7 +100,8 @@
     switch (_state) {
         case KISSER: {
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
-                ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+                //ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+                ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWho = [[NSMutableDictionary alloc]init];
                 content.addTitle.text = @"Who did you kiss?";
                 content.addText.tag = KISSER;
@@ -132,7 +136,8 @@
             break;
         case LOCATION: {
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
-                ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+                //ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+                ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWhere = [[NSMutableDictionary alloc]init];
                 content.addText.tag = LOCATION;
                 content.addTitle.text = @"Where did you kiss?";

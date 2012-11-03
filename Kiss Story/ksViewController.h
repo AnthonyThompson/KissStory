@@ -36,11 +36,14 @@
 #define LOCATION 3
 #define PHOTO 4
 
+#define MISSINGWHOWHERE 0
+#define ADDWHOWHERE 1
+#define CONFIRM 2
+
 #define TWITTERBOOK_FACEBOOK 0
 #define TWITTERBOOK_TWITTER 1
 
 #define ROOT (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController]
-//#define UPTHECHAIN [[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] objectAtIndex:[[[[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] count] -3]
 #define UPTHECHAIN [[[ROOT view] subviews] objectAtIndex:[[[ROOT view] subviews] count] -3]
 
 @interface ksViewController : UIViewController <NSFetchedResultsControllerDelegate,
@@ -48,7 +51,6 @@
                                                 UITableViewDataSource,
                                                 UIActionSheetDelegate,
                                                 UINavigationControllerDelegate,
-//UITextFieldDelegate,
                                                 MKMapViewDelegate,
                                                 CLLocationManagerDelegate,
                                                 MFMailComposeViewControllerDelegate> {

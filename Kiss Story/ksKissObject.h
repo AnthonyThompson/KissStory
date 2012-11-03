@@ -17,7 +17,9 @@
 @interface ksKissObject : UIView <UITextFieldDelegate>
 
 -(BOOL)saveKiss;
--(BOOL)deleteKiss;
+-(void)deleteKiss;
+
+-(id)initWithConfiguration:(int)configuration;
 
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) NSMutableDictionary* kissWho;
@@ -35,6 +37,10 @@
 @property (nonatomic, retain) IBOutlet UITextField* addText;
 
 @property (nonatomic, retain) IBOutlet UIButton* addAcceptButton;
+
+@property (nonatomic, retain) IBOutlet UILabel* confirmTitle;
+@property (nonatomic, retain) IBOutlet UIButton* confirmAcceptButton;
+
 
 
 

@@ -31,11 +31,10 @@
         
         //generic all-cases inits
         _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
-        _kissObject = [[ksKissObject alloc]initWithFrame:CGRectMake(10.0f, 10.0f, 240.0f, 182.0f)];
+        _kissObject = [[ksKissObject alloc]init];
         
         _state = whichState;
         
-        //[_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
         [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
@@ -47,26 +46,6 @@
         //[_locationMapView addAnnotations:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] annotationArray]];
         [_locationMapView addAnnotations:[ROOT annotationArray]];
         _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.002f, 0.002f));
-
-        /*
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
-        
-        // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
-        [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
-                                                                    + _whoSection.frame.size.height + 5.0f
-                                                                    + _whenSection.frame.size.height + 5.0f
-                                                                    + _howSection.frame.size.height + 5.0f
-                                                                    + _whereSection.frame.size.height + 5.0f
-                                                                    + _whatSection.frame.size.height + 5.0f
-                                                                    + _whySection.frame.size.height)];
-
-        
-        // needs must set the scrollView contentSize to the frame of it's view
-        _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
-         
-         */
-
 
         //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
@@ -137,6 +116,12 @@
     return self;
 }
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+}
+
+#pragma mark - GUI Control
+
 -(void)prepareButton:(UIButton*)button withTitle:(NSString*)title {
     button.enabled = NO;
     [button setTitle:title forState:UIControlStateNormal];
@@ -145,8 +130,29 @@
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
 }
 
--(void)awakeFromNib {
-    [super awakeFromNib];
+#pragma mark - Display/Dismiss Group
+
+-(void)displayUtilityView {
+    // a slide-up reveal, not a poop-over
+    [UIView animateWithDuration:0.5f animations:^{
+        self.frame = CGRectMake(0.0f, 42.0f, 320.0f, 436.0f);
+    }];
+}
+
+-(BOOL)dismissUtilityViewWithSave:(BOOL)save {
+    // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
+    // otherwise you're left at utility view
+    if (!save || (save && [_kissObject saveKiss])) {
+        // a slide-down dismiss, not a poop-out
+        [UIView animateWithDuration:0.5f animations:^{
+            self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
+        } completion:^(BOOL finished){
+            [self removeFromSuperview];
+        }];
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma mark - Kisser Action Group
@@ -292,43 +298,6 @@
     [_descTextView resignFirstResponder];
     // slap whatSection to bottom of view
     [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
-}
-
--(void)displayUtilityView {
-    // a slide-up reveal, not a poop-over
-    [UIView animateWithDuration:0.5f animations:^{
-        self.frame = CGRectMake(0.0f, 42.0f, 320.0f, 436.0f);
-    }];
-}
-
--(BOOL)dismissUtilityViewWithSave:(BOOL)save {
-    // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
-    // otherwise you're left at utility view
-    if (!save || (save && [(ksKissObject*)_kissObject saveKiss])) {
-        // a slide-down dismiss, not a poop-out
-        [UIView animateWithDuration:0.5f animations:^{
-            self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
-        } completion:^(BOOL finished){
-            [self removeFromSuperview];
-        }];
-        return YES;
-    }
-
-    return NO;
-}
-
--(BOOL)dismissUtilityViewWithDelete {
-    if ([(ksKissObject*)_kissObject deleteKiss]) {
-        // a slide-down dismiss, not a poop-out
-        [UIView animateWithDuration:0.5f animations:^{
-            self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
-        } completion:^(BOOL finished){
-            [self removeFromSuperview];
-        }];
-        return YES;
-    }
-    
-    return NO;
 }
 
 

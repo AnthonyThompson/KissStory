@@ -32,9 +32,7 @@
 
     [self initLocationManager];
     [self buildDataSet];
-    
-    //9901
-    // default launch state, may be useful later?
+
     _state = STATE_NEUTRAL;
 }
 
@@ -49,11 +47,6 @@
     [self buildSettingsDictionary];
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
     [self buildAnnotationArray];
-    // this is premature here...
-    //[self annotateMap];
-
-    // 9901
-    // re-region maps?
 }
 
 #pragma mark - GUI control
@@ -363,6 +356,7 @@
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
+            _state = STATE_KISSER;
         }
             break;
     }
@@ -395,11 +389,20 @@
             break;
         case STATE_EDIT: {
             //9901 DELETE KISS
+            //ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:2];
+            //content = [[ksKissObject alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 225.0f, 135.0f)];
+            
+            ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:CONFIRM];
+            ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
+            [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:self.view];
+            
+            /*
             if ([[[self.view subviews] lastObject] dismissUtilityViewWithDelete]) {
                 [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
+             */
         }
             break;
     }
@@ -655,17 +658,15 @@
 }
 
 -(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //9901
-    
-    
     _topBarLabel.text = @"Kiss Details";
     [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderOK.png"] forState:UIControlStateNormal];
     [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderDelete.png"] forState:UIControlStateNormal];
-    [_dataDictionary setObject:[[[_dataDictionary objectForKey:[NSString stringWithFormat:@"tableData%i",_state]] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] forKey:@"viewKiss"];
     
+    NSDictionary* singleCellDictionary = [[NSDictionary alloc]initWithObjects:@[[[[[_dataDictionary objectForKey:[NSString stringWithFormat:@"tableData%i",_state]] objectAtIndex:1] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]] forKeys:@[@"editKiss"]];
+
     _state = STATE_EDIT;
     
-    [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
+    [self.view addSubview:[[ksKissUtilityView alloc]initForState:STATE_EDIT withData:singleCellDictionary]];
     return indexPath;
 }
 
@@ -680,8 +681,6 @@
 }
 
 -(MKCoordinateRegion)getMapRegion {
-    //9901
-    // IS THIS NECCESSARY?  DOES THE DEFAULT NOT TIGHTEN TO ALL ANNOTATIONS?
     // tightens the view region
     
     // The min is set to the max, and the max is set to the min, so that the locations can re-set them, and we'll know...
@@ -726,7 +725,6 @@
 }
 
 -(void)annotateMap {
-
     // kill all existing annotations
     [_mainMapView removeAnnotations:[_mainMapView annotations]];
 

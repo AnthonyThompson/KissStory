@@ -21,20 +21,47 @@
 @synthesize kissDescription = _kissDescription;
 @synthesize addTitle = _addTitle;
 
--(id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
-        self.frame = frame;
-        
-        _kissDate = [NSDate date];
-        _kissRating = 0;
-        _kissDescription = [[NSString alloc]init];
-        
-        _kissWho = [[NSMutableDictionary alloc]init];
-        _kissWhere = [[NSMutableDictionary alloc]init];
+#pragma mark - Inits
 
-        //_coreData = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] ksCD];
-        _coreData = [ROOT ksCD];
+-(id)init {
+    if (self = [super init]) {
+        [self initData];
+    }
+    
+    return self;
+}
+
+-(id)initWarning {
+    if (self = [self init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+        [self initData];
+    }
+    
+    return self;
+}
+
+-(id)initAddWhoWhere {
+    if (self = [self init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:1];
+        [self initData];
+    }
+    
+    return self;
+}
+
+-(id)initConfirm {
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:2];
+        [self initData];
+    }
+    
+    return self;
+}
+
+-(id)initWithConfiguration:(int)configuration {
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:configuration];
+        [self initData];
     }
     
     return self;
@@ -43,6 +70,21 @@
 -(void)awakeFromNib {
     [super awakeFromNib];
 }
+
+#pragma mark - Data Init
+
+-(void)initData {
+    _kissDate = [NSDate date];
+    _kissRating = 0;
+    _kissDescription = [[NSString alloc]init];
+    
+    _kissWho = [[NSMutableDictionary alloc]init];
+    _kissWhere = [[NSMutableDictionary alloc]init];
+    
+    _coreData = [ROOT ksCD];
+}
+
+#pragma mark - Data Actions
 
 -(BOOL)validateValues {
     int validity = VALID_DATA;
@@ -53,7 +95,7 @@
     
     if (validity == VALID_DATA) return YES;
     
-    ksKissObject* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:0];
+    ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:MISSINGWHOWHERE];
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
     
     content.popOverTitle.text = @"Missing Kiss Details!";
@@ -73,7 +115,6 @@
             break;
     }
 
-    //[popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
     [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
     
     return NO;
@@ -104,11 +145,8 @@
 
         [newWhere setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]] forKey:@"id"];
         [newWhere setValue:[_kissWhere objectForKey:@"name"] forKey:@"name"];
+
         //pulling lat/lon from current map cooords
-        /*
-        [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].latitude] forKey:@"lat"];
-        [newWhere setValue:[NSNumber numberWithFloat:[[[[[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view] subviews] lastObject] locationMapView] centerCoordinate].longitude] forKey:@"lon"];
-         */
         [newWhere setValue:[NSNumber numberWithFloat:[[[[[ROOT view] subviews] lastObject] locationMapView] centerCoordinate].latitude] forKey:@"lat"];
         [newWhere setValue:[NSNumber numberWithFloat:[[[[[ROOT view] subviews] lastObject] locationMapView] centerCoordinate].longitude] forKey:@"lon"];
 
@@ -156,31 +194,26 @@
         }
     }
      */
-    
-    /*
-    [_coreData saveContext];
-    [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] buildDataSet];
-    [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] mapUpdate];
-     */
 
     [self dataRebuild];
     return YES;
+}
+
+-(void)deleteKiss {
+    [[_coreData managedObjectContext] deleteObject:[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"]];
+    [self dataRebuild];
+    [UPTHECHAIN dismissUtilityViewWithSave:NO];
 }
 
 -(void)dataRebuild {
     [_coreData saveContext];
+    [ROOT setState:KISSER];
     [ROOT buildDataSet];
+    [[ROOT mainTableView] reloadData];
     [ROOT mapUpdate];
 }
 
--(BOOL)deleteKiss {
-    // check for sure?
-    // locate kiss, delete
-    //save context
-    
-    [self dataRebuild];
-    return YES;
-}
+#pragma mark - IBAction Group
 
 -(IBAction)dismissButtonTapped:(id)sender {
     [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
@@ -193,9 +226,21 @@
     // dismiss pickerView && save
     [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }
+
 -(IBAction)addCancelButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
+
+-(IBAction)cancelConfirmButtonTapped:(id)sender {
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+}
+
+-(IBAction)confirmConfirmButtonTapped:(id)sender {
+    [self deleteKiss];
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+}
+
+#pragma mark - UITextFieldDelegate group
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, -55.0f);
