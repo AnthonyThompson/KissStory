@@ -22,6 +22,8 @@
 @synthesize addTitle = _addTitle;
 @synthesize validWhere = _validWhere;
 @synthesize validWho = _validWho;
+@synthesize validDate = _validDate;
+@synthesize validDesc = _validDesc;
 
 #pragma mark - Inits
 
@@ -73,6 +75,14 @@
         [[[[[ROOT view] subviews] objectAtIndex:10] locationStatus] setImage:[UIImage imageNamed:@"StatusLocationYes.png"]];
     }
     
+    if (_validDate) {
+        [[[[[ROOT view] subviews] objectAtIndex:10] dateStatus] setImage:[UIImage imageNamed:@"StatusDateYes.png"]];
+    }
+
+    if (_validDesc) {
+        [[[[[ROOT view] subviews] objectAtIndex:10] descStatus] setImage:[UIImage imageNamed:@"StatusDescriptionYes.png"]];
+    }
+
     if (_validWho && _validWhere) {
         [[ROOT topRightButton] setHidden:NO];
     }
@@ -182,6 +192,7 @@
     [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
 }
 
+/*
 -(IBAction)addAcceptButtonTapped:(id)sender {
     // dismiss newW pop-over
     [(ksPopOverView*)[self superview] dismissPopOverView];
@@ -189,6 +200,7 @@
     // dismiss pickerView && save
     [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }
+ */
 
 -(IBAction)addCancelButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
@@ -220,12 +232,15 @@
         case LOCATION: {
             [_kissWhere removeObjectForKey:@"where"];
             [_kissWhere setValue:textField.text forKey:@"name"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[UPTHECHAIN locationMapView] centerCoordinate].latitude] forKey:@"lat"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[UPTHECHAIN locationMapView] centerCoordinate].longitude] forKey:@"lon"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
             [[UPTHECHAIN kissObject] setKissWhere:_kissWhere];
         }
             break;
     }
+    
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+    [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {

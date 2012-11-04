@@ -30,6 +30,8 @@
 @property (nonatomic, retain) NSString* kissDescription;
 @property (nonatomic) BOOL validWho;
 @property (nonatomic) BOOL validWhere;
+@property (nonatomic) BOOL validDate;
+@property (nonatomic) BOOL validDesc;
 
 @property (nonatomic, retain) ksCoreData* coreData;
 

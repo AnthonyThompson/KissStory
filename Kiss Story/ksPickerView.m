@@ -120,6 +120,7 @@
         }
             break;
         case DATE: {
+            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidDate:YES];
             [[(ksKissUtilityView*)[[self superview] superview] kissObject] setKissDate:[_datePickerView date]];
             
             NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];

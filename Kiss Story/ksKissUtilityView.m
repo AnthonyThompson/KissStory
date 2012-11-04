@@ -189,9 +189,6 @@
 #pragma mark - Kisser Action Group
 
 -(IBAction)kisserButtonTapped:(id)sender {
-    //9901 toggle OKTOSAVE here
-    //9901 toggle STATUS IMAGE
-    
     _state = KISSER;
     [sender setBackgroundColor:CCO_BASE_GREY];
     _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
@@ -269,9 +266,6 @@
 #pragma mark - Location Action Group
 
 -(IBAction)locationButtonTapped:(id)sender {
-    //9901 toggle OKTOSAVE here
-
-    
     _state = LOCATION;
 
     [sender setBackgroundColor:CCO_BASE_GREY];
@@ -317,6 +311,8 @@
         // Be sure to test for equality using the "isEqualToString" message
         [textView resignFirstResponder];
         [_kissObject setKissDescription:textView.text];
+        [_kissObject setValidDesc:YES];
+        [_kissObject validityCheck];
 
         // Return FALSE so that the final '\n' character doesn't get added
         return FALSE;
