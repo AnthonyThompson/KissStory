@@ -85,18 +85,16 @@
     [(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
 
     [self dismissPickerView];
-    
-    //9901 toggle OKTOSAVE
 }
 
 -(void)saveWhoWhere:(ksKissObject*)kissObject isNew:(BOOL)isNew {
     UIButton* receiverButton;
     NSString* receiverTitle;
-    
-    //9901 toggle OKTOSAVE????????????????????????????
-    
+
     switch (_state) {
         case KISSER: {
+            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWho:YES];
+
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWho = [[NSMutableDictionary alloc]init];
@@ -132,6 +130,8 @@
         }
             break;
         case LOCATION: {
+            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWhere:YES];
+
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWhere = [[NSMutableDictionary alloc]init];
@@ -160,7 +160,7 @@
         }
             break;
     }
-    
+
     [receiverButton setTitle:receiverTitle forState:UIControlStateNormal];
     [receiverButton setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
     [receiverButton setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
@@ -177,6 +177,7 @@
     [ROOT enableTopButtons:YES];
     
     [(ksPopOverView*)[self superview] dismissPopOverView];
+    [[(ksKissUtilityView*)[[self superview] superview] kissObject] validityCheck];
     [self removeFromSuperview];
 }
 

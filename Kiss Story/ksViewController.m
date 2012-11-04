@@ -408,6 +408,7 @@
             _topBarLabel.text = @"Add A Kiss";
             [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
+            _topRightButton.hidden = YES;
             
             [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
         }

@@ -16,17 +16,20 @@
 
 @interface ksKissObject : UIView <UITextFieldDelegate>
 
+-(id)initWithConfiguration:(int)configuration;
+
+-(void)validityCheck;
 -(BOOL)saveKiss;
 -(void)deleteKiss;
 
--(id)initWithConfiguration:(int)configuration;
-
-@property (nonatomic, readwrite) int state;
+@property (nonatomic) int state;
 @property (nonatomic, retain) NSMutableDictionary* kissWho;
 @property (nonatomic, retain) NSMutableDictionary* kissWhere;
 @property (nonatomic, readwrite) NSDate* kissDate;
 @property (nonatomic, readwrite) int kissRating;
 @property (nonatomic, retain) NSString* kissDescription;
+@property (nonatomic) BOOL validWho;
+@property (nonatomic) BOOL validWhere;
 
 @property (nonatomic, retain) ksCoreData* coreData;
 

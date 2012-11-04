@@ -55,22 +55,23 @@
                 break;
             case STATE_EDIT: {
                 
-                //_kisserLabel.text = @"A kiss with";
+                _kisserStatus.image = [UIImage imageNamed:@"StatusKisserYes.png"];
+                _dateStatus.image = [UIImage imageNamed:@"StatusDateYes.png"];
+                _ratingStatus.image = [UIImage imageNamed:@"StatusRatingYes.png"];
+                _locationStatus.image = [UIImage imageNamed:@"StatusLocationYes.png"];
+                _descStatus.image = [UIImage imageNamed:@"StatusDescriptionYes.png"];
+                
                 [self prepareButton:_kisserButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
-
-                //_dateLabel.text = @"A kiss on";
 
                 NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 
                 [self prepareButton:_dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
                 
-                //_ratingLabel.text = @"The kiss felt like";
                 _ratingSlider.value = [[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
                 [self ratingSliderValueChanged:_ratingSlider];
                 _ratingSlider.enabled = NO;
                 
-                //_locationLabel.text = @"A kiss at";
                 [self prepareButton:_locationButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
 
                 [_locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
@@ -78,8 +79,8 @@
                 _locationMapView.zoomEnabled = NO;
                 _locationMapCenterButton.hidden = YES;
                 
+                //9901 convert text display to LABEL for stuff
                 if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
-                    //_descLabel.text = @"With kiss details";
                     [_descTextView setText:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
                 } else {
                     _whatSection.hidden = YES;
@@ -87,7 +88,6 @@
                 }
 
                 if ([[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]) {
-                    //_picLabel.text = @"With picture";
                     [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
                 } else {
                     _whySection.hidden = YES;

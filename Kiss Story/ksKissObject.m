@@ -20,6 +20,8 @@
 @synthesize kissWhere = _kissWhere;
 @synthesize kissDescription = _kissDescription;
 @synthesize addTitle = _addTitle;
+@synthesize validWhere = _validWhere;
+@synthesize validWho = _validWho;
 
 #pragma mark - Inits
 
@@ -54,50 +56,29 @@
     _kissWho = [[NSMutableDictionary alloc]init];
     _kissWhere = [[NSMutableDictionary alloc]init];
     
+    _validWho = NO;
+    _validWhere = NO;
+    
     _coreData = [ROOT ksCD];
 }
 
 #pragma mark - Data Actions
 
--(BOOL)validateValues {
-    int validity = VALID_DATA;
-    
-    // if no name, then the dictionary is empty
-    if (![_kissWho valueForKey:@"name"]) validity++;
-    if (![_kissWhere valueForKey:@"name"]) validity+=2;
-    
-    if (validity == VALID_DATA) return YES;
-    
-    ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:MISSINGWHOWHERE];
-    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
-    
-    content.popOverTitle.text = @"Missing Kiss Details!";
-
-    switch (validity) {
-        case INVALID_WHO_ENTITY: {
-            content.popOverText.text = @"Who did you kiss?";
-        }
-            break;
-        case INVALID_WHERE_ENTITY: {
-            content.popOverText.text = @"Where did you kiss?";
-        }
-            break;
-        case INVALID_WHO_AND_WHERE_ENTITY: {
-            content.popOverText.text = @"Who did you kiss, and where did you kiss them?";
-        }
-            break;
+-(void)validityCheck {
+    if (_validWho) {
+        [[[[[ROOT view] subviews] objectAtIndex:10] kisserStatus] setImage:[UIImage imageNamed:@"StatusKisserYes.png"]];
     }
-
-    [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
     
-    return NO;
+    if (_validWhere) {
+        [[[[[ROOT view] subviews] objectAtIndex:10] locationStatus] setImage:[UIImage imageNamed:@"StatusLocationYes.png"]];
+    }
+    
+    if (_validWho && _validWhere) {
+        [[ROOT topRightButton] setHidden:NO];
+    }
 }
 
 -(BOOL)saveKiss {
-    if (![self validateValues]) {
-        return NO;
-    }
-
     if (![_kissWho objectForKey:@"who"]) {
         // no who, so new object to insert
         NSEntityDescription* whoEntity = [NSEntityDescription entityForName:@"Who" inManagedObjectContext:[_coreData managedObjectContext]];
