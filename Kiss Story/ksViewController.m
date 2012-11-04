@@ -424,6 +424,7 @@
         case STATE_EDIT: {
             // delete kiss
             ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:CONFIRM];
+            content.confirmTitle.text = @"Really delete this kiss?";
             ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
             [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:self.view];
         }

@@ -6,8 +6,8 @@
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="when" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="kissWhere" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Where" inverseName="kissRecord" inverseEntity="Where" syncable="YES"/>
-        <relationship name="kissWho" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Who" inverseName="kissRecord" inverseEntity="Who" syncable="YES"/>
+        <relationship name="kissWhere" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Where" inverseName="kissRecord" inverseEntity="Where" syncable="YES"/>
+        <relationship name="kissWho" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Who" inverseName="kissRecord" inverseEntity="Who" syncable="YES"/>
     </entity>
     <entity name="Settings" syncable="YES">
         <attribute name="keyName" optional="YES" attributeType="String" syncable="YES"/>

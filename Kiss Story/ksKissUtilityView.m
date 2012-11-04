@@ -39,13 +39,11 @@
         [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         
-        //_locationMapView.delegate = (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController];
         _locationMapView.delegate = ROOT;
         _locationMapView.showsUserLocation = YES;
         [_locationMapView removeAnnotations:[_locationMapView annotations]];
-        //[_locationMapView addAnnotations:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] annotationArray]];
         [_locationMapView addAnnotations:[ROOT annotationArray]];
-        _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.002f, 0.002f));
+        _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.0025f, 0.0025f));
 
         //state-specific inits & adjustments; custom data loading, &c.
         switch (_state) {
@@ -57,22 +55,22 @@
                 break;
             case STATE_EDIT: {
                 
-                _kisserLabel.text = @"A kiss with";
+                //_kisserLabel.text = @"A kiss with";
                 [self prepareButton:_kisserButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
 
-                _dateLabel.text = @"A kiss on";
+                //_dateLabel.text = @"A kiss on";
 
                 NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 
                 [self prepareButton:_dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
                 
-                _ratingLabel.text = @"The kiss felt like";
+                //_ratingLabel.text = @"The kiss felt like";
                 _ratingSlider.value = [[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
                 [self ratingSliderValueChanged:_ratingSlider];
                 _ratingSlider.enabled = NO;
                 
-                _locationLabel.text = @"A kiss at";
+                //_locationLabel.text = @"A kiss at";
                 [self prepareButton:_locationButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
 
                 [_locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
@@ -81,7 +79,7 @@
                 _locationMapCenterButton.hidden = YES;
                 
                 if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
-                    _descLabel.text = @"With kiss details";
+                    //_descLabel.text = @"With kiss details";
                     [_descTextView setText:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
                 } else {
                     _whatSection.hidden = YES;
@@ -89,7 +87,7 @@
                 }
 
                 if ([[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]) {
-                    _picLabel.text = @"With picture";
+                    //_picLabel.text = @"With picture";
                     [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
                 } else {
                     _whySection.hidden = YES;
@@ -101,13 +99,13 @@
     }
 
     // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
-    [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f + 5.0f
+    [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 0.0f
                                                                 + _whoSection.frame.size.height + 5.0f
                                                                 + _whenSection.frame.size.height + 5.0f
                                                                 + _howSection.frame.size.height + 5.0f
                                                                 + _whereSection.frame.size.height + 5.0f
                                                                 + _whatSection.frame.size.height + 5.0f
-                                                                + _whySection.frame.size.height)];
+                                                                + _whySection.frame.size.height + 5.0f)];
     
     // needs must set the scrollView contentSize to the frame of it's view
     _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
@@ -155,15 +153,48 @@
     return NO;
 }
 
+#pragma mark - Segmented Control Group
+
+-(IBAction)segmentedControlValueChanged:(id)sender {
+    UIView* targetView;
+    switch ([sender selectedSegmentIndex]) {
+        case 0: {
+            targetView = _whoSection;
+        }
+            break;
+        case 1: {
+            targetView = _whenSection;
+        }
+            break;
+        case 2: {
+            targetView = _howSection;
+        }
+            break;
+        case 3: {
+            targetView = _whereSection;
+        }
+            break;
+        case 4: {
+            targetView = _whatSection;
+        }
+            break;
+        case 5: {
+            targetView = _whySection;
+        }
+            break;
+    }
+    [_scrollView setContentOffset:CGPointMake(0.0f, targetView.frame.origin.y - 5.0f) animated:YES];
+}
+
 #pragma mark - Kisser Action Group
 
 -(IBAction)kisserButtonTapped:(id)sender {
+    //9901 toggle OKTOSAVE here
+    //9901 toggle STATUS IMAGE
+    
     _state = KISSER;
     [sender setBackgroundColor:CCO_BASE_GREY];
-    //_pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
     _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
-    
-    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
     [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
@@ -172,10 +203,7 @@
 
 -(IBAction)dateButtonTapped:(id)sender {
     [sender setBackgroundColor:CCO_BASE_GREY];
-    //_pickerView = [[ksPickerView alloc]initForState:DATE withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:DATE]];
-    
     _pickerView = [[ksPickerView alloc]initForState:DATE withData:[[ROOT ksCD] fetchedResultsController:DATE]];
-    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
     [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
@@ -192,6 +220,7 @@
 }
 
 -(IBAction)ratingSliderValueChanged:(id)sender {
+    _ratingStatus.image = [UIImage imageNamed:@"StatusRatingYes.png"];
     if (_ratingSlider.value < 0.5f) {
         _ratingHeart1.image = CCO_HEART_GREY;
         _ratingHeart2.image = CCO_HEART_GREY;
@@ -240,75 +269,55 @@
 #pragma mark - Location Action Group
 
 -(IBAction)locationButtonTapped:(id)sender {
+    //9901 toggle OKTOSAVE here
+
+    
     _state = LOCATION;
 
     [sender setBackgroundColor:CCO_BASE_GREY];
     // 9901 also for map touches somewhere else???
     
     // if it's not completely in view, slam to top
-    [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-    //_pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[(ksViewController*) [[self window] rootViewController] ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
+    //[_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [_segmentedControl setSelectedSegmentIndex:3];
     _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
     
-    //[(ksViewController*)[[self window] rootViewController] enableTopButtons:NO];
     [ROOT enableTopButtons:NO];
     [_pickerView displayPickerView];
 }
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
     // if it's not completely in view, slam to top
-    [_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    //[_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [_segmentedControl setSelectedSegmentIndex:3];
     [_locationMapView setCenterCoordinate:[_locationMapView userLocation].coordinate animated:YES];
-}
-
-#pragma mark - Scroll Section Group
-
--(IBAction)whoButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whoSection.frame.origin.y - 5.0f) animated:YES];
-}
-
--(IBAction)whenButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whenSection.frame.origin.y - 5.0f) animated:YES];
-}
-
--(IBAction)howButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _howSection.frame.origin.y - 5.0f) animated:YES];
-}
-
--(IBAction)whereButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whereSection.frame.origin.y - 5.0f) animated:YES];
-}
-
--(IBAction)whatButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whatSection.frame.origin.y - 5.0f) animated:YES];
-}
-
--(IBAction)whyButtonTapped:(id)sender {
-    [_scrollView setContentOffset:CGPointMake(0.0f, _whySection.frame.origin.y - 5.0f) animated:YES];
 }
 
 #pragma mark - UITextView Delegate
 
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
     // peg whatSection to top-of-view
-    [_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [_segmentedControl setSelectedSegmentIndex:4];
+    //[_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
     [_descTextView resignFirstResponder];
     // slap whatSection to bottom of view
+    //9901 2x-check this vs. re-size???
+    
     [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    /*
      //9901 is this a solid replacement?
      
     if([text isEqualToString:@"\n"]) {
         // Be sure to test for equality using the "isEqualToString" message
         [textView resignFirstResponder];
-        
+        [_kissObject setKissDescription:textView.text];
+
         // Return FALSE so that the final '\n' character doesn't get added
         return FALSE;
     }
@@ -316,9 +325,8 @@
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
      
-     */
-    
     // need the length delimiting?
+    /*
     
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
@@ -333,18 +341,10 @@
         [textView resignFirstResponder];
         return NO;
     }
+    
+    [_kissObject setKissDescription:textView.text];
     return YES;
+     */
 }
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

@@ -85,11 +85,15 @@
     [(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
 
     [self dismissPickerView];
+    
+    //9901 toggle OKTOSAVE
 }
 
 -(void)saveWhoWhere:(ksKissObject*)kissObject isNew:(BOOL)isNew {
     UIButton* receiverButton;
     NSString* receiverTitle;
+    
+    //9901 toggle OKTOSAVE????????????????????????????
     
     switch (_state) {
         case KISSER: {

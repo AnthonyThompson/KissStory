@@ -166,7 +166,7 @@
     [addWho setValue:[NSNumber numberWithDouble:-1.0f] forKey:@"id"];
     [addWho setValue:@"+ Add a new kisser" forKey:@"name"];
     [addWho setValue:@"" forKey:@"desc"];
-    
+
     NSManagedObject* mystWhere = [NSEntityDescription insertNewObjectForEntityForName:[whereEntity name] inManagedObjectContext:[self managedObjectContext]];
     [mystWhere setValue:[NSNumber numberWithDouble:0.0f] forKey:@"id"];
     [mystWhere setValue:@"¿Mystery Place?" forKey:@"name"];

@@ -94,7 +94,6 @@
 }
 
 -(BOOL)saveKiss {
-
     if (![self validateValues]) {
         return NO;
     }
@@ -174,6 +173,17 @@
 
 -(void)deleteKiss {
     [[_coreData managedObjectContext] deleteObject:[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"]];
+
+    // this deletes singleton who's
+    if ([[[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"kissRecord"] count] == 1) {
+        [[_coreData managedObjectContext] deleteObject:[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"]];
+    }
+    
+    // this deletes singleton where's
+    if ([[[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"kissRecord"] count] == 1) {
+        [[_coreData managedObjectContext] deleteObject:[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"]];
+    }
+
     [self dataRebuild];
     [UPTHECHAIN dismissUtilityViewWithSave:NO];
     [ROOT resetMainView];
@@ -239,7 +249,6 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    _addAcceptButton.hidden = NO;
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, 55.0f);
     return YES;
 }
