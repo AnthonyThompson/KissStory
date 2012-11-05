@@ -24,14 +24,6 @@
 @property (nonatomic, retain) ksPickerView* pickerView;
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl* segmentedControl;
-/*
-@property (nonatomic, retain) IBOutlet UIButton* whoButton;
-@property (nonatomic, retain) IBOutlet UIButton* whereButton;
-@property (nonatomic, retain) IBOutlet UIButton* whyButton;
-@property (nonatomic, retain) IBOutlet UIButton* howButton;
-@property (nonatomic, retain) IBOutlet UIButton* whatButton;
-@property (nonatomic, retain) IBOutlet UIButton* whenButton;
- */
 
 @property (nonatomic, retain) IBOutlet UIImageView* kisserStatus;
 @property (nonatomic, retain) IBOutlet UIImageView* dateStatus;

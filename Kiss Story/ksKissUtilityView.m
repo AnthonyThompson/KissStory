@@ -8,7 +8,7 @@
 
 #import "ksKissUtilityView.h"
 #import "ksViewController.h"
-#import "ksMapAnnotation.h"
+#import "ksAnnotationView.h"
 
 @implementation ksKissUtilityView
 

@@ -192,16 +192,6 @@
     [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
 }
 
-/*
--(IBAction)addAcceptButtonTapped:(id)sender {
-    // dismiss newW pop-over
-    [(ksPopOverView*)[self superview] dismissPopOverView];
-
-    // dismiss pickerView && save
-    [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
-}
- */
-
 -(IBAction)addCancelButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }

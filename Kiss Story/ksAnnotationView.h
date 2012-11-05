@@ -8,9 +8,12 @@
 
 #import <MapKit/MapKit.h>
 
-@interface ksAnnotationView : MKAnnotationView {
-    
-}
+@interface ksAnnotationView : MKAnnotationView
+
+-(void)displayCallout;
+-(void)dismissCallout;
+
+@property (nonatomic, retain) IBOutlet UIView* calloutView;
 
 @property (nonatomic, retain) IBOutlet UIView* headerView;
 @property (nonatomic, retain) IBOutlet UIButton* moreButton;
@@ -24,6 +27,18 @@
 @property (nonatomic, retain) IBOutlet UIImageView* rightThumb;
 @property (nonatomic, retain) IBOutlet UIImageView* photoThumb;
 
-//-(IBAction)moreButtonTapped:(id)sender;
+@property (nonatomic, readwrite) NSString* title;
+@property (nonatomic, readwrite) NSString* reuseIdentifier;
+@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
+
+@property (nonatomic, retain) NSArray* IDArray;
+@property (nonatomic, retain) NSArray* locationArray;
+@property (nonatomic, retain) NSArray* kisserArray;
+@property (nonatomic, retain) NSArray* ratingArray;
+@property (nonatomic, retain) NSArray* dateArray;
+@property (nonatomic, retain) NSArray* descriptionArray;
+
+@property (nonatomic, readwrite) int color;
+
 
 @end

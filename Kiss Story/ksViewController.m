@@ -293,7 +293,7 @@
     // gotta skip headers, so only object at index:1 is interesting
     int dataIndex = 1;
     for (int i = 0; i < [[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:dataIndex]count]; i++) {
-        ksMapAnnotation* annotation = [[ksMapAnnotation alloc]init];
+        ksAnnotationView* annotation = [[ksAnnotationView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
 
         // extract the data beyond the header array (index:1), at the array of fetched objects
         // just need the coord once, and we know that there's always an object at index:0
@@ -313,8 +313,8 @@
             NSMutableArray* ratings = [[NSMutableArray alloc]init];
             NSMutableArray* dates = [[NSMutableArray alloc]init];
             NSMutableArray* descriptions = [[NSMutableArray alloc]init];
-            
-            // now loop through all of the elements and break into separate arrays for ksMapAnnotation storage
+
+            // now loop through all of the elements and break into separate arrays for ksAnnotationView storage
             for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
                 NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j];
                 
@@ -325,17 +325,18 @@
                 [ratings addObject:[locationObject valueForKey:@"score"]];
                 [dates addObject:[locationObject valueForKey:@"when"]];
                 [descriptions addObject:[locationObject valueForKey:@"desc"]];
+
+                annotation.title = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
             }
-            
-            // add arrays to the ksMapAnnotation object
+            // add arrays to the ksAnnotationView object
             annotation.IDArray = [[NSArray alloc]initWithArray:IDs];
             annotation.locationArray = [[NSArray alloc]initWithArray:locations];
             annotation.kisserArray = [[NSArray alloc]initWithArray:kissers];
             annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
             annotation.dateArray = [[NSArray alloc]initWithArray:dates];
             annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
-            
-            // add the ksMapAnnotation to the annotation array
+
+            // add the ksAnnotationView to the annotation array
             [_annotationArray addObject:annotation];
         }
     }
@@ -713,7 +714,7 @@
     double minLat=360.0f,minLon=360.0f;
     double maxLat=-360.0f,maxLon=-360.0f;
     
-    for (ksMapAnnotation* annotation in [_mainMapView annotations]) {
+    for (ksAnnotationView* annotation in [_mainMapView annotations]) {
             if (annotation.coordinate.latitude < minLat) minLat = annotation.coordinate.latitude;
             if (annotation.coordinate.latitude > maxLat) maxLat = annotation.coordinate.latitude;
             if (annotation.coordinate.longitude < minLon) minLon = annotation.coordinate.longitude;
@@ -759,21 +760,16 @@
 }
 
 -(ksAnnotationView*)mapView:(MKMapView*)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-
-    ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:(ksMapAnnotation*)annotation reuseIdentifier:@"resuableIdentifier"];
+    ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"resuableIdentifier"];
 
     // I guess we don't want to annotate user location?
-    if (![annotation isMemberOfClass:[ksMapAnnotation class]]) {
+    if (![annotation isMemberOfClass:[ksAnnotationView class]]) {
         return nil;
     }
 
-    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksMapAnnotation*)annotation color]]objectAtIndex:CCO_PIN];
-
-    //9901
-    //re-size on fly or re-build image?
-    //mAV.frame = CGRectMake(mAV.bounds.origin.x, mAV.bounds.origin.y, mAV.frame.size.width/1.5f, mAV.frame.size.height/1.5f);
-    
+    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksAnnotationView*)annotation color]]objectAtIndex:CCO_PIN];
     annotationView.canShowCallout = YES;
+    //annotationView.coordinate = annotation.coordinate;
     
     // the image is normally centered itself on the point, so offset for the size of the image itself
     // move it up by half the size
@@ -782,6 +778,20 @@
     int offSetWidth = annotationView.image.size.width/2/3;
     annotationView.centerOffset = CGPointMake(offSetWidth,offSetHeight);
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(ksAnnotationView*)view {
+    // have to discriminate against the MKUserLocation
+    if ([view class] == [ksAnnotationView class]) {
+        [view displayCallout];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(ksAnnotationView*)view {
+    // have to discriminate against the MKUserLocation
+    if ([view class] == [ksAnnotationView class]) {
+        [view dismissCallout];
+    }
 }
 
 #pragma mark - VC super class

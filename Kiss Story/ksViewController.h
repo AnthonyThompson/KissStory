@@ -13,7 +13,6 @@
 #import <MessageUI/MessageUI.h>
 #import "ksCoreData.h"
 #import "ksColorCell.h"
-#import "ksMapAnnotation.h"
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
 #import "ksImagePickerViewController.h"
