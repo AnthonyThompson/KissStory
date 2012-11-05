@@ -439,7 +439,6 @@
     _topRightButton.enabled = enable;
 }
 
-
 #pragma mark - Kisser Action Group
 
 -(IBAction)kisserButtonTapped:(id)sender {
@@ -760,16 +759,12 @@
 }
 
 -(ksAnnotationView*)mapView:(MKMapView*)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"resuableIdentifier"];
-
     // I guess we don't want to annotate user location?
     if (![annotation isMemberOfClass:[ksAnnotationView class]]) {
         return nil;
     }
-
+    ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"resuableIdentifier"];
     annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksAnnotationView*)annotation color]]objectAtIndex:CCO_PIN];
-    annotationView.canShowCallout = YES;
-    //annotationView.coordinate = annotation.coordinate;
     
     // the image is normally centered itself on the point, so offset for the size of the image itself
     // move it up by half the size
