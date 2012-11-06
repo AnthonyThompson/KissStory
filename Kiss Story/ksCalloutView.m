@@ -16,11 +16,19 @@
         self.frame = CGRectOffset(self.frame, -(self.frame.size.width/2)+19.0f, -(self.frame.size.height)+39.0f);
         self.hidden = YES;
     }
+    
     return self;
 }
 
 -(IBAction)moreButtonTapped:(id)sender {
-    NSLog(@"YES");
+    NSLog(@"kCO mBT");
 }
+
+- (void) moreButtonGestured:(UITapGestureRecognizer *)gestureRecognizer {
+    NSLog(@"kCO mBG");
+}
+
+
+
 
 @end

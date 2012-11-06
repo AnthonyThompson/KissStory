@@ -841,4 +841,11 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+//9901 ???
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer
+                         :(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
 @end

@@ -52,8 +52,8 @@
                                                 UINavigationControllerDelegate,
                                                 MKMapViewDelegate,
                                                 CLLocationManagerDelegate,
-                                                MFMailComposeViewControllerDelegate> {
-}
+                                                MFMailComposeViewControllerDelegate,
+                                                UIGestureRecognizerDelegate>
 
 -(void)buildSettingsDictionary;
 -(void)buildDataSet;
