@@ -11,6 +11,9 @@
 #import "ksKissObject.h"
 #import "ksPickerView.h"
 
+#define KUV_TEXTFIELD 0
+#define KUV_TEXTVIEW 1
+
 @interface ksKissUtilityView : UIView <UITextViewDelegate>
 
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
@@ -22,6 +25,8 @@
 @property (nonatomic, retain) ksKissObject* kissObject;
 // need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
+
+@property (nonatomic, readwrite) int textControl;
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl* segmentedControl;
 

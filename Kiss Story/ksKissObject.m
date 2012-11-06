@@ -131,7 +131,7 @@
     if (_kissPicture) {
         [newKiss setValue:UIImagePNGRepresentation(_kissPicture) forKey:@"image"];
     } else {
-        [newKiss setValue:DUMMY_IMAGE forKey:@"image"];
+        [newKiss setValue:KSCD_DUMMYIMAGE forKey:@"image"];
     }
 
     NSMutableSet* whoKey = [[_kissWho valueForKey:@"who"] mutableSetValueForKey:@"kissRecord"];
@@ -198,6 +198,7 @@
 }
 
 -(IBAction)addCancelButtonTapped:(id)sender {
+    [(ksKissUtilityView*)[[self superview] superview] setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 
@@ -233,7 +234,7 @@
         }
             break;
     }
-    
+    [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
     [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }

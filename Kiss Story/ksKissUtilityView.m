@@ -14,6 +14,7 @@
 
 @synthesize kissObject = _kissObject;
 @synthesize locationMapView = _locationMapView;
+@synthesize textControl = _textControl;
 
 #pragma mark - Inits
 
@@ -34,6 +35,7 @@
         _kissObject = [[ksKissObject alloc]init];
         
         _state = whichState;
+        _textControl = KUV_TEXTVIEW;
         
         [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
@@ -86,7 +88,7 @@
                     _whatSection.frame = CGRectMake(0, 0, 0, 0);
                 }
 
-                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"] isEqualToData:DUMMY_IMAGE]) {
+                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
                     [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
                 } else {
                     _whySection.hidden = YES;
@@ -155,6 +157,7 @@
 #pragma mark - Segmented Control Group
 
 -(IBAction)segmentedControlValueChanged:(id)sender {
+    NSLog(@"sCVC %i",[sender selectedSegmentIndex]);
     UIView* targetView;
     switch ([sender selectedSegmentIndex]) {
         case 0: {
@@ -189,6 +192,8 @@
 
 -(IBAction)kisserButtonTapped:(id)sender {
     _state = KISSER;
+    _textControl = KUV_TEXTFIELD;
+    
     [sender setBackgroundColor:CCO_BASE_GREY];
     _pickerView = [[ksPickerView alloc]initForState:KISSER withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHOBYNAME]];
     [ROOT enableTopButtons:NO];
@@ -266,12 +271,12 @@
 
 -(IBAction)locationButtonTapped:(id)sender {
     _state = LOCATION;
+    _textControl = KUV_TEXTFIELD;
 
     [sender setBackgroundColor:CCO_BASE_GREY];
     // 9901 also for map touches somewhere else???
     
     // if it's not completely in view, slam to top
-    //[_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     [_segmentedControl setSelectedSegmentIndex:3];
     _pickerView = [[ksPickerView alloc]initForState:LOCATION withData:[[ROOT ksCD] fetchedResultsController:KSCD_WHEREBYNAME]];
     
@@ -281,7 +286,6 @@
 
 -(IBAction)locationCenterMapButtonTapped:(id)sender {
     // if it's not completely in view, slam to top
-    //[_whereButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     [_segmentedControl setSelectedSegmentIndex:3];
     [_locationMapView setCenterCoordinate:[_locationMapView userLocation].coordinate animated:YES];
 }
@@ -289,24 +293,19 @@
 #pragma mark - UITextView Delegate
 
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
-    // peg whatSection to top-of-view
-    [_segmentedControl setSelectedSegmentIndex:4];
-    //[_whatButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    // discriminate between textview && textfield
+    if (_textControl == KUV_TEXTVIEW) {
+        [_segmentedControl setSelectedSegmentIndex:4];
+        [self segmentedControlValueChanged:_segmentedControl];
+    }
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
     [_descTextView resignFirstResponder];
-    // slap whatSection to bottom of view
-    //9901 2x-check this vs. re-size???
-    
-    [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-     //9901 is this a solid replacement?
-     
     if([text isEqualToString:@"\n"]) {
-        // Be sure to test for equality using the "isEqualToString" message
         [textView resignFirstResponder];
         [_kissObject setKissDescription:textView.text];
         [_kissObject setValidDesc:YES];
@@ -318,27 +317,6 @@
     
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
-     
-    // need the length delimiting?
-    /*
-    
-    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
-    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
-    NSUInteger location = replacementTextRange.location;
-    if (textView.text.length + text.length > 140){
-        if (location != NSNotFound){
-            [textView resignFirstResponder];
-        }
-        return NO;
-    }
-    else if (location != NSNotFound){
-        [textView resignFirstResponder];
-        return NO;
-    }
-    
-    [_kissObject setKissDescription:textView.text];
-    return YES;
-     */
 }
 
 -(IBAction)takePicture:(id) sender {

@@ -411,7 +411,7 @@
         [k1 setValue:[NSNumber numberWithDouble:1314620201.0f] forKey:@"when"];
         [k1 setValue:[NSNumber numberWithInt:0] forKey:@"score"];
         [k1 setValue:@"123456789a123456789b123456789c" forKey:@"desc"];
-        [k1 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k1 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k1 setValue:mystKisser forKey:@"kissWho"];
         [k1 setValue:RivieraMaya forKey:@"kissWhere"];
         [mystKisserK addObject:k1];
@@ -422,7 +422,7 @@
         [k2 setValue:[NSNumber numberWithDouble:1314533801.0f] forKey:@"when"];
         [k2 setValue:[NSNumber numberWithInt:1] forKey:@"score"];
         [k2 setValue:@"123456789a123456789b123456789c123456789d" forKey:@"desc"];
-        [k2 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k2 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k2 setValue:jvd forKey:@"kissWho"];
         [k2 setValue:Marriott forKey:@"kissWhere"];
         [MarriottK addObject:k2];
@@ -433,7 +433,7 @@
         [k3 setValue:[NSNumber numberWithDouble:1312201001.0f] forKey:@"when"];
         [k3 setValue:[NSNumber numberWithInt:2] forKey:@"score"];
         [k3 setValue:@"123456789a123456789b123456789c123456789d123456789e" forKey:@"desc"];
-        [k3 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k3 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k3 setValue:agathaharkness forKey:@"kissWho"];
         [k3 setValue:mystWhere forKey:@"kissWhere"];
         [mystWhereK addObject:k3];
@@ -444,7 +444,7 @@
         [k4 setValue:[NSNumber numberWithDouble:1312201001.0f] forKey:@"when"];
         [k4 setValue:[NSNumber numberWithInt:3] forKey:@"score"];
         [k4 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f" forKey:@"desc"];
-        [k4 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k4 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k4 setValue:mystKisser forKey:@"kissWho"];
         [k4 setValue:RivieraMaya forKey:@"kissWhere"];
         [mystKisserK addObject:k4];
@@ -455,7 +455,7 @@
         [k5 setValue:[NSNumber numberWithDouble:1312201001.0f] forKey:@"when"];
         [k5 setValue:[NSNumber numberWithInt:4] forKey:@"score"];
         [k5 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g" forKey:@"desc"];
-        [k5 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k5 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k5 setValue:mystKisser forKey:@"kissWho"];
         [k5 setValue:mystWhere forKey:@"kissWhere"];
         [mystKisserK addObject:k5];
@@ -466,7 +466,7 @@
         [k6 setValue:[NSNumber numberWithDouble:1312201001.0f] forKey:@"when"];
         [k6 setValue:[NSNumber numberWithInt:5] forKey:@"score"];
         [k6 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h" forKey:@"desc"];
-        [k6 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k6 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k6 setValue:nauticathorn forKey:@"kissWho"];
         [k6 setValue:theClub forKey:@"kissWhere"];
         [theClubK addObject:k6];
@@ -477,7 +477,7 @@
         [k7 setValue:[NSNumber numberWithDouble:1312201001.0f] forKey:@"when"];
         [k7 setValue:[NSNumber numberWithInt:0] forKey:@"score"];
         [k7 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i" forKey:@"desc"];
-        [k7 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k7 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k7 setValue:nauticathorn forKey:@"kissWho"];
         [k7 setValue:RivieraMaya forKey:@"kissWhere"];
         [nauticathornK addObject:k7];
@@ -488,7 +488,7 @@
         [k8 setValue:[NSNumber numberWithDouble:1312489220.0f] forKey:@"when"];
         [k8 setValue:[NSNumber numberWithInt:1] forKey:@"score"];
         [k8 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j" forKey:@"desc"];
-        [k8 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k8 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k8 setValue:EvaAngelina forKey:@"kissWho"];
         [k8 setValue:MayaHouse forKey:@"kissWhere"];
         [MayaHouseK addObject:k8];
@@ -499,7 +499,7 @@
         [k9 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]-200000.0f] forKey:@"when"];
         [k9 setValue:[NSNumber numberWithInt:2] forKey:@"score"];
         [k9 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j123456789k" forKey:@"desc"];
-        [k9 setValue:DUMMY_IMAGE forKey:@"image"];
+        [k9 setValue:KSCD_DUMMYIMAGE forKey:@"image"];
         [k9 setValue:fc forKey:@"kissWho"];
         [k9 setValue:MayaHouse forKey:@"kissWhere"];
         [fcK addObject:k9];

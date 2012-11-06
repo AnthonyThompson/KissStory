@@ -96,6 +96,7 @@
             [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWho:YES];
 
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
+                // add a new kisser
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWho = [[NSMutableDictionary alloc]init];
                 content.addTitle.text = @"Who did you kiss?";
