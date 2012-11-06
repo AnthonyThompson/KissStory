@@ -128,6 +128,11 @@
     [newKiss setValue:[NSNumber numberWithFloat:[_kissDate timeIntervalSince1970]] forKey:@"when"];
     [newKiss setValue:[NSNumber numberWithInt:_kissRating] forKey:@"score"];
     [newKiss setValue:_kissDescription forKey:@"desc"];
+    if (_kissPicture) {
+        [newKiss setValue:UIImagePNGRepresentation(_kissPicture) forKey:@"image"];
+    } else {
+        [newKiss setValue:DUMMY_IMAGE forKey:@"image"];
+    }
 
     NSMutableSet* whoKey = [[_kissWho valueForKey:@"who"] mutableSetValueForKey:@"kissRecord"];
     [whoKey addObject:newKiss];

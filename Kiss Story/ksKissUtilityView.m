@@ -79,19 +79,18 @@
                 _locationMapView.zoomEnabled = NO;
                 _locationMapCenterButton.hidden = YES;
                 
-                //9901 convert text display to LABEL for stuff
                 if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
                     [_descTextView setText:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
                 } else {
                     _whatSection.hidden = YES;
-                    _whatSection.frame = CGRectMake(0, 0, 0, -10);
+                    _whatSection.frame = CGRectMake(0, 0, 0, 0);
                 }
 
-                if ([[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]) {
+                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"] isEqualToData:DUMMY_IMAGE]) {
                     [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
                 } else {
                     _whySection.hidden = YES;
-                    _whySection.frame = CGRectMake(0, 0, 0, -10);
+                    _whySection.frame = CGRectMake(0, 0, 0, 0);
                 }
             }
                 break;
@@ -303,7 +302,6 @@
     [_scrollView setContentOffset:CGPointMake(0.0f, _scrollView.frame.size.height - 122.0f) animated:YES];
 }
 
-
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
      //9901 is this a solid replacement?
      
@@ -342,5 +340,24 @@
     return YES;
      */
 }
+
+-(IBAction)takePicture:(id) sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    //9901
+    //poopOver for camera/roll?
+
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    } else {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+
+    [imagePicker setDelegate:ROOT];
+    [ROOT presentViewController:imagePicker animated:YES completion:nil];
+}
+
+
+
 
 @end

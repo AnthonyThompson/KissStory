@@ -28,6 +28,7 @@
 @property (nonatomic, readwrite) NSDate* kissDate;
 @property (nonatomic, readwrite) int kissRating;
 @property (nonatomic, retain) NSString* kissDescription;
+@property (nonatomic, retain) UIImage* kissPicture;
 @property (nonatomic) BOOL validWho;
 @property (nonatomic) BOOL validWhere;
 @property (nonatomic) BOOL validDate;

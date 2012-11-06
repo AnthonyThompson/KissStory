@@ -45,15 +45,17 @@
 #define ROOT (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController]
 #define UPTHECHAIN [[[ROOT view] subviews] objectAtIndex:[[[ROOT view] subviews] count] -3]
 
+
 @interface ksViewController : UIViewController <NSFetchedResultsControllerDelegate,
                                                 UITableViewDelegate,
                                                 UITableViewDataSource,
-                                                UIActionSheetDelegate,
+//UIActionSheetDelegate,
                                                 UINavigationControllerDelegate,
                                                 MKMapViewDelegate,
                                                 CLLocationManagerDelegate,
                                                 MFMailComposeViewControllerDelegate,
-                                                UIGestureRecognizerDelegate>
+                                                UIGestureRecognizerDelegate,
+                                                UIImagePickerControllerDelegate>
 
 -(void)buildSettingsDictionary;
 -(void)buildDataSet;
@@ -71,6 +73,7 @@
 @property (nonatomic, retain) CLLocationManager* locationManager;
 @property (nonatomic, retain) NSMutableArray* annotationArray;
 @property (nonatomic, retain) NSArray* cellSizeArray;
+@property (nonatomic, retain) NSArray* imageArray;
 @property (nonatomic, retain) ksCoreData* ksCD;
 @property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;
 

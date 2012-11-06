@@ -22,6 +22,7 @@
 #define KSCD_SETTINGS 4
 #define KSCD_WHOBYNAME 5
 #define KSCD_WHEREBYNAME 6
+#define DUMMY_IMAGE [@"dummy" dataUsingEncoding:NSUTF8StringEncoding]
 
 @interface ksCoreData : NSObject <NSFetchedResultsControllerDelegate> {
     

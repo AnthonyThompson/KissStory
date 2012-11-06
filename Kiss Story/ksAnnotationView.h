@@ -29,6 +29,7 @@
 @property (nonatomic, retain) NSArray* ratingArray;
 @property (nonatomic, retain) NSArray* dateArray;
 @property (nonatomic, retain) NSArray* descriptionArray;
+@property (nonatomic, retain) NSArray* imageArray;
 
 @property (nonatomic, readwrite) int color;
 @property (nonatomic, readwrite) int index;

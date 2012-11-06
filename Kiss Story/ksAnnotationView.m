@@ -25,6 +25,7 @@
         _dateArray = annotation.dateArray;
         _ratingArray = annotation.ratingArray;
         _descriptionArray = annotation.descriptionArray;
+        _imageArray = annotation.imageArray;
 
         _calloutView = [[ksCalloutView alloc]init];
         [self addSubview:_calloutView];

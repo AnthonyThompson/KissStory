@@ -28,6 +28,7 @@
     _dataDictionary = [[NSMutableDictionary alloc]init];
     _settingsDictionary = [[NSMutableDictionary alloc]init];
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
+    _imageArray = [[NSArray alloc]initWithArray:[self buildImageArray]];
     _annotationArray = [[NSMutableArray alloc]init];
 
     [self initLocationManager];
@@ -285,6 +286,19 @@
     return (NSArray*)returnArray;
 }
 
+-(NSArray*)buildImageArray {
+    NSMutableArray* returnArray = [[NSMutableArray alloc]init];
+    
+    for (NSManagedObject* managedObject in [_dataDictionary valueForKey:@"tableData0"]) {
+        if ([managedObject valueForKey:@"image"]) {
+            
+            
+        }
+    }
+
+    return (NSArray*)returnArray;
+}
+
 -(void)buildAnnotationArray {
     // kill existing annotationArray
     [_annotationArray removeAllObjects];
@@ -313,6 +327,7 @@
             NSMutableArray* ratings = [[NSMutableArray alloc]init];
             NSMutableArray* dates = [[NSMutableArray alloc]init];
             NSMutableArray* descriptions = [[NSMutableArray alloc]init];
+            NSMutableArray* images = [[NSMutableArray alloc]init];
 
             // now loop through all of the elements and break into separate arrays for ksAnnotationView storage
             for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
@@ -325,6 +340,7 @@
                 [ratings addObject:[locationObject valueForKey:@"score"]];
                 [dates addObject:[locationObject valueForKey:@"when"]];
                 [descriptions addObject:[locationObject valueForKey:@"desc"]];
+                [images addObject:[locationObject valueForKey:@"image"]];
 
                 annotation.title = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
             }
@@ -335,6 +351,7 @@
             annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
             annotation.dateArray = [[NSArray alloc]initWithArray:dates];
             annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
+            annotation.imageArray = [[NSArray alloc]initWithArray:images];
 
             // add the ksAnnotationView to the annotation array
             [_annotationArray addObject:annotation];
@@ -841,11 +858,20 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma mark - DISORGANIZED BULLSHIT
+
 //9901 ???
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer
                          :(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [[[[self view]subviews]lastObject]kissObject].kissPicture = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [[[[[self view]subviews]lastObject]picButton]setImage:[info objectForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end
