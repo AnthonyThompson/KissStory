@@ -16,7 +16,7 @@
     if (self = [super initWithFrame:frame]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksPopOverView" owner:self options:nil] objectAtIndex:0];
         self.frame = frame;
-        _resizableImageView.image = [[UIImage imageNamed:@"PopoverStretchCap.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(34, 19, 34, 19)];
+        _resizableImageView.image = [[UIImage imageNamed:@"Frame.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9, 9, 9, 9)];
     }
     return self;
 }

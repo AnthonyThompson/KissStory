@@ -25,6 +25,9 @@
 @synthesize validDate = _validDate;
 @synthesize validDesc = _validDesc;
 
+@synthesize addText = _addText;
+
+
 #pragma mark - Inits
 
 -(id)init {
@@ -198,7 +201,7 @@
 }
 
 -(IBAction)addCancelButtonTapped:(id)sender {
-    [(ksKissUtilityView*)[[self superview] superview] setTextControl:KUV_TEXTVIEW];
+    [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 
