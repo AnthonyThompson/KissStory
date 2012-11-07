@@ -401,10 +401,10 @@
         NSMutableSet* EveMendezK = [EveMendez mutableSetValueForKey:@"kissRecord"];
         
         //9901
-        //UIImage* testImage = [UIImage imageNamed:@"WindowPasscode.png"];
         NSData* imageData = UIImagePNGRepresentation([UIImage imageNamed:@"WindowPasscode.png"]);
-        
-        //NSData* dummyData = [@"dummy" dataUsingEncoding:NSUTF8StringEncoding];
+        NSData* imageT1 = UIImagePNGRepresentation([UIImage imageNamed:@"IMAGETEST1.png"]);
+        NSData* imageT2 = UIImagePNGRepresentation([UIImage imageNamed:@"IMAGETEST2.png"]);
+        NSData* imageT3 = UIImagePNGRepresentation([UIImage imageNamed:@"IMAGETEST3.png"]);
         
         NSManagedObject* k1 = [NSEntityDescription insertNewObjectForEntityForName:[kissesEntity name] inManagedObjectContext:[self managedObjectContext]];
         [k1 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceReferenceDate]+clicker++] forKey:@"id"];
@@ -521,7 +521,7 @@
         [k11 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]-150000.0f] forKey:@"when"];
         [k11 setValue:[NSNumber numberWithInt:5] forKey:@"score"];
         [k11 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j123456789k123456789L123456789m" forKey:@"desc"];
-        [k11 setValue:imageData forKey:@"image"];
+        [k11 setValue:imageT1 forKey:@"image"];
         [k11 setValue:fc forKey:@"kissWho"];
         [k11 setValue:MayaHouse forKey:@"kissWhere"];
         [MayaHouseK addObject:k11];
@@ -532,7 +532,7 @@
         [k12 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]-100000.0f] forKey:@"when"];
         [k12 setValue:[NSNumber numberWithInt:5] forKey:@"score"];
         [k12 setValue:@"123456789a123456789b123456789c123456789d123456789e123456789f123456789g123456789h123456789i123456789j123456789k123456789L123456789m123456789n" forKey:@"desc"];
-        [k12 setValue:imageData forKey:@"image"];
+        [k12 setValue:imageT2 forKey:@"image"];
         [k12 setValue:nauticathorn forKey:@"kissWho"];
         [k12 setValue:tesoro forKey:@"kissWhere"];
         [nauticathornK addObject:k12];
@@ -543,7 +543,7 @@
         [k13 setValue:[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] forKey:@"when"];
         [k13 setValue:[NSNumber numberWithInt:0] forKey:@"score"];
         [k13 setValue:@"Just paying down some debts TODAY" forKey:@"desc"];
-        [k13 setValue:imageData forKey:@"image"];
+        [k13 setValue:imageT3 forKey:@"image"];
         [k13 setValue:fc forKey:@"kissWho"];
         [k13 setValue:MayaHouse forKey:@"kissWhere"];
         [fcK addObject:k13];
@@ -565,7 +565,7 @@
         [k15 setValue:[NSNumber numberWithDouble:1313447521.0f] forKey:@"when"];
         [k15 setValue:[NSNumber numberWithInt:2] forKey:@"score"];
         [k15 setValue:@"OMG THIS WAS SOOOO ROMANTICAL!!! HE HAD BK SLIDERS ALREADY THERE W/HIS OWN BACON!!! LOL XLRG FRIES AND BOTTOMLESS BLIZZARDS!!!  MOUTHFULL!!!" forKey:@"desc"];
-        [k15 setValue:imageData forKey:@"image"];
+        [k15 setValue:imageT1 forKey:@"image"];
         [k15 setValue:fc forKey:@"kissWho"];
         [k15 setValue:Submarine forKey:@"kissWhere"];
         [SubmarineK addObject:k15];
@@ -576,7 +576,7 @@
         [k16 setValue:[NSNumber numberWithInt:1013447521] forKey:@"when"];
         [k16 setValue:[NSNumber numberWithInt:3] forKey:@"score"];
         [k16 setValue:@"FINALLY!!!!!!1111!!!!ONE" forKey:@"desc"];
-        [k16 setValue:imageData forKey:@"image"];
+        [k16 setValue:imageT2 forKey:@"image"];
         [k16 setValue:Ultron forKey:@"kissWho"];
         [k16 setValue:tesoro forKey:@"kissWhere"];
         [tesoroK addObject:k16];
@@ -587,7 +587,7 @@
         [k17 setValue:[NSNumber numberWithDouble:1313965921.0f] forKey:@"when"];
         [k17 setValue:[NSNumber numberWithInt:4] forKey:@"score"];
         [k17 setValue:@"ZOMG" forKey:@"desc"];
-        [k17 setValue:imageData forKey:@"image"];
+        [k17 setValue:imageT3 forKey:@"image"];
         [k17 setValue:EvaAngelina forKey:@"kissWho"];
         [k17 setValue:Ranch forKey:@"kissWhere"];
         [RanchK addObject:k17];
@@ -653,7 +653,7 @@
         [k23 setValue:[NSNumber numberWithDouble:1310001001.0f] forKey:@"when"];
         [k23 setValue:[NSNumber numberWithInt:3] forKey:@"score"];
         [k23 setValue:@"" forKey:@"desc"];
-        [k23 setValue:imageData forKey:@"image"];
+        [k23 setValue:imageT3 forKey:@"image"];
         [k23 setValue:agathaharkness forKey:@"kissWho"];
         [k23 setValue:mystWhere forKey:@"kissWhere"];
         [mystWhereK addObject:k23];

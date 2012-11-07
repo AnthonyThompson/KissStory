@@ -27,8 +27,6 @@
     _fetchedResultsControllerArray = [[NSArray alloc]init];
     _dataDictionary = [[NSMutableDictionary alloc]init];
     _settingsDictionary = [[NSMutableDictionary alloc]init];
-    _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
-    _imageArray = [[NSArray alloc]initWithArray:[self buildImageArray]];
     _annotationArray = [[NSMutableArray alloc]init];
 
     [self initLocationManager];
@@ -47,6 +45,7 @@
     [self buildDataDictionary];
     [self buildSettingsDictionary];
     _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
+    _imageArray = [[NSArray alloc]initWithArray:[self buildImageArray]];
     [self buildAnnotationArray];
 }
 
@@ -273,9 +272,18 @@
                 // the data object at data/section/row
                 NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j]objectAtIndex:k];
 
-                // 44 seems to work for bodyLabel.width = and Systemfont 13
-                int ix = [[manObj valueForKey:@"desc"] length]/44;
-                if (ix < (float)[[manObj valueForKey:@"desc"] length]/44.0f) ix++;
+                float scale = 0.0f;
+                
+                if (![[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
+                    // image exists
+                    scale = PHOTO_CELL_SCALE;
+                } else {
+                    //no image
+                    scale = NO_PHOTO_CELL_SCALE;
+                }
+
+                int ix = [[manObj valueForKey:@"desc"] length]/scale;
+                if (ix < (float)[[manObj valueForKey:@"desc"] length]/scale) ix++;
 
                 [rowArray addObject:[NSNumber numberWithInt:ix]];
             }
@@ -289,11 +297,8 @@
 -(NSArray*)buildImageArray {
     NSMutableArray* returnArray = [[NSMutableArray alloc]init];
     
-    for (NSManagedObject* managedObject in [_dataDictionary valueForKey:@"tableData0"]) {
-        if ([managedObject valueForKey:@"image"]) {
-            
-            
-        }
+    for (NSManagedObject* managedObject in [[_fetchedResultsControllerArray objectAtIndex:0]fetchedObjects]) {
+        [returnArray addObject:[managedObject valueForKey:@"image"]];
     }
 
     return (NSArray*)returnArray;
@@ -632,7 +637,21 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (67.0f + ([[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue] * 18.0f));
+    
+    float rowHeight = 93.0f;
+    float increase = 0.0f;
+
+    if (![[[[[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
+        increase = 80.0f;
+    }
+    
+    
+    //9903
+    float textHeight = 3.0f + (20.0f * [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue]);
+    
+    if (increase < textHeight) increase = textHeight;
+
+    return (rowHeight + increase);
 }
 
 -(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -680,22 +699,89 @@
     }
     
     for (int i = 0; i< [[manObj valueForKey:@"score"] intValue]; i++){
-        [cell.header addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(285.0f - (i * 24.0f), 3.0f, 19.0f, 19.0f)]];
+        [cell.header addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(276.0f - (i * 24.0f), 3.0f, 19.0f, 19.0f)]];
         [[[cell.header subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[manObj valueForKey:@"score"] intValue]]objectAtIndex:4]];
     }
 
-    cell.bodyLabel.text = [manObj valueForKey:@"desc"];
+    float baseHeight = 93.0f;
+    float heightDelta = 0.0f;
+    float widthDelta = 0.0f;
+    float xDelta = 0.0f;
+
+    if (![[manObj valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
+        // image exists
+        cell.photoImage.image = [UIImage imageWithData:[manObj valueForKey:@"image"]];
+        heightDelta += 80.0f;
+    } else {
+        //image does NOT exist
+        cell.photoImageContainer.hidden = YES;
+        widthDelta += 80.0f;
+        xDelta += -80.0f;
+    }
+
+    if (![[manObj valueForKey:@"desc"] isEqualToString:@""]) {
+        cell.bodyLabel.text = [manObj valueForKey:@"desc"];
+    } else {
+        cell.bodyLabelContainer.hidden = YES;
+    }
+
+    float textHeight = 3.0f + ([[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue] * 20.0f);
     
-    int size = [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue];
+    if (textHeight > heightDelta) heightDelta = textHeight;
     
-    // bodylabel is itself and new height
-    cell.bodyLabel.frame = CGRectMake(cell.bodyLabel.frame.origin.x, cell.bodyLabel.frame.origin.y, cell.bodyLabel.frame.size.width, (size * 18.0f));
+    //adjust cell.frame
+    cell.frame = CGRectMake(cell.frame.origin.x,
+                            cell.frame.origin.y,
+                            cell.frame.size.width,
+                            baseHeight + heightDelta);
     
-    // container is itself and height + 58 + bodyLabel height
-    cell.container.frame = CGRectMake(cell.container.frame.origin.x, cell.container.frame.origin.y, cell.container.frame.size.width, 58.0f + cell.bodyLabel.frame.size.height);
+    // container is frame -6
+    cell.container.frame = CGRectMake(cell.container.frame.origin.x,
+                                      cell.container.frame.origin.y,
+                                      cell.container.frame.size.width,
+                                      cell.frame.size.height - 6);
     
-    // inliner is itself and height + container height - 2
-    cell.inliner.frame = CGRectMake(cell.inliner.frame.origin.x, cell.inliner.frame.origin.y, cell.inliner.frame.size.width, cell.container.frame.size.height - 2.0f);
+    // frameImage is container
+    cell.frameImage.frame = CGRectMake(cell.frameImage.frame.origin.x,
+                                       cell.frameImage.frame.origin.y,
+                                       cell.frameImage.frame.size.width,
+                                       cell.container.frame.size.height);
+    
+    //inliner is container -13
+    cell.inliner.frame = CGRectMake(cell.inliner.frame.origin.x,
+                                    cell.inliner.frame.origin.y,
+                                    cell.inliner.frame.size.width,
+                                    cell.container.frame.size.height - 13);
+    
+    //adjust bodyContainer
+    cell.bodyLabelContainer.frame = CGRectMake(cell.bodyLabelContainer.frame.origin.x + xDelta,
+                                               cell.bodyLabelContainer.frame.origin.y,
+                                               cell.bodyLabelContainer.frame.size.width + widthDelta,
+                                               cell.bodyLabelContainer.frame.size.height + heightDelta);
+    
+    //adjust bodyLabel
+    cell.bodyLabel.frame = CGRectMake(cell.bodyLabel.frame.origin.x,
+                                      cell.bodyLabel.frame.origin.y,
+                                      cell.bodyLabelContainer.frame.size.width - 8.0f,
+                                      textHeight - 3.0f);
+    
+    //adjust bodyLabelBacking
+    cell.backing.frame = CGRectMake(cell.backing.frame.origin.x,
+                                    cell.backing.frame.origin.y,
+                                    cell.bodyLabelContainer.frame.size.width - 8.0f,
+                                    textHeight - 3.0f);
+    
+    //adjust liner
+    cell.outliner.frame = CGRectMake(cell.outliner.frame.origin.x,
+                                     cell.outliner.frame.origin.y,
+                                     cell.bodyLabelContainer.frame.size.width - 3.0f,
+                                     cell.bodyLabel.frame.size.height + 2.0f);
+    
+    //adjust dropshadow
+    cell.shadow.frame = CGRectMake(cell.shadow.frame.origin.x,
+                                   cell.shadow.frame.origin.y,
+                                   cell.outliner.frame.size.width,
+                                   cell.outliner.frame.size.height);
 
     return cell;
 }
