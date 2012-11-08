@@ -273,19 +273,53 @@
                 NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j]objectAtIndex:k];
 
                 float scale = 0.0f;
+                float w = 0.0f;
                 
                 if (![[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
                     // image exists
                     scale = PHOTO_CELL_SCALE;
+                    w = 208.0f;
                 } else {
                     //no image
                     scale = NO_PHOTO_CELL_SCALE;
+                    w = 208.0f;
                 }
+                
+                CGSize ztextSize = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(w, CGFLOAT_MAX)];
+                /*
+                 UIFont *font = [UIFont fontWithName:@"SourceSansPro-Regular" size:16];
+                 
+                 if (indexPath.section == 0) {
+                 
+                 // get the text size of the thread
+                 CGSize textSize = [_thread.text sizeWithFont:font constrainedToSize:CGSizeMake(280 - 16, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+                 
+                 // text height + padding
+                 return textSize.height + 40;
+                 
+                 } else if (indexPath.section == 1) {
+                 
+                 // get the comment for this row
+                 Comment *comment = [_comments objectAtIndex:indexPath.row];
+                 
+                 // get the heights of the text areas
+                 CGSize textSize = [comment.text sizeWithFont:font constrainedToSize:CGSizeMake(280 - 16, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+                 
+                 return textSize.height + 40;
+                 
+                 }
+                 */
 
                 int ix = [[manObj valueForKey:@"desc"] length]/scale;
                 if (ix < (float)[[manObj valueForKey:@"desc"] length]/scale) ix++;
+                
 
-                [rowArray addObject:[NSNumber numberWithInt:ix]];
+                /*
+                NSLog(@"z height %f",ztextSize.height);
+                NSLog(@"ix %i",ix);
+                 */
+
+                [rowArray addObject:[NSNumber numberWithFloat:ztextSize.height]];
             }
             [sectionArray addObject:rowArray];
         }
@@ -644,10 +678,8 @@
     if (![[[[[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
         increase = 80.0f;
     }
-    
-    
-    //9903
-    float textHeight = 3.0f + (20.0f * [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue]);
+
+    float textHeight = 3.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
     
     if (increase < textHeight) increase = textHeight;
 
@@ -725,7 +757,7 @@
         cell.bodyLabelContainer.hidden = YES;
     }
 
-    float textHeight = 3.0f + ([[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] intValue] * 20.0f);
+    float textHeight = 3.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
     
     if (textHeight > heightDelta) heightDelta = textHeight;
     
