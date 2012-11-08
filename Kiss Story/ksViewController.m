@@ -272,54 +272,20 @@
                 // the data object at data/section/row
                 NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j]objectAtIndex:k];
 
-                float scale = 0.0f;
-                float w = 0.0f;
-                
+                float labelWidth = 0.0f;
+
                 if (![[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
-                    // image exists
-                    scale = PHOTO_CELL_SCALE;
-                    w = 208.0f;
+                    // image exists, so little label
+                    labelWidth = 208.0f;
                 } else {
-                    //no image
-                    scale = NO_PHOTO_CELL_SCALE;
-                    w = 208.0f;
+                    //no image, so big label
+                    labelWidth = 288.0f;
                 }
                 
-                CGSize ztextSize = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(w, CGFLOAT_MAX)];
-                /*
-                 UIFont *font = [UIFont fontWithName:@"SourceSansPro-Regular" size:16];
-                 
-                 if (indexPath.section == 0) {
-                 
-                 // get the text size of the thread
-                 CGSize textSize = [_thread.text sizeWithFont:font constrainedToSize:CGSizeMake(280 - 16, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-                 
-                 // text height + padding
-                 return textSize.height + 40;
-                 
-                 } else if (indexPath.section == 1) {
-                 
-                 // get the comment for this row
-                 Comment *comment = [_comments objectAtIndex:indexPath.row];
-                 
-                 // get the heights of the text areas
-                 CGSize textSize = [comment.text sizeWithFont:font constrainedToSize:CGSizeMake(280 - 16, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-                 
-                 return textSize.height + 40;
-                 
-                 }
-                 */
+                CGSize descBlock = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(labelWidth, CGFLOAT_MAX)];
 
-                int ix = [[manObj valueForKey:@"desc"] length]/scale;
-                if (ix < (float)[[manObj valueForKey:@"desc"] length]/scale) ix++;
-                
-
-                /*
-                NSLog(@"z height %f",ztextSize.height);
-                NSLog(@"ix %i",ix);
-                 */
-
-                [rowArray addObject:[NSNumber numberWithFloat:ztextSize.height]];
+                // the height that the textfield should be
+                [rowArray addObject:[NSNumber numberWithFloat:descBlock.height]];
             }
             [sectionArray addObject:rowArray];
         }
@@ -731,7 +697,7 @@
     }
     
     for (int i = 0; i< [[manObj valueForKey:@"score"] intValue]; i++){
-        [cell.header addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(276.0f - (i * 24.0f), 3.0f, 19.0f, 19.0f)]];
+        [cell.header addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(272.0f - (i * 26.0f), 7.0f, 26.0f, 26.0f)]];
         [[[cell.header subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[manObj valueForKey:@"score"] intValue]]objectAtIndex:4]];
     }
 
