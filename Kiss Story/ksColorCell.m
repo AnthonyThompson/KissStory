@@ -25,7 +25,7 @@
     }
 
     // these all need to be re-set before/after use/reuse
-    _frameImage.image = [[UIImage imageNamed:@"Frame.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9, 9, 9, 9)];
+    _frameImage.image = [[UIImage imageNamed:@"FrameGeneric.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9, 9, 9, 9)];
     
     _header.backgroundColor = [[[ksColorObject alloc]initCellWithColor:whichColor withType:whichType] lightColor];
     _leftThumbNail.image = [[[ksColorObject alloc]initCellWithColor:whichColor withType:whichType] leftThumbnailImage];
