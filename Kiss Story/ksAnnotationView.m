@@ -16,7 +16,7 @@
 
 -(id)initWithAnnotation:(ksAnnotationView*)annotation reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithAnnotation:(id)annotation reuseIdentifier:reuseIdentifier]) {
-        _index = 0;
+
         _title = annotation.title;
         _coordinate = annotation.coordinate;
 
@@ -29,8 +29,8 @@
 
         _calloutView = [[ksCalloutView alloc]init];
         _calloutView.frameImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
-        [self addSubview:_calloutView];
 
+        [self addSubview:_calloutView];
         [self initData];
         
     }
@@ -47,36 +47,36 @@
 -(void)initData {
     self.canShowCallout = NO;
     self.enabled = YES;
+
+    _index = 0;
+    _indexIterations = 3;
+    _frameIterations = 3;
     
-    _tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self action:@selector(segmentedControlGestured:)];
-    _tap.numberOfTapsRequired = 1;
-    _tap.delegate = ROOT;
-    [self addGestureRecognizer:_tap];
-    [_calloutView.segmentedControl addGestureRecognizer:_tap];
+    [self dataForIndex:_index];
 }
 
 -(void)dataForIndex:(int)index {
     _calloutView.locationLabel.text = _title;
     _calloutView.kisserLabel.text = [_kisserArray objectAtIndex:index];
-    // 9901 MAKE DATE FOR VIEW!
-    //_calloutView.dateLabel.text = [_dateArray objectAtIndex:index];
-    _calloutView.descLabel.text = [_descriptionArray objectAtIndex:index];
     
-    // colorize based on rating
+    //_calloutView.dateLabel.text = [_dateArray objectAtIndex:index];
+    
+    _calloutView.descLabel.text = [_descriptionArray objectAtIndex:index];
 }
 
 -(void)displayCallout {
+    NSLog(@"+CO (index reset)");
+    // called from mapview delegate in didSelectAnnotationView
     
-    NSLog(@"kAV +CO");
-
+    // RESET AND INIT
+    [self initData];
     [self dataForIndex:_index];
-    
-    if ([_kisserArray count] > 1) {
-        [self addSubview:_testButton];
-    }
-
     _calloutView.hidden = NO;
+    
+    _calloutView.indexButton.hidden = YES;
+    if ([_kisserArray count] > 1) {
+        _calloutView.indexButton.hidden = NO;
+    }
 
     CGPoint annotationCoordPoint = [[ROOT mainMapView] convertCoordinate:_coordinate toPointToView:[ROOT mainMapView]];
     
@@ -89,20 +89,56 @@
 }
 
 -(void)dismissCallout {
+    NSLog(@"-Co index %i",_index);
+    
+    _indexIterations = 3;
+    _frameIterations = 3;
     _calloutView.hidden = YES;
     [[ROOT mainMapView] setCenterCoordinate:_coordinate animated:YES];
 }
 
--(void)segmentedControlGestured:(UITapGestureRecognizer *)gestureRecognizer {
+-(UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
+    CGRect indexButtonFrame = CGRectMake(94.0f, -55.0f, 64.0f, 30.0f);
 
-    _index++;
-    if ((_index - 1) == [_kisserArray count]) {
-        _index = 0;
-    }
+    float x = _calloutView.frame.origin.x + self.frame.origin.x;
+    float y = _calloutView.frame.origin.y + self.frame.origin.y;
     
-    [self dataForIndex:_index];
+    float px = point.x + self.frame.origin.x;
+    float py = point.y + self.frame.origin.y;
+    
+    CGPoint pp = CGPointMake(px, py);
+
+    
+    CGRect annotationFrame = CGRectMake(x, y, _calloutView.frame.size.width, _calloutView.frame.size.height - 78.0f);
+
+    if (CGRectContainsPoint(indexButtonFrame, point) && _calloutView.indexButton.hidden == NO) {
+        _indexIterations--;
+        if (_indexIterations == 0) {
+            [self indexButtonTouched];
+        }
+        return _calloutView.indexButton;
+    }
+
+    if (CGRectContainsPoint(annotationFrame, pp)) {
+        _frameIterations--;
+        if (_frameIterations == 0) {
+            _frameIterations = 3;
+        }
+
+        return _calloutView;
+        //9901 NOT RETURN CALLOUTVIEW< but disable touches and launch cell detail or some such
+    }
+
+    return _calloutView;
 }
 
-
+-(void)indexButtonTouched {
+    _indexIterations = 3;
+    _index++;
+    if (_index == [_kisserArray count]) {
+        _index = 0;
+    }
+    [self dataForIndex:_index];
+}
 
 @end

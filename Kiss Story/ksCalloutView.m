@@ -20,15 +20,8 @@
     return self;
 }
 
--(IBAction)moreButtonTapped:(id)sender {
-    NSLog(@"kCO mBT");
+-(IBAction)safety:(id)sender {
+    // doesn't do anything, gets called only after all the hit test stuff
 }
-
-- (void) moreButtonGestured:(UITapGestureRecognizer *)gestureRecognizer {
-    NSLog(@"kCO mBG");
-}
-
-
-
 
 @end

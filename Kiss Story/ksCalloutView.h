@@ -20,15 +20,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView* pinImage;
 @property (nonatomic, retain) IBOutlet UIImageView* frameImage;
 @property (nonatomic, retain) IBOutlet UIImageView* photoImage;
-@property (nonatomic, retain) IBOutlet UISegmentedControl* segmentedControl;
-
-
-
-
-
-
-
-
-
+@property (nonatomic, retain) IBOutlet UIButton* indexButton;
 
 @end

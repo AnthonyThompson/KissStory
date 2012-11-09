@@ -21,8 +21,6 @@
 @property (nonatomic, readwrite) NSString* reuseIdentifier;
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 
-@property (nonatomic, retain) UIButton* testButton;
-
 @property (nonatomic, retain) NSArray* IDArray;
 @property (nonatomic, retain) NSArray* locationArray;
 @property (nonatomic, retain) NSArray* kisserArray;
@@ -33,6 +31,7 @@
 
 @property (nonatomic, readwrite) int color;
 @property (nonatomic, readwrite) int index;
-
+@property (nonatomic, readwrite) int indexIterations;
+@property (nonatomic, readwrite) int frameIterations;
 
 @end
