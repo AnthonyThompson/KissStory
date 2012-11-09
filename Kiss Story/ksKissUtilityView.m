@@ -157,7 +157,6 @@
 #pragma mark - Segmented Control Group
 
 -(IBAction)segmentedControlValueChanged:(id)sender {
-    NSLog(@"sCVC %i",[sender selectedSegmentIndex]);
     UIView* targetView;
     switch ([sender selectedSegmentIndex]) {
         case 0: {
