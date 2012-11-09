@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "ksColorObject.h"
 
 @interface ksColorCell : UITableViewCell {
@@ -18,11 +19,8 @@
 @property (nonatomic, retain) IBOutlet UIImageView* frameImage;
 @property (nonatomic, retain) IBOutlet UIView* inliner;
 
-@property (nonatomic, retain) IBOutlet UIView* bodyLabelContainer;
-@property (nonatomic, retain) IBOutlet UIView* outliner;
-@property (nonatomic, retain) IBOutlet UILabel* bodyLabel;
-@property (nonatomic, retain) IBOutlet UIView* shadow;
-@property (nonatomic, retain) IBOutlet UIView* backing;
+@property (nonatomic, retain) IBOutlet UIView* descLabelContainer;
+@property (nonatomic, retain) IBOutlet UILabel* descLabel;
 
 @property (nonatomic, retain) IBOutlet UIView* headerContainer;
 @property (nonatomic, retain) IBOutlet UIImageView* header;
@@ -32,7 +30,6 @@
 @property (nonatomic, retain) IBOutlet UILabel* rightLabel;
 @property (nonatomic, retain) IBOutlet UIImageView* leftThumbNail;
 @property (nonatomic, retain) IBOutlet UIImageView* rightThumbNail;
-
 
 @property (nonatomic, retain) IBOutlet UIView* photoImageContainer;
 @property (nonatomic, retain) IBOutlet UIImageView* photoImage;

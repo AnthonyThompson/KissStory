@@ -7,6 +7,7 @@
 //
 
 #import "ksCalloutView.h"
+#import "ksColorObject.h"
 
 @implementation ksCalloutView
 

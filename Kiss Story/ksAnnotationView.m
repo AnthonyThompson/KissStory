@@ -37,7 +37,7 @@
     return self;
 }
 
--(int)color {
+-(int)mapPinColor {
     if ([_ratingArray count] > 1) {
         return CCO_RAINBOW_COLOR;
     }
@@ -51,8 +51,10 @@
     _index = 0;
     _indexIterations = 3;
     _frameIterations = 3;
+
+    [self colorizeAnnotationWithColor:[[_ratingArray objectAtIndex:0] intValue] withType:LOCATION];
     
-    [self dataForIndex:_index];
+    //[self dataForIndex:_index];
 }
 
 -(void)dataForIndex:(int)index {
@@ -62,11 +64,20 @@
     //_calloutView.dateLabel.text = [_dateArray objectAtIndex:index];
     
     _calloutView.descLabel.text = [_descriptionArray objectAtIndex:index];
+    _calloutView.photoImage.image = [[UIImage alloc]init];
+
+    if (![[_imageArray objectAtIndex:index] isEqualToData:KSCD_DUMMYIMAGE]) {
+        // image exists
+        _calloutView.photoImage.image = [UIImage imageWithData:[_imageArray objectAtIndex:index]];
+    } else {
+        // image does not exist... resize element?
+    }
 }
 
 -(void)displayCallout {
-    NSLog(@"+CO (index reset)");
     // called from mapview delegate in didSelectAnnotationView
+    
+    //9901 RE-FRAME ANNOTATION HERE?  AND THEN DE-FRAME ON DISMISS?
     
     // RESET AND INIT
     [self initData];
@@ -89,8 +100,6 @@
 }
 
 -(void)dismissCallout {
-    NSLog(@"-Co index %i",_index);
-    
     _indexIterations = 3;
     _frameIterations = 3;
     _calloutView.hidden = YES;
@@ -98,18 +107,11 @@
 }
 
 -(UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
+    
+    // think about this...
+    //BOOL jool = [self pointInside:point withEvent:event];
+    
     CGRect indexButtonFrame = CGRectMake(94.0f, -55.0f, 64.0f, 30.0f);
-
-    float x = _calloutView.frame.origin.x + self.frame.origin.x;
-    float y = _calloutView.frame.origin.y + self.frame.origin.y;
-    
-    float px = point.x + self.frame.origin.x;
-    float py = point.y + self.frame.origin.y;
-    
-    CGPoint pp = CGPointMake(px, py);
-
-    
-    CGRect annotationFrame = CGRectMake(x, y, _calloutView.frame.size.width, _calloutView.frame.size.height - 78.0f);
 
     if (CGRectContainsPoint(indexButtonFrame, point) && _calloutView.indexButton.hidden == NO) {
         _indexIterations--;
@@ -118,6 +120,16 @@
         }
         return _calloutView.indexButton;
     }
+    
+    float x = _calloutView.frame.origin.x + self.frame.origin.x;
+    float y = _calloutView.frame.origin.y + self.frame.origin.y;
+    
+    float px = point.x + self.frame.origin.x;
+    float py = point.y + self.frame.origin.y;
+    
+    CGPoint pp = CGPointMake(px, py);
+    
+    CGRect annotationFrame = CGRectMake(x, y, _calloutView.frame.size.width, _calloutView.frame.size.height - 78.0f);
 
     if (CGRectContainsPoint(annotationFrame, pp)) {
         _frameIterations--;
@@ -132,6 +144,15 @@
     return _calloutView;
 }
 
+//9901 is needed???
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    // for testing purposes
+    BOOL result = [super pointInside:point withEvent:event];
+    NSLog(@"pointInside:RESULT = %i", result);
+    
+    return YES;
+}
+
 -(void)indexButtonTouched {
     _indexIterations = 3;
     _index++;
@@ -140,5 +161,26 @@
     }
     [self dataForIndex:_index];
 }
+
+-(void)colorizeAnnotationWithColor:(int)whichColor withType:(int)whichType {
+    
+    for (UIView* subV in [_calloutView.headerView subviews]) {
+        [subV removeFromSuperview];
+    }
+    
+    // these all need to be re-set before/after use/reuse
+    
+    _calloutView.headerView.backgroundColor = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] lightColor];
+    _calloutView.kisserImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] leftThumbnailImage];
+    _calloutView.dateImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] rightThumbnailImage];
+    _calloutView.heartImage = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] heartImage];
+    
+    _calloutView.photoImage.image = nil;
+    _calloutView.descContainer.hidden = NO;
+    _calloutView.photoContainer.hidden = NO;
+    
+    //_bodyLabelContainer.frame = CGRectMake(83.0f, 70.0f, 218.0f, 24.0f);
+}
+
 
 @end

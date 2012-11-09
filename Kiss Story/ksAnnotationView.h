@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSArray* descriptionArray;
 @property (nonatomic, retain) NSArray* imageArray;
 
-@property (nonatomic, readwrite) int color;
+@property (nonatomic, readwrite) int mapPinColor;
 @property (nonatomic, readwrite) int index;
 @property (nonatomic, readwrite) int indexIterations;
 @property (nonatomic, readwrite) int frameIterations;
