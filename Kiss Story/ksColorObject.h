@@ -11,7 +11,7 @@
 #define CCO_LIGHT 0
 #define CCO_BASE 1
 
-// because sometime sthe 7th element is a rainbow, sometimes a cream...
+// because sometimes the 7th element is a rainbow, sometimes a cream...
 #define CCO_RAINBOW_COLOR 6
 #define CCO_CREAM_COLOR 6
 #define CCO_RED_COLOR 5
@@ -95,7 +95,7 @@
 @interface ksColorObject : NSObject {
 }
 
--(id)initCellWithColor:(int)whichColor withType:(int)whichType;
+-(id)initDisplayWithColor:(int)whichColor withType:(int)whichType;
 -(id)init;
 
 +(NSArray*)colorArray;

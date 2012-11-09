@@ -10,13 +10,8 @@
 
 @implementation ksColorObject
 
-//@synthesize baseColor;
-//@synthesize lightColor;
 @synthesize rightThumbnailImage;
 @synthesize leftThumbnailImage;
-//@synthesize heartImage;
-//@synthesize type;
-//@synthesize color;
 
 -(id)init{
     if (self = [super init]) {
@@ -26,7 +21,7 @@
     return self;
 }
 
--(id)initCellWithColor:(int)whichColor withType:(int)whichType {
+-(id)initDisplayWithColor:(int)whichColor withType:(int)whichType {
     if (self = [self init]) {
         _color = whichColor;
         _type = whichType;
@@ -39,21 +34,29 @@
         
         switch (whichType) {
             case CCO_KISSER: {
-                // location, date
+                // ksColorCell: location, date
                 leftImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_LOCATION];
                 rightImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_DATE];
             }
                 break;
             case CCO_DATE: {
-                // person, location
+                // ksColorCell: person, location
                 leftImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_KISSER];
                 rightImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_LOCATION];
             }
                 break;
             case CCO_RATING: {
-                // date, location
+                // ksColorCell: date, location
                 leftImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_DATE];
                 rightImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_LOCATION];
+            }
+                break;
+            case CCO_LOCATION: {
+                // ksCalloutView: person, date
+                //9901 will this even work???
+                // yes, it will; this returns a colorObject!
+                leftImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_KISSER];
+                rightImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_DATE];
             }
                 break;
         }
