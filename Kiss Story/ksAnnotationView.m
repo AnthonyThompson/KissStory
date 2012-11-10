@@ -28,7 +28,7 @@
         _imageArray = annotation.imageArray;
 
         _calloutView = [[ksCalloutView alloc]init];
-        _calloutView.frameImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
+        _calloutView.containerImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
 
         [self addSubview:_calloutView];
         [self initData];
@@ -58,17 +58,17 @@
 }
 
 -(void)dataForIndex:(int)index {
-    _calloutView.locationLabel.text = _title;
-    _calloutView.kisserLabel.text = [_kisserArray objectAtIndex:index];
+    _calloutView.container.headerLabel.text = _title;
+    _calloutView.container.leftLabel.text = [_kisserArray objectAtIndex:index];
     
-    //_calloutView.dateLabel.text = [_dateArray objectAtIndex:index];
+    //_calloutView.container.rightLabel.text = [_dateArray objectAtIndex:index];
     
-    _calloutView.descLabel.text = [_descriptionArray objectAtIndex:index];
-    _calloutView.photoImage.image = [[UIImage alloc]init];
+    _calloutView.container.descLabel.text = [_descriptionArray objectAtIndex:index];
+    _calloutView.container.photoImage.image = [[UIImage alloc]init];
 
     if (![[_imageArray objectAtIndex:index] isEqualToData:KSCD_DUMMYIMAGE]) {
         // image exists
-        _calloutView.photoImage.image = [UIImage imageWithData:[_imageArray objectAtIndex:index]];
+        _calloutView.container.photoImage.image = [UIImage imageWithData:[_imageArray objectAtIndex:index]];
     } else {
         // image does not exist... resize element?
     }
@@ -164,22 +164,20 @@
 
 -(void)colorizeAnnotationWithColor:(int)whichColor withType:(int)whichType {
     
-    for (UIView* subV in [_calloutView.headerView subviews]) {
+    for (UIView* subV in [_calloutView.container.headerRatingView subviews]) {
         [subV removeFromSuperview];
     }
     
     // these all need to be re-set before/after use/reuse
     
-    _calloutView.headerView.backgroundColor = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] lightColor];
-    _calloutView.kisserImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] leftThumbnailImage];
-    _calloutView.dateImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] rightThumbnailImage];
+    _calloutView.container.headerRatingView.backgroundColor = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] lightColor];
+    _calloutView.container.leftImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] leftThumbnailImage];
+    _calloutView.container.rightImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] rightThumbnailImage];
     _calloutView.heartImage = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] heartImage];
     
-    _calloutView.photoImage.image = nil;
-    _calloutView.descContainer.hidden = NO;
-    _calloutView.photoContainer.hidden = NO;
-    
-    //_bodyLabelContainer.frame = CGRectMake(83.0f, 70.0f, 218.0f, 24.0f);
+    _calloutView.container.photoImage.image = nil;
+    _calloutView.container.descContainerView.hidden = NO;
+    _calloutView.container.photoContainerView.hidden = NO;
 }
 
 

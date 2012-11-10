@@ -7,7 +7,6 @@
 //
 
 #import "ksCalloutView.h"
-#import "ksColorObject.h"
 
 @implementation ksCalloutView
 
@@ -15,14 +14,11 @@
     if (self = [super init]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksCalloutView" owner:self options:nil] objectAtIndex:0];
         self.frame = CGRectOffset(self.frame, -(self.frame.size.width/2)+19.0f, -(self.frame.size.height)+39.0f);
+        _heartImage = [[UIImage alloc]init];
         self.hidden = YES;
     }
     
     return self;
-}
-
--(IBAction)safety:(id)sender {
-    // doesn't do anything, gets called only after all the hit test stuff
 }
 
 @end

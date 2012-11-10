@@ -15,7 +15,7 @@
 - (id)init {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 288.0f, 368.0f)]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSettingsView" owner:self options:nil] objectAtIndex:0];
-        //_settingsDictionary = [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] settingsDictionary];
+
         _settingsDictionary = [ROOT settingsDictionary];
 
         _facebookSwitch.on = NO;

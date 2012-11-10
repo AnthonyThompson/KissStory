@@ -10,6 +10,7 @@
 #import "ksAppDelegate.h"
 #import "ksSettingsView.h"
 #import "ksSecurityView.h"
+#import "ksKissTableViewCell.h"
 
 @implementation ksViewController
 
@@ -638,6 +639,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    /*
     float rowHeight = 93.0f;
     float increase = 0.0f;
 
@@ -650,6 +652,13 @@
     if (increase < textHeight) increase = textHeight;
 
     return (rowHeight + increase);
+     */
+    
+    
+    
+    // nib cell = 180
+    // -26 for dataHearts
+    return 154.0f;
 }
 
 -(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -657,49 +666,99 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString* cellID = @"ksCC";
+    NSString* cellID = @"ksKissTableViewCell";
     
     NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
 
-    [tableView registerNib:[UINib nibWithNibName:@"ksColorCell"
-                                          bundle:[NSBundle mainBundle]]
-                            forCellReuseIdentifier:cellID];
-    ksColorCell* cell = (ksColorCell*)[tableView dequeueReusableCellWithIdentifier:cellID
-                                                                      forIndexPath:indexPath];
-
-    [cell colorizeCellWithColor:[[manObj valueForKey:@"score"] intValue] withType:_state];
+    UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    cell.frame = CGRectMake(0,0,320,154);
+    
+    cell.clipsToBounds = YES;
     
     //This prevents crashes when the table is still scrolling and someone flips to map/settings
     if (_state > RATING) return cell;
 
+    ksKissItemView* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissItemView" owner:cell options:nil] objectAtIndex:0];
+    
+    [content colorizeWithColor:[[manObj valueForKey:@"score"] intValue] forType:_state];
+    [content makeForTableView];
+    content.frame = CGRectMake(3, 3, 314, cell.frame.size.height - 6);
+
+    [cell addSubview:content];
+
+    if ([[manObj valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
+        //image does NOT exist
+        content.photoContainerView.hidden = YES;
+    } else {
+        // image exists
+        content.photoImage.image = [UIImage imageWithData:[manObj valueForKey:@"image"]];
+    }
+    
+    if ([[manObj valueForKey:@"desc"] isEqualToString:@""]) {
+        // text does NOT exist
+        content.descContainerView.hidden = YES;
+    } else {
+        // text exists
+        content.descLabel.text = [manObj valueForKey:@"desc"];
+    }
+
     switch (_state) {
         case KISSER: {
-            cell.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
-            cell.leftLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
-            cell.rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+            content.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            content.leftLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+            content.rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
         }
             break;
         case DATE: {
-            cell.headerLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
-            cell.leftLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
-            cell.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+            content.headerLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+            content.leftLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            content.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
             
         }
             break;
         case RATING: {
-            cell.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
-            cell.leftLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
-            cell.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+            content.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            content.leftLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+            content.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
         }
             break;
     }
     
-    for (int i = 0; i< [[manObj valueForKey:@"score"] intValue]; i++){
-        [cell.header addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(272.0f - (i * 26.0f), 7.0f, 26.0f, 26.0f)]];
-        [[[cell.header subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[manObj valueForKey:@"score"] intValue]]objectAtIndex:4]];
+    float textHeight = 3.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
+
+
+    /*
+    switch (_state) {
+        case KISSER: {
+            cell.content.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            cell.content.leftLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+            cell.content.rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+        }
+            break;
+        case DATE: {
+            cell.content.headerLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+            cell.content.leftLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            cell.content.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+            
+        }
+            break;
+        case RATING: {
+            cell.content.headerLabel.text = [[manObj valueForKey:@"kissWho"] valueForKey:@"name"];
+            cell.content.leftLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[manObj valueForKey:@"when"] doubleValue]]]];
+            cell.content.rightLabel.text = [[manObj valueForKey:@"kissWhere"] valueForKey:@"name"];
+        }
+            break;
     }
+     */
+    
+    /*
+    for (int i = 0; i< [[manObj valueForKey:@"score"] intValue]; i++){
+        [cell.content.headerRatingView addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(272.0f - (i * 26.0f), 7.0f, 26.0f, 26.0f)]];
+        [[[cell.content.headerRatingView subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[manObj valueForKey:@"score"] intValue]]objectAtIndex:4]];
+    }
+    
 
     float baseHeight = 93.0f;
     float heightDelta = 0.0f;
@@ -708,19 +767,19 @@
 
     if (![[manObj valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
         // image exists
-        cell.photoImage.image = [UIImage imageWithData:[manObj valueForKey:@"image"]];
+        cell.content.photoImage.image = [UIImage imageWithData:[manObj valueForKey:@"image"]];
         heightDelta += 80.0f;
     } else {
         //image does NOT exist
-        cell.photoImageContainer.hidden = YES;
+        cell.content.photoContainerView.hidden = YES;
         widthDelta += 80.0f;
         xDelta += -80.0f;
     }
 
     if (![[manObj valueForKey:@"desc"] isEqualToString:@""]) {
-        cell.bodyLabel.text = [manObj valueForKey:@"desc"];
+        cell.content.descLabel.text = [manObj valueForKey:@"desc"];
     } else {
-        cell.bodyLabelContainer.hidden = YES;
+        cell.content.descContainerView.hidden = YES;
     }
 
     float textHeight = 3.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
@@ -730,10 +789,11 @@
     //adjust cell.frame
     cell.frame = CGRectMake(cell.frame.origin.x,
                             cell.frame.origin.y,
-                            cell.frame.size.width,
+                                cell.frame.size.width,
                             baseHeight + heightDelta);
-    
-    // container is frame -6
+     
+
+     // container is frame -6
     cell.container.frame = CGRectMake(cell.container.frame.origin.x,
                                       cell.container.frame.origin.y,
                                       cell.container.frame.size.width,
@@ -752,17 +812,19 @@
                                     cell.container.frame.size.height - 13);
     
     //adjust bodyContainer
-    cell.bodyLabelContainer.frame = CGRectMake(cell.bodyLabelContainer.frame.origin.x + xDelta,
-                                               cell.bodyLabelContainer.frame.origin.y,
-                                               cell.bodyLabelContainer.frame.size.width + widthDelta,
-                                               cell.bodyLabelContainer.frame.size.height + heightDelta);
+    cell.descLabelContainer.frame = CGRectMake(cell.descLabelContainer.frame.origin.x + xDelta,
+                                               cell.descLabelContainer.frame.origin.y,
+                                               cell.descLabelContainer.frame.size.width + widthDelta,
+                                               cell.descLabelContainer.frame.size.height + heightDelta);
     
     //adjust bodyLabel
-    cell.bodyLabel.frame = CGRectMake(cell.bodyLabel.frame.origin.x,
-                                      cell.bodyLabel.frame.origin.y,
-                                      cell.bodyLabelContainer.frame.size.width - 8.0f,
+    cell.descLabel.frame = CGRectMake(cell.descLabel.frame.origin.x,
+                                      cell.descLabel.frame.origin.y,
+                                      cell.descLabelContainer.frame.size.width - 8.0f,
                                       textHeight - 3.0f);
+     */
     
+    /*
     //adjust bodyLabelBacking
     cell.backing.frame = CGRectMake(cell.backing.frame.origin.x,
                                     cell.backing.frame.origin.y,
@@ -780,6 +842,7 @@
                                    cell.shadow.frame.origin.y,
                                    cell.outliner.frame.size.width,
                                    cell.outliner.frame.size.height);
+     */
 
     return cell;
 }
@@ -865,7 +928,7 @@
         return nil;
     }
     ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"resuableIdentifier"];
-    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksAnnotationView*)annotation color]]objectAtIndex:CCO_PIN];
+    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksAnnotationView*)annotation mapPinColor]]objectAtIndex:CCO_PIN];
     
     // the image is normally centered itself on the point, so offset for the size of the image itself
     // move it up by half the size
@@ -893,8 +956,8 @@
 #pragma mark - VC super class
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    //self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         _iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
         [self initDataStructures];
     }

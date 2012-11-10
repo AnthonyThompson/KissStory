@@ -12,10 +12,12 @@
 #import <MapKit/MapKit.h>
 #import <MessageUI/MessageUI.h>
 #import "ksCoreData.h"
-#import "ksColorCell.h"
+#import "ksColorObject.h"
 #import "ksAnnotationView.h"
 #import "ksKissUtilityView.h"
 #import "ksImagePickerViewController.h"
+#import "ksKissItemView.h"
+#import "ksKissTableViewCell.h"
 
 #define STATE_KISSER 0
 #define STATE_DATE 1
