@@ -13,7 +13,6 @@
 		050825E51638636A00DD57DA /* ButtonHeaderCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 050825E21638636A00DD57DA /* ButtonHeaderCancel.png */; };
 		050825E61638636A00DD57DA /* ButtonHeaderEdit.png in Resources */ = {isa = PBXBuildFile; fileRef = 050825E31638636A00DD57DA /* ButtonHeaderEdit.png */; };
 		050825E71638636A00DD57DA /* ButtonHeaderSave.png in Resources */ = {isa = PBXBuildFile; fileRef = 050825E41638636A00DD57DA /* ButtonHeaderSave.png */; };
-		05089649163E01B0003A943F /* PopoverStretchCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 05089648163E01B0003A943F /* PopoverStretchCap.png */; };
 		0508964D163E3555003A943F /* ksPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0508964C163E3555003A943F /* ksPopOverView.m */; };
 		05089650163E3579003A943F /* ksPopOverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0508964F163E3579003A943F /* ksPopOverView.xib */; };
 		05089652163E4912003A943F /* ButtonHeaderOK.png in Resources */ = {isa = PBXBuildFile; fileRef = 05089651163E4912003A943F /* ButtonHeaderOK.png */; };
@@ -24,7 +23,7 @@
 		050E7717162DF05400D4F89F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7714162DF05400D4F89F /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		050E7718162DF05400D4F89F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7715162DF05400D4F89F /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		050E7719162DF05400D4F89F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7716162DF05400D4F89F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		050F07D216292E000059C756 /* ksColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 050F07D116292E000059C756 /* ksColorCell.m */; };
+		050F07D216292E000059C756 /* ksKissTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 050F07D116292E000059C756 /* ksKissTableViewCell.m */; };
 		050F07D41629B8400059C756 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D31629B8400059C756 /* UIKit.framework */; };
 		050F07D61629B8520059C756 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D51629B8520059C756 /* Foundation.framework */; };
 		050F07D81629B85C0059C756 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D71629B85C0059C756 /* CoreData.framework */; };
@@ -36,6 +35,8 @@
 		0513C10B16372D36001E57A8 /* ksKissUtilityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0513C10A16372D36001E57A8 /* ksKissUtilityView.xib */; };
 		0514AF77164039EC00BEA562 /* ksImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0514AF75164039EC00BEA562 /* ksImagePickerViewController.m */; };
 		0514AF78164039EC00BEA562 /* ksImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0514AF76164039EC00BEA562 /* ksImagePickerViewController.xib */; };
+		05234713164DF21E009B3778 /* ksKissItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05234712164DF21E009B3778 /* ksKissItemView.m */; };
+		05234716164DF233009B3778 /* ksKissItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05234715164DF233009B3778 /* ksKissItemView.xib */; };
 		052CF6D21645F4AD005E73FD /* ButtonSegment0.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6CD1645F4AD005E73FD /* ButtonSegment0.png */; };
 		052CF6D31645F4AD005E73FD /* ButtonSegment1.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6CE1645F4AD005E73FD /* ButtonSegment1.png */; };
 		052CF6D41645F4AD005E73FD /* ButtonSegment2.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6CF1645F4AD005E73FD /* ButtonSegment2.png */; };
@@ -52,6 +53,7 @@
 		052CF6EB164601E5005E73FD /* StatusLocationYes.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6E1164601E5005E73FD /* StatusLocationYes.png */; };
 		052CF6EC164601E5005E73FD /* StatusRatingNo.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6E2164601E5005E73FD /* StatusRatingNo.png */; };
 		052CF6ED164601E5005E73FD /* StatusRatingYes.png in Resources */ = {isa = PBXBuildFile; fileRef = 052CF6E3164601E5005E73FD /* StatusRatingYes.png */; };
+		05314869164D9C190050D253 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05314868164D9C190050D253 /* QuartzCore.framework */; };
 		0533D08B160E75B6001C3E6B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0533D089160E75B6001C3E6B /* InfoPlist.strings */; };
 		0533D08D160E75B6001C3E6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0533D08C160E75B6001C3E6B /* main.m */; };
 		0533D091160E75B6001C3E6B /* ksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0533D090160E75B6001C3E6B /* ksAppDelegate.m */; };
@@ -65,10 +67,11 @@
 		053D465B163B6BA0003DF674 /* ksKissObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 053D465A163B6BA0003DF674 /* ksKissObject.m */; };
 		053D465E163C49C3003DF674 /* MapCenterOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 053D465D163C49C3003DF674 /* MapCenterOverlay.png */; };
 		053D4660163C5BA7003DF674 /* ButtonMapCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 053D465F163C5BA7003DF674 /* ButtonMapCenter.png */; };
+		0540DF59164C3106000FB81D /* FrameCallout.png in Resources */ = {isa = PBXBuildFile; fileRef = 0540DF57164C3106000FB81D /* FrameCallout.png */; };
+		0540DF5A164C3106000FB81D /* FrameGeneric.png in Resources */ = {isa = PBXBuildFile; fileRef = 0540DF58164C3106000FB81D /* FrameGeneric.png */; };
 		054B15BE164463F2004F815E /* ButtonUtilityPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B15BC164463F2004F815E /* ButtonUtilityPhoto.png */; };
 		054B15BF164463F2004F815E /* ButtonUtilityWhy.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B15BD164463F2004F815E /* ButtonUtilityWhy.png */; };
-		054C736B1639A0620001A905 /* ShadePicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 054C736A1639A0620001A905 /* ShadePicker.png */; };
-		05517D031632FC1400DE5A51 /* ksColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05517D021632FC1400DE5A51 /* ksColorCell.xib */; };
+		05517D031632FC1400DE5A51 /* ksKissTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */; };
 		05517D0F16331F4C00DE5A51 /* ButtonDateSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0516331F4C00DE5A51 /* ButtonDateSelected.png */; };
 		05517D1016331F4C00DE5A51 /* ButtonDateUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0616331F4C00DE5A51 /* ButtonDateUnselected.png */; };
 		05517D1116331F4C00DE5A51 /* ButtonKisserSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0716331F4C00DE5A51 /* ButtonKisserSelected.png */; };
@@ -119,6 +122,9 @@
 		056D5B581623D39000F71F7E /* ksCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 056D5B571623D39000F71F7E /* ksCoreData.m */; };
 		0570BDEA1638815700FD55BF /* ksSecurityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0570BDE91638815700FD55BF /* ksSecurityView.xib */; };
 		0570BDED16388FE700FD55BF /* WindowPrivacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0570BDEC16388FE700FD55BF /* WindowPrivacy.png */; };
+		057E6BD3164AD352008D73FD /* IMAGETEST1.png in Resources */ = {isa = PBXBuildFile; fileRef = 057E6BD0164AD352008D73FD /* IMAGETEST1.png */; };
+		057E6BD4164AD352008D73FD /* IMAGETEST2.png in Resources */ = {isa = PBXBuildFile; fileRef = 057E6BD1164AD352008D73FD /* IMAGETEST2.png */; };
+		057E6BD5164AD352008D73FD /* IMAGETEST3.png in Resources */ = {isa = PBXBuildFile; fileRef = 057E6BD2164AD352008D73FD /* IMAGETEST3.png */; };
 		05966B3D163369840023AB4D /* IconDateGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B38163369840023AB4D /* IconDateGrey.png */; };
 		05966B3E163369840023AB4D /* IconHeartGrey.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B39163369840023AB4D /* IconHeartGrey.png */; };
 		05966B3F163369840023AB4D /* IconHeartGreyShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B3A163369840023AB4D /* IconHeartGreyShadow.png */; };
@@ -138,14 +144,12 @@
 		05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A87810163FA07900D2DF2F /* ksSettingsView.m */; };
 		05A87815163FA0AA00D2DF2F /* ksSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A87814163FA0AA00D2DF2F /* ksSettingsView.xib */; };
 		05BD07751638F17F002E9671 /* ButtonHeaderAccept.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BD07741638F17F002E9671 /* ButtonHeaderAccept.png */; };
-		05BD07781638F58F002E9671 /* WindowPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BD07771638F58F002E9671 /* WindowPicker.png */; };
 		05BD077A1638F6C0002E9671 /* ksPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BD07791638F6C0002E9671 /* ksPickerView.xib */; };
 		05BD077D1638FA98002E9671 /* ksPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD077C1638FA98002E9671 /* ksPickerView.m */; };
 		05D6487C162F61CF006B28F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D6487B162F61CF006B28F4 /* MapKit.framework */; };
 		05DDDC5C163CAB240055F52F /* HeaderBannerOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 05DDDC5B163CAB240055F52F /* HeaderBannerOverlay.png */; };
 		05E22F5B1630642B009F948F /* ksColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E22F5A1630642B009F948F /* ksColorObject.m */; };
 		05EC3A701635F27D00001367 /* ksAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EC3A6F1635F27D00001367 /* ksAnnotationView.m */; };
-		05EC3A7A1635FAF600001367 /* ButtonMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 05EC3A791635FAF600001367 /* ButtonMore.png */; };
 		05FB33AB163F4528009147F2 /* ButtonPhotoSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB33AA163F4528009147F2 /* ButtonPhotoSelected.png */; };
 		05FB33AD163F47A5009147F2 /* ButtonPhotoUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB33AC163F47A5009147F2 /* ButtonPhotoUnselected.png */; };
 		05FB33AF163F49E3009147F2 /* ButtonHeaderGear.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB33AE163F49E3009147F2 /* ButtonHeaderGear.png */; };
@@ -159,7 +163,6 @@
 		050825E21638636A00DD57DA /* ButtonHeaderCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeaderCancel.png; path = Assets/ButtonHeaderCancel.png; sourceTree = "<group>"; };
 		050825E31638636A00DD57DA /* ButtonHeaderEdit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeaderEdit.png; path = Assets/ButtonHeaderEdit.png; sourceTree = "<group>"; };
 		050825E41638636A00DD57DA /* ButtonHeaderSave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeaderSave.png; path = Assets/ButtonHeaderSave.png; sourceTree = "<group>"; };
-		05089648163E01B0003A943F /* PopoverStretchCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopoverStretchCap.png; path = Assets/PopoverStretchCap.png; sourceTree = "<group>"; };
 		0508964B163E3555003A943F /* ksPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksPopOverView.h; sourceTree = "<group>"; };
 		0508964C163E3555003A943F /* ksPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksPopOverView.m; sourceTree = "<group>"; };
 		0508964F163E3579003A943F /* ksPopOverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksPopOverView.xib; sourceTree = "<group>"; };
@@ -171,8 +174,8 @@
 		050E7714162DF05400D4F89F /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		050E7715162DF05400D4F89F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		050E7716162DF05400D4F89F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		050F07D016292E000059C756 /* ksColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksColorCell.h; sourceTree = "<group>"; };
-		050F07D116292E000059C756 /* ksColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksColorCell.m; sourceTree = "<group>"; };
+		050F07D016292E000059C756 /* ksKissTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksKissTableViewCell.h; sourceTree = "<group>"; };
+		050F07D116292E000059C756 /* ksKissTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksKissTableViewCell.m; sourceTree = "<group>"; };
 		050F07D31629B8400059C756 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050F07D51629B8520059C756 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		050F07D71629B85C0059C756 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -186,6 +189,9 @@
 		0514AF74164039EC00BEA562 /* ksImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksImagePickerViewController.h; sourceTree = "<group>"; };
 		0514AF75164039EC00BEA562 /* ksImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksImagePickerViewController.m; sourceTree = "<group>"; };
 		0514AF76164039EC00BEA562 /* ksImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksImagePickerViewController.xib; sourceTree = "<group>"; };
+		05234711164DF21E009B3778 /* ksKissItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksKissItemView.h; sourceTree = "<group>"; };
+		05234712164DF21E009B3778 /* ksKissItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksKissItemView.m; sourceTree = "<group>"; };
+		05234715164DF233009B3778 /* ksKissItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksKissItemView.xib; sourceTree = "<group>"; };
 		052CF6CD1645F4AD005E73FD /* ButtonSegment0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSegment0.png; path = Assets/ButtonSegment0.png; sourceTree = "<group>"; };
 		052CF6CE1645F4AD005E73FD /* ButtonSegment1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSegment1.png; path = Assets/ButtonSegment1.png; sourceTree = "<group>"; };
 		052CF6CF1645F4AD005E73FD /* ButtonSegment2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSegment2.png; path = Assets/ButtonSegment2.png; sourceTree = "<group>"; };
@@ -202,6 +208,7 @@
 		052CF6E1164601E5005E73FD /* StatusLocationYes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatusLocationYes.png; path = Assets/StatusLocationYes.png; sourceTree = "<group>"; };
 		052CF6E2164601E5005E73FD /* StatusRatingNo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatusRatingNo.png; path = Assets/StatusRatingNo.png; sourceTree = "<group>"; };
 		052CF6E3164601E5005E73FD /* StatusRatingYes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatusRatingYes.png; path = Assets/StatusRatingYes.png; sourceTree = "<group>"; };
+		05314868164D9C190050D253 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0533D07A160E75B5001C3E6B /* Kiss Story.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kiss Story.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0533D088160E75B6001C3E6B /* Kiss Story-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kiss Story-Info.plist"; sourceTree = "<group>"; };
 		0533D08A160E75B6001C3E6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -220,10 +227,11 @@
 		053D465A163B6BA0003DF674 /* ksKissObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksKissObject.m; sourceTree = "<group>"; };
 		053D465D163C49C3003DF674 /* MapCenterOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapCenterOverlay.png; path = Assets/MapCenterOverlay.png; sourceTree = "<group>"; };
 		053D465F163C5BA7003DF674 /* ButtonMapCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonMapCenter.png; path = Assets/ButtonMapCenter.png; sourceTree = "<group>"; };
+		0540DF57164C3106000FB81D /* FrameCallout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrameCallout.png; path = Assets/FrameCallout.png; sourceTree = "<group>"; };
+		0540DF58164C3106000FB81D /* FrameGeneric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrameGeneric.png; path = Assets/FrameGeneric.png; sourceTree = "<group>"; };
 		054B15BC164463F2004F815E /* ButtonUtilityPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonUtilityPhoto.png; path = Assets/ButtonUtilityPhoto.png; sourceTree = "<group>"; };
 		054B15BD164463F2004F815E /* ButtonUtilityWhy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonUtilityWhy.png; path = Assets/ButtonUtilityWhy.png; sourceTree = "<group>"; };
-		054C736A1639A0620001A905 /* ShadePicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShadePicker.png; path = Assets/ShadePicker.png; sourceTree = "<group>"; };
-		05517D021632FC1400DE5A51 /* ksColorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksColorCell.xib; sourceTree = "<group>"; };
+		05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksKissTableViewCell.xib; sourceTree = "<group>"; };
 		05517D0516331F4C00DE5A51 /* ButtonDateSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonDateSelected.png; path = Assets/ButtonDateSelected.png; sourceTree = "<group>"; };
 		05517D0616331F4C00DE5A51 /* ButtonDateUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonDateUnselected.png; path = Assets/ButtonDateUnselected.png; sourceTree = "<group>"; };
 		05517D0716331F4C00DE5A51 /* ButtonKisserSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonKisserSelected.png; path = Assets/ButtonKisserSelected.png; sourceTree = "<group>"; };
@@ -276,6 +284,9 @@
 		056D5B571623D39000F71F7E /* ksCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksCoreData.m; sourceTree = "<group>"; };
 		0570BDE91638815700FD55BF /* ksSecurityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksSecurityView.xib; sourceTree = "<group>"; };
 		0570BDEC16388FE700FD55BF /* WindowPrivacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WindowPrivacy.png; path = Assets/WindowPrivacy.png; sourceTree = "<group>"; };
+		057E6BD0164AD352008D73FD /* IMAGETEST1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IMAGETEST1.png; path = Assets/IMAGETEST1.png; sourceTree = "<group>"; };
+		057E6BD1164AD352008D73FD /* IMAGETEST2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IMAGETEST2.png; path = Assets/IMAGETEST2.png; sourceTree = "<group>"; };
+		057E6BD2164AD352008D73FD /* IMAGETEST3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IMAGETEST3.png; path = Assets/IMAGETEST3.png; sourceTree = "<group>"; };
 		05966B38163369840023AB4D /* IconDateGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconDateGrey.png; path = Assets/IconDateGrey.png; sourceTree = "<group>"; };
 		05966B39163369840023AB4D /* IconHeartGrey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconHeartGrey.png; path = Assets/IconHeartGrey.png; sourceTree = "<group>"; };
 		05966B3A163369840023AB4D /* IconHeartGreyShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconHeartGreyShadow.png; path = Assets/IconHeartGreyShadow.png; sourceTree = "<group>"; };
@@ -297,7 +308,6 @@
 		05A87810163FA07900D2DF2F /* ksSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksSettingsView.m; sourceTree = "<group>"; };
 		05A87814163FA0AA00D2DF2F /* ksSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksSettingsView.xib; sourceTree = "<group>"; };
 		05BD07741638F17F002E9671 /* ButtonHeaderAccept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeaderAccept.png; path = Assets/ButtonHeaderAccept.png; sourceTree = "<group>"; };
-		05BD07771638F58F002E9671 /* WindowPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WindowPicker.png; path = Assets/WindowPicker.png; sourceTree = "<group>"; };
 		05BD07791638F6C0002E9671 /* ksPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksPickerView.xib; sourceTree = "<group>"; };
 		05BD077B1638FA97002E9671 /* ksPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksPickerView.h; sourceTree = "<group>"; };
 		05BD077C1638FA98002E9671 /* ksPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksPickerView.m; sourceTree = "<group>"; };
@@ -307,7 +317,6 @@
 		05E22F5A1630642B009F948F /* ksColorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksColorObject.m; sourceTree = "<group>"; };
 		05EC3A6E1635F27D00001367 /* ksAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksAnnotationView.h; sourceTree = "<group>"; };
 		05EC3A6F1635F27D00001367 /* ksAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksAnnotationView.m; sourceTree = "<group>"; };
-		05EC3A791635FAF600001367 /* ButtonMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonMore.png; path = Assets/ButtonMore.png; sourceTree = "<group>"; };
 		05FB33AA163F4528009147F2 /* ButtonPhotoSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPhotoSelected.png; path = Assets/ButtonPhotoSelected.png; sourceTree = "<group>"; };
 		05FB33AC163F47A5009147F2 /* ButtonPhotoUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPhotoUnselected.png; path = Assets/ButtonPhotoUnselected.png; sourceTree = "<group>"; };
 		05FB33AE163F49E3009147F2 /* ButtonHeaderGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonHeaderGear.png; path = Assets/ButtonHeaderGear.png; sourceTree = "<group>"; };
@@ -318,6 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05314869164D9C190050D253 /* QuartzCore.framework in Frameworks */,
 				05966B4716346D0A0023AB4D /* CoreLocation.framework in Frameworks */,
 				05D6487C162F61CF006B28F4 /* MapKit.framework in Frameworks */,
 				050E7717162DF05400D4F89F /* Accounts.framework in Frameworks */,
@@ -366,6 +376,16 @@
 			name = ksImagePickerViewController;
 			sourceTree = "<group>";
 		};
+		05234717164DF23B009B3778 /* ksKissItemView */ = {
+			isa = PBXGroup;
+			children = (
+				05234711164DF21E009B3778 /* ksKissItemView.h */,
+				05234712164DF21E009B3778 /* ksKissItemView.m */,
+				05234715164DF233009B3778 /* ksKissItemView.xib */,
+			);
+			name = ksKissItemView;
+			sourceTree = "<group>";
+		};
 		0533D06F160E75B5001C3E6B = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +406,7 @@
 		0533D07D160E75B5001C3E6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05314868164D9C190050D253 /* QuartzCore.framework */,
 				05966B4616346D0A0023AB4D /* CoreLocation.framework */,
 				05D6487B162F61CF006B28F4 /* MapKit.framework */,
 				050E7714162DF05400D4F89F /* Accounts.framework */,
@@ -410,7 +431,7 @@
 				05EC3A711635F29D00001367 /* ksViewController */,
 				05EC3A771635F30100001367 /* ksCoreData */,
 				05EC3A761635F2F000001367 /* ksColorObject */,
-				05EC3A731635F2C600001367 /* ksColorCell */,
+				05EC3A731635F2C600001367 /* ksKissTableViewCell */,
 				0508964E163E3561003A943F /* ksPopOverView */,
 				05EC3A781635F31500001367 /* ksSecurityView */,
 				05A87813163FA08B00D2DF2F /* ksSettingsView */,
@@ -418,6 +439,7 @@
 				0513C10916372D17001E57A8 /* ksKissUtilityView */,
 				053D465C163B6BA5003DF674 /* ksKissObject */,
 				05EC3A721635F2B200001367 /* ksAnnotationView */,
+				05234717164DF23B009B3778 /* ksKissItemView */,
 				05A150B9164862250046105F /* ksCalloutView */,
 				0514AF7A164039F200BEA562 /* ksImagePickerViewController */,
 				056C62CA1625DFE200044257 /* Art */,
@@ -450,6 +472,11 @@
 		056C62CA1625DFE200044257 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				0540DF57164C3106000FB81D /* FrameCallout.png */,
+				0540DF58164C3106000FB81D /* FrameGeneric.png */,
+				057E6BD0164AD352008D73FD /* IMAGETEST1.png */,
+				057E6BD1164AD352008D73FD /* IMAGETEST2.png */,
+				057E6BD2164AD352008D73FD /* IMAGETEST3.png */,
 				052CF6DA164601E5005E73FD /* StatusDateNo.png */,
 				052CF6DB164601E5005E73FD /* StatusDateYes.png */,
 				052CF6DC164601E5005E73FD /* StatusDescriptionNo.png */,
@@ -483,7 +510,6 @@
 				05517D0916331F4C00DE5A51 /* ButtonLocationSelected.png */,
 				05517D0A16331F4C00DE5A51 /* ButtonLocationUnselected.png */,
 				053D465F163C5BA7003DF674 /* ButtonMapCenter.png */,
-				05EC3A791635FAF600001367 /* ButtonMore.png */,
 				05FB33AA163F4528009147F2 /* ButtonPhotoSelected.png */,
 				05FB33AC163F47A5009147F2 /* ButtonPhotoUnselected.png */,
 				05517D0B16331F4C00DE5A51 /* ButtonRatingSelected.png */,
@@ -546,10 +572,7 @@
 				05966B4D1635D3DB0023AB4D /* PinRainbow.png */,
 				05966B4E1635D3DB0023AB4D /* PinRed.png */,
 				05966B4F1635D3DB0023AB4D /* PinYellow.png */,
-				05089648163E01B0003A943F /* PopoverStretchCap.png */,
-				054C736A1639A0620001A905 /* ShadePicker.png */,
 				0513C1021637203A001E57A8 /* WindowPasscode.png */,
-				05BD07771638F58F002E9671 /* WindowPicker.png */,
 				0570BDEC16388FE700FD55BF /* WindowPrivacy.png */,
 				0513C1031637203A001E57A8 /* WindowSettings.png */,
 			);
@@ -606,14 +629,14 @@
 			name = ksAnnotationView;
 			sourceTree = "<group>";
 		};
-		05EC3A731635F2C600001367 /* ksColorCell */ = {
+		05EC3A731635F2C600001367 /* ksKissTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				050F07D016292E000059C756 /* ksColorCell.h */,
-				050F07D116292E000059C756 /* ksColorCell.m */,
-				05517D021632FC1400DE5A51 /* ksColorCell.xib */,
+				050F07D016292E000059C756 /* ksKissTableViewCell.h */,
+				050F07D116292E000059C756 /* ksKissTableViewCell.m */,
+				05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */,
 			);
-			name = ksColorCell;
+			name = ksKissTableViewCell;
 			sourceTree = "<group>";
 		};
 		05EC3A751635F2E300001367 /* ksAppDelegate */ = {
@@ -744,7 +767,7 @@
 				0567FABA1631B880005D6F20 /* IconPersonOrange.png in Resources */,
 				0567FABB1631B880005D6F20 /* IconPersonRed.png in Resources */,
 				0567FABC1631B880005D6F20 /* IconPersonYellow.png in Resources */,
-				05517D031632FC1400DE5A51 /* ksColorCell.xib in Resources */,
+				05517D031632FC1400DE5A51 /* ksKissTableViewCell.xib in Resources */,
 				05517D0F16331F4C00DE5A51 /* ButtonDateSelected.png in Resources */,
 				05517D1016331F4C00DE5A51 /* ButtonDateUnselected.png in Resources */,
 				05517D1116331F4C00DE5A51 /* ButtonKisserSelected.png in Resources */,
@@ -768,7 +791,6 @@
 				05966B551635D3DB0023AB4D /* PinRainbow.png in Resources */,
 				05966B561635D3DB0023AB4D /* PinRed.png in Resources */,
 				05966B571635D3DB0023AB4D /* PinYellow.png in Resources */,
-				05EC3A7A1635FAF600001367 /* ButtonMore.png in Resources */,
 				0513C1041637203A001E57A8 /* WindowPasscode.png in Resources */,
 				0513C1051637203A001E57A8 /* WindowSettings.png in Resources */,
 				0513C10B16372D36001E57A8 /* ksKissUtilityView.xib in Resources */,
@@ -780,9 +802,7 @@
 				0570BDEA1638815700FD55BF /* ksSecurityView.xib in Resources */,
 				0570BDED16388FE700FD55BF /* WindowPrivacy.png in Resources */,
 				05BD07751638F17F002E9671 /* ButtonHeaderAccept.png in Resources */,
-				05BD07781638F58F002E9671 /* WindowPicker.png in Resources */,
 				05BD077A1638F6C0002E9671 /* ksPickerView.xib in Resources */,
-				054C736B1639A0620001A905 /* ShadePicker.png in Resources */,
 				053D464C163B4570003DF674 /* ButtonUtilityWhen.png in Resources */,
 				053D464D163B4570003DF674 /* ButtonUtilityWho.png in Resources */,
 				053D4652163B46A3003DF674 /* ButtonUtilityHow.png in Resources */,
@@ -792,7 +812,6 @@
 				053D465E163C49C3003DF674 /* MapCenterOverlay.png in Resources */,
 				053D4660163C5BA7003DF674 /* ButtonMapCenter.png in Resources */,
 				05DDDC5C163CAB240055F52F /* HeaderBannerOverlay.png in Resources */,
-				05089649163E01B0003A943F /* PopoverStretchCap.png in Resources */,
 				05089650163E3579003A943F /* ksPopOverView.xib in Resources */,
 				05089652163E4912003A943F /* ButtonHeaderOK.png in Resources */,
 				05089654163EC68E003A943F /* ksKissObject.xib in Resources */,
@@ -820,6 +839,12 @@
 				052CF6EC164601E5005E73FD /* StatusRatingNo.png in Resources */,
 				052CF6ED164601E5005E73FD /* StatusRatingYes.png in Resources */,
 				05A150BB164862430046105F /* ksCalloutView.xib in Resources */,
+				057E6BD3164AD352008D73FD /* IMAGETEST1.png in Resources */,
+				057E6BD4164AD352008D73FD /* IMAGETEST2.png in Resources */,
+				057E6BD5164AD352008D73FD /* IMAGETEST3.png in Resources */,
+				0540DF59164C3106000FB81D /* FrameCallout.png in Resources */,
+				0540DF5A164C3106000FB81D /* FrameGeneric.png in Resources */,
+				05234716164DF233009B3778 /* ksKissItemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,7 +860,7 @@
 				0533D094160E75B6001C3E6B /* Kiss_Story.xcdatamodeld in Sources */,
 				056D5B53162350F600F71F7E /* ksViewController.m in Sources */,
 				056D5B581623D39000F71F7E /* ksCoreData.m in Sources */,
-				050F07D216292E000059C756 /* ksColorCell.m in Sources */,
+				050F07D216292E000059C756 /* ksKissTableViewCell.m in Sources */,
 				0506F8E9162B3A290045618D /* ksSecurityView.m in Sources */,
 				05E22F5B1630642B009F948F /* ksColorObject.m in Sources */,
 				05EC3A701635F27D00001367 /* ksAnnotationView.m in Sources */,
@@ -846,6 +871,7 @@
 				05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */,
 				0514AF77164039EC00BEA562 /* ksImagePickerViewController.m in Sources */,
 				05A150B8164862200046105F /* ksCalloutView.m in Sources */,
+				05234713164DF21E009B3778 /* ksKissItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
