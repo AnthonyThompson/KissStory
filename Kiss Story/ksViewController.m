@@ -10,7 +10,6 @@
 #import "ksAppDelegate.h"
 #import "ksSettingsView.h"
 #import "ksSecurityView.h"
-#import "ksKissTableViewCell.h"
 
 @implementation ksViewController
 
@@ -273,17 +272,8 @@
                 // the data object at data/section/row
                 NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j]objectAtIndex:k];
 
-                float labelWidth = 0.0f;
-
-                if (![[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
-                    // image exists, so little label
-                    labelWidth = 216.0f;
-                } else {
-                    //no image, so big label
-                    labelWidth = 298.0f;
-                }
-                
-                CGSize descBlock = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(labelWidth, CGFLOAT_MAX)];
+                float labelWidth = ([[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
+                CGSize descBlock = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(labelWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByTruncatingTail];
 
                 // the height that the textfield should be
                 [rowArray addObject:[NSNumber numberWithFloat:descBlock.height]];
@@ -635,17 +625,18 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    float rowHeight = 73.0f;
+    float textBuffer = 12.0f;
+    float imageBuffer = 5.0f;
+    float rowHeight = 67.0f;
+    float imageHeight = 0.0f;
 
     if (![[[[[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) {
-        rowHeight += 82.0f;
+        imageHeight = (imageBuffer + 82.0f);
     }
 
-    float textHeight = 6.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
+    float textHeight = textBuffer + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
 
-    rowHeight = (textHeight > rowHeight) ? textHeight : rowHeight;
-
-    return rowHeight;
+    return rowHeight += (textHeight > imageHeight) ? textHeight : imageHeight;
 }
 
 -(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -681,73 +672,20 @@
     float heightDelta = imageHeight;
     heightDelta = (textHeight > heightDelta) ? textHeight : heightDelta;
 
-    //adjust bodyContainer
-    content.descContainerView.frame = CGRectMake(content.descContainerView.frame.origin.x,
-                                                 content.descContainerView.frame.origin.y,
-                                                 content.descContainerView.frame.size.width,
-                                                 textHeight + 6.0f);
-    
+    float labelWidth = ([[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
+
     //adjust bodyLabel
     content.descLabel.frame = CGRectMake(content.descLabel.frame.origin.x,
                                          content.descLabel.frame.origin.y,
-                                         content.descContainerView.frame.size.width - 6.0f,
+                                         labelWidth,
                                          textHeight);
     
-    /*
-    
+    //adjust bodyContainer
+    content.descContainerView.frame = CGRectMake(302.0f - labelWidth,
+                                                 content.descContainerView.frame.origin.y,
+                                                 content.descLabel.frame.size.width + 6.0f,
+                                                 content.descLabel.frame.size.height + 6.0f);
 
-    float baseHeight = 93.0f;
-    float heightDelta = 0.0f;
-    float widthDelta = 0.0f;
-    float xDelta = 0.0f;
-
-    if (![[manObj valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
-        // image exists
-        cell.content.photoImage.image = [UIImage imageWithData:[manObj valueForKey:@"image"]];
-        heightDelta += 80.0f;
-    } else {
-        //image does NOT exist
-        cell.content.photoContainerView.hidden = YES;
-        widthDelta += 80.0f;
-        xDelta += -80.0f;
-    }
-
-    if (![[manObj valueForKey:@"desc"] isEqualToString:@""]) {
-        cell.content.descLabel.text = [manObj valueForKey:@"desc"];
-    } else {
-        cell.content.descContainerView.hidden = YES;
-    }
-
-    float textHeight = 3.0f + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
-    
-    if (textHeight > heightDelta) heightDelta = textHeight;
-    
-    //adjust cell.frame
-    cell.frame = CGRectMake(cell.frame.origin.x,
-                            cell.frame.origin.y,
-                                cell.frame.size.width,
-                            baseHeight + heightDelta);
-     
-
-     // container is frame -6
-    cell.container.frame = CGRectMake(cell.container.frame.origin.x,
-                                      cell.container.frame.origin.y,
-                                      cell.container.frame.size.width,
-                                      cell.frame.size.height - 6);
-    
-    // frameImage is container
-    cell.frameImage.frame = CGRectMake(cell.frameImage.frame.origin.x,
-                                       cell.frameImage.frame.origin.y,
-                                       cell.frameImage.frame.size.width,
-                                       cell.container.frame.size.height);
-    
-    //inliner is container -13
-    cell.inliner.frame = CGRectMake(cell.inliner.frame.origin.x,
-                                    cell.inliner.frame.origin.y,
-                                    cell.inliner.frame.size.width,
-                                    cell.container.frame.size.height - 13);
-    
-     */
     return cell;
 }
 

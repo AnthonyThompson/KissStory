@@ -17,7 +17,6 @@
 #import "ksKissUtilityView.h"
 #import "ksImagePickerViewController.h"
 #import "ksKissItemView.h"
-#import "ksKissTableViewCell.h"
 
 #define STATE_KISSER 0
 #define STATE_DATE 1
@@ -47,8 +46,8 @@
 #define ROOT (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController]
 #define UPTHECHAIN [[[ROOT view] subviews] objectAtIndex:[[[ROOT view] subviews] count] -3]
 
-#define PHOTO_CELL_SCALE 27.0
-#define NO_PHOTO_CELL_SCALE 35.0
+//#define PHOTO_CELL_SCALE 27.0
+//#define NO_PHOTO_CELL_SCALE 35.0
 
 @interface ksViewController : UIViewController <NSFetchedResultsControllerDelegate,
                                                 UITableViewDelegate,

@@ -78,6 +78,8 @@
     _rightLabel.backgroundColor = [UIColor clearColor];
     
     _photoContainerView.backgroundColor = [UIColor clearColor];
+    
+    _descLabel.backgroundColor = [UIColor clearColor];
 
     // images
     for (UIView* subV in [_headerRatingView subviews]) {
@@ -95,16 +97,16 @@
     _photoImage.image = nil;
     
     // widget and content control
-
+    _photoContainerView.hidden = NO;
     if ([[kissRecord valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
         //image does NOT exist
         _photoContainerView.hidden = YES;
-        _descLabel.frame = CGRectMake(2.0f, 90.0f, 304.0f, 82.0f);
     } else {
         // image exists
         _photoImage.image = [UIImage imageWithData:[kissRecord valueForKey:@"image"]];
     }
     
+    _descContainerView.hidden = NO;
     if ([[kissRecord valueForKey:@"desc"] isEqualToString:@""]) {
         // text does NOT exist
         _descContainerView.hidden = YES;
