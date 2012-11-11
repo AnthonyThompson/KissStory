@@ -28,7 +28,7 @@
         _imageArray = annotation.imageArray;
 
         _calloutView = [[ksCalloutView alloc]init];
-        _calloutView.containerImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
+        _calloutView.containerFrameImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
 
         [self addSubview:_calloutView];
         [self initData];
@@ -178,7 +178,6 @@
     _calloutView.container.headerRatingView.backgroundColor = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] lightColor];
     _calloutView.container.leftImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] leftThumbnailImage];
     _calloutView.container.rightImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] rightThumbnailImage];
-    _calloutView.heartImage = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] heartImage];
     
     _calloutView.container.photoImage.image = nil;
     _calloutView.container.descContainerView.hidden = NO;

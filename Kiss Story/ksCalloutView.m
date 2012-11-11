@@ -14,10 +14,10 @@
     if (self = [super init]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksCalloutView" owner:self options:nil] objectAtIndex:0];
         self.frame = CGRectOffset(self.frame, -(self.frame.size.width/2)+19.0f, -(self.frame.size.height)+39.0f);
-        _heartImage = [[UIImage alloc]init];
         self.hidden = YES;
     }
     
+    _container = [[[NSBundle mainBundle] loadNibNamed:@"ksKissItemView" owner:self options:nil] objectAtIndex:0];
     return self;
 }
 

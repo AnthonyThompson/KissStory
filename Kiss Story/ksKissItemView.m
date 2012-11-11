@@ -87,8 +87,15 @@
     }
     
     for (int i = 0; i< [[kissRecord valueForKey:@"score"] intValue]; i++){
+        // add hearts
         [_headerRatingView addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(108.0f - (i * 26.0f), 1.0f, 26.0f, 26.0f)]];
         [[[_headerRatingView subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]]objectAtIndex:4]];
+        
+        // shorten label to accomodate hearts
+        _headerLabel.frame = CGRectMake(_headerLabel.frame.origin.x,
+                                        _headerLabel.frame.origin.y,
+                                        _headerLabel.frame.size.width - 26.0f,
+                                        _headerLabel.frame.size.height);
     }
 
     _leftImage.image = [[[ksColorObject alloc]initDisplayWithColor:[[kissRecord valueForKey:@"score"] intValue] withType:type] leftThumbnailImage];

@@ -13,9 +13,9 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView* pinImage;
 @property (nonatomic, retain) IBOutlet UIButton* indexButton;
-@property (nonatomic, retain) IBOutlet ksKissItemView* container;
-@property (nonatomic, retain) IBOutlet UIImageView* containerImage;
+@property (nonatomic, retain) IBOutlet UIImageView* containerFrameImage;
 
-@property (nonatomic, retain) UIImage* heartImage;
+@property (nonatomic, retain) IBOutlet ksKissItemView* container;
+
 
 @end
