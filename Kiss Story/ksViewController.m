@@ -593,20 +593,13 @@
         }
             break;
         case RATING: {
-            headerImageView.image = [UIImage imageNamed:@""];
             int headerCount = [headerLabel.text intValue];
             headerLabel.text = @"";
            
             if (headerCount == 0) {
                 // the zero heart
                 headerBanner.backgroundColor = CCO_LIGHT_GREY;
-
-                [headerBanner addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(6.0f, 2.0f, 24.0f, 24.0f)]];
-                [[[headerBanner subviews] lastObject] setImage:[UIImage imageNamed:@"IconHeartGreyShadow.png"]];
-                [[[[headerBanner subviews] lastObject] layer] setShadowColor:[CCO_BASE_GREY CGColor]];
-                [[[[headerBanner subviews] lastObject] layer] setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-                [[[[headerBanner subviews] lastObject] layer] setShadowOpacity:1.0f];
-                [[[[headerBanner subviews] lastObject] layer] setShadowRadius:0.0f];
+                headerImageView.image = [UIImage imageNamed:@"IconHeartGreyShadow.png"];
             } else {
                 // 1 - 5 hearts
                 headerBanner.backgroundColor = [[[ksColorObject colorArray]objectAtIndex:headerCount]objectAtIndex:CCO_BASE];
