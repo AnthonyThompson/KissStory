@@ -23,7 +23,6 @@
 		050E7717162DF05400D4F89F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7714162DF05400D4F89F /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		050E7718162DF05400D4F89F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7715162DF05400D4F89F /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		050E7719162DF05400D4F89F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7716162DF05400D4F89F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		050F07D216292E000059C756 /* ksKissTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 050F07D116292E000059C756 /* ksKissTableViewCell.m */; };
 		050F07D41629B8400059C756 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D31629B8400059C756 /* UIKit.framework */; };
 		050F07D61629B8520059C756 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D51629B8520059C756 /* Foundation.framework */; };
 		050F07D81629B85C0059C756 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D71629B85C0059C756 /* CoreData.framework */; };
@@ -71,7 +70,6 @@
 		0540DF5A164C3106000FB81D /* FrameGeneric.png in Resources */ = {isa = PBXBuildFile; fileRef = 0540DF58164C3106000FB81D /* FrameGeneric.png */; };
 		054B15BE164463F2004F815E /* ButtonUtilityPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B15BC164463F2004F815E /* ButtonUtilityPhoto.png */; };
 		054B15BF164463F2004F815E /* ButtonUtilityWhy.png in Resources */ = {isa = PBXBuildFile; fileRef = 054B15BD164463F2004F815E /* ButtonUtilityWhy.png */; };
-		05517D031632FC1400DE5A51 /* ksKissTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */; };
 		05517D0F16331F4C00DE5A51 /* ButtonDateSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0516331F4C00DE5A51 /* ButtonDateSelected.png */; };
 		05517D1016331F4C00DE5A51 /* ButtonDateUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0616331F4C00DE5A51 /* ButtonDateUnselected.png */; };
 		05517D1116331F4C00DE5A51 /* ButtonKisserSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0716331F4C00DE5A51 /* ButtonKisserSelected.png */; };
@@ -147,7 +145,6 @@
 		05BD077A1638F6C0002E9671 /* ksPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BD07791638F6C0002E9671 /* ksPickerView.xib */; };
 		05BD077D1638FA98002E9671 /* ksPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BD077C1638FA98002E9671 /* ksPickerView.m */; };
 		05D6487C162F61CF006B28F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05D6487B162F61CF006B28F4 /* MapKit.framework */; };
-		05DDDC5C163CAB240055F52F /* HeaderBannerOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 05DDDC5B163CAB240055F52F /* HeaderBannerOverlay.png */; };
 		05E22F5B1630642B009F948F /* ksColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E22F5A1630642B009F948F /* ksColorObject.m */; };
 		05EC3A701635F27D00001367 /* ksAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EC3A6F1635F27D00001367 /* ksAnnotationView.m */; };
 		05FB33AB163F4528009147F2 /* ButtonPhotoSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FB33AA163F4528009147F2 /* ButtonPhotoSelected.png */; };
@@ -174,8 +171,6 @@
 		050E7714162DF05400D4F89F /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		050E7715162DF05400D4F89F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		050E7716162DF05400D4F89F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		050F07D016292E000059C756 /* ksKissTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksKissTableViewCell.h; sourceTree = "<group>"; };
-		050F07D116292E000059C756 /* ksKissTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksKissTableViewCell.m; sourceTree = "<group>"; };
 		050F07D31629B8400059C756 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		050F07D51629B8520059C756 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		050F07D71629B85C0059C756 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -231,7 +226,6 @@
 		0540DF58164C3106000FB81D /* FrameGeneric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrameGeneric.png; path = Assets/FrameGeneric.png; sourceTree = "<group>"; };
 		054B15BC164463F2004F815E /* ButtonUtilityPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonUtilityPhoto.png; path = Assets/ButtonUtilityPhoto.png; sourceTree = "<group>"; };
 		054B15BD164463F2004F815E /* ButtonUtilityWhy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonUtilityWhy.png; path = Assets/ButtonUtilityWhy.png; sourceTree = "<group>"; };
-		05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksKissTableViewCell.xib; sourceTree = "<group>"; };
 		05517D0516331F4C00DE5A51 /* ButtonDateSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonDateSelected.png; path = Assets/ButtonDateSelected.png; sourceTree = "<group>"; };
 		05517D0616331F4C00DE5A51 /* ButtonDateUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonDateUnselected.png; path = Assets/ButtonDateUnselected.png; sourceTree = "<group>"; };
 		05517D0716331F4C00DE5A51 /* ButtonKisserSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonKisserSelected.png; path = Assets/ButtonKisserSelected.png; sourceTree = "<group>"; };
@@ -312,7 +306,6 @@
 		05BD077B1638FA97002E9671 /* ksPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksPickerView.h; sourceTree = "<group>"; };
 		05BD077C1638FA98002E9671 /* ksPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksPickerView.m; sourceTree = "<group>"; };
 		05D6487B162F61CF006B28F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		05DDDC5B163CAB240055F52F /* HeaderBannerOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeaderBannerOverlay.png; path = Assets/HeaderBannerOverlay.png; sourceTree = "<group>"; };
 		05E22F591630642B009F948F /* ksColorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksColorObject.h; sourceTree = "<group>"; };
 		05E22F5A1630642B009F948F /* ksColorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksColorObject.m; sourceTree = "<group>"; };
 		05EC3A6E1635F27D00001367 /* ksAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksAnnotationView.h; sourceTree = "<group>"; };
@@ -431,7 +424,6 @@
 				05EC3A711635F29D00001367 /* ksViewController */,
 				05EC3A771635F30100001367 /* ksCoreData */,
 				05EC3A761635F2F000001367 /* ksColorObject */,
-				05EC3A731635F2C600001367 /* ksKissTableViewCell */,
 				0508964E163E3561003A943F /* ksPopOverView */,
 				05EC3A781635F31500001367 /* ksSecurityView */,
 				05A87813163FA08B00D2DF2F /* ksSettingsView */,
@@ -524,7 +516,6 @@
 				05575C51160E78110010C03A /* Default-568h@2x.png */,
 				056C62C11625DEE300044257 /* Default.png */,
 				056C62C41625DEF100044257 /* Default@2x.png */,
-				05DDDC5B163CAB240055F52F /* HeaderBannerOverlay.png */,
 				056C62C81625DFC000044257 /* icon114.png */,
 				056C62C61625DF7900044257 /* icon57.png */,
 				0567FA811631B880005D6F20 /* IconDateBlue.png */,
@@ -627,16 +618,6 @@
 				05EC3A6F1635F27D00001367 /* ksAnnotationView.m */,
 			);
 			name = ksAnnotationView;
-			sourceTree = "<group>";
-		};
-		05EC3A731635F2C600001367 /* ksKissTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				050F07D016292E000059C756 /* ksKissTableViewCell.h */,
-				050F07D116292E000059C756 /* ksKissTableViewCell.m */,
-				05517D021632FC1400DE5A51 /* ksKissTableViewCell.xib */,
-			);
-			name = ksKissTableViewCell;
 			sourceTree = "<group>";
 		};
 		05EC3A751635F2E300001367 /* ksAppDelegate */ = {
@@ -767,7 +748,6 @@
 				0567FABA1631B880005D6F20 /* IconPersonOrange.png in Resources */,
 				0567FABB1631B880005D6F20 /* IconPersonRed.png in Resources */,
 				0567FABC1631B880005D6F20 /* IconPersonYellow.png in Resources */,
-				05517D031632FC1400DE5A51 /* ksKissTableViewCell.xib in Resources */,
 				05517D0F16331F4C00DE5A51 /* ButtonDateSelected.png in Resources */,
 				05517D1016331F4C00DE5A51 /* ButtonDateUnselected.png in Resources */,
 				05517D1116331F4C00DE5A51 /* ButtonKisserSelected.png in Resources */,
@@ -811,7 +791,6 @@
 				053D4657163B4AD1003DF674 /* Invisible1x1.png in Resources */,
 				053D465E163C49C3003DF674 /* MapCenterOverlay.png in Resources */,
 				053D4660163C5BA7003DF674 /* ButtonMapCenter.png in Resources */,
-				05DDDC5C163CAB240055F52F /* HeaderBannerOverlay.png in Resources */,
 				05089650163E3579003A943F /* ksPopOverView.xib in Resources */,
 				05089652163E4912003A943F /* ButtonHeaderOK.png in Resources */,
 				05089654163EC68E003A943F /* ksKissObject.xib in Resources */,
@@ -860,7 +839,6 @@
 				0533D094160E75B6001C3E6B /* Kiss_Story.xcdatamodeld in Sources */,
 				056D5B53162350F600F71F7E /* ksViewController.m in Sources */,
 				056D5B581623D39000F71F7E /* ksCoreData.m in Sources */,
-				050F07D216292E000059C756 /* ksKissTableViewCell.m in Sources */,
 				0506F8E9162B3A290045618D /* ksSecurityView.m in Sources */,
 				05E22F5B1630642B009F948F /* ksColorObject.m in Sources */,
 				05EC3A701635F27D00001367 /* ksAnnotationView.m in Sources */,
