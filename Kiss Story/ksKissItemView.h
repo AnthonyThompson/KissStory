@@ -11,7 +11,9 @@
 
 @interface ksKissItemView : UIView
 
--(void)colorizeWithColor:(int)color forType:(int)type;
+//-(void)colorizeWithColor:(int)color forType:(int)type;
+-(void)colorizeWithData:(NSManagedObject*)kissRecord forType:(int)type;
+
 -(void)makeForTableView;
 
 @property (nonatomic, retain) IBOutlet UIView* headerContainerView;

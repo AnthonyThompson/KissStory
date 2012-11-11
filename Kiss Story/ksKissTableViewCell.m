@@ -1,5 +1,5 @@
 //
-//  ksColorCell.m
+//  ksKissTableViewCell.m
 //  Kiss Story
 //
 //  Created by Anthony Thompson on 10/12/12.

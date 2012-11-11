@@ -95,6 +95,7 @@
         case KISSER: {
             [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWho:YES];
 
+            //9901 is this still needed???
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
                 // add a new kisser
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];

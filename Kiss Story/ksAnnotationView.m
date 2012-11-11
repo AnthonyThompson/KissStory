@@ -41,6 +41,7 @@
     if ([_ratingArray count] > 1) {
         return CCO_RAINBOW_COLOR;
     }
+    
     return [[_ratingArray objectAtIndex:0]intValue];
 }
 
@@ -84,10 +85,14 @@
     [self dataForIndex:_index];
     _calloutView.hidden = NO;
     
+    /*
     _calloutView.indexButton.hidden = YES;
     if ([_kisserArray count] > 1) {
         _calloutView.indexButton.hidden = NO;
     }
+     */
+    
+    _calloutView.indexButton.hidden = ([_kisserArray count] > 1) ? NO : YES;
 
     CGPoint annotationCoordPoint = [[ROOT mainMapView] convertCoordinate:_coordinate toPointToView:[ROOT mainMapView]];
     

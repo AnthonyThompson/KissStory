@@ -27,9 +27,9 @@
 
 @synthesize addText = _addText;
 
-
 #pragma mark - Inits
 
+//9901 needed???
 -(id)init {
     if (self = [super init]) {
         [self initData];

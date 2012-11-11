@@ -16,15 +16,8 @@
 #pragma mark - Inits
 
 - (id)initForProcess:(int)whichProcess withData:(NSDictionary*)settingsDictionary {
-    //self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 233.0f, 337.0f)];
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 233.0f, 337.0f)]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
-        
-        /*
-         _whichProcess = whichProcess;
-         _passcode = [settingsDictionary valueForKey:@"passcode"];
-         _securityEnabled = [ksSecurityView securityCheck:settingsDictionary];
-         */
     }
     
     _whichProcess = whichProcess;
@@ -37,9 +30,13 @@
 #pragma mark - Class Actions
 
 +(BOOL)securityCheck:(NSDictionary*)dataDictionary {
+    /*
     if ([[dataDictionary valueForKey:@"securityEnabled"] isEqualToString:@"YES"])
         return YES;
     return NO;
+     */
+    
+    return ([[dataDictionary valueForKey:@"securityEnabled"] isEqualToString:@"YES"]) ? YES : NO;
 }
 
 #pragma mark - Login View
@@ -246,15 +243,5 @@
         }
     }
 }
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

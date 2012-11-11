@@ -18,16 +18,24 @@
 
         _settingsDictionary = [ROOT settingsDictionary];
 
+        /*
         _facebookSwitch.on = NO;
         if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
             _facebookSwitch.on = YES;
         }
+         */
         
+        _facebookSwitch.on = ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) ? YES : NO;
+        
+        /*
         _twitterSwitch.on = NO;
         if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
             _twitterSwitch.on = YES;
         }
+         */
         
+        _twitterSwitch.on = ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) ? YES : NO;
+
         _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
 
         _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
@@ -81,7 +89,6 @@
 -(IBAction)emailButtonTapped:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-        //mailer.mailComposeDelegate = (ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController];
         mailer.mailComposeDelegate = ROOT;
         mailer.subject = @"Question or comment about KissStory";
         NSArray *toRecipients = [NSArray arrayWithObjects:@"ksfeedback@geekgamerguy.com",nil];
@@ -89,11 +96,6 @@
         [ROOT presentViewController:mailer
                            animated:YES
                          completion:NULL];
-        /*
-        [(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:mailer
-                                                                                                            animated:YES
-                                                                                                          completion:NULL];
-         */
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Disabled"
                                                         message:@"Your device cannot compose a mail message"
@@ -107,16 +109,5 @@
 -(IBAction)wwwButtonTapped:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://geekgamerguy.com/gggmobile/"]];
 }
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
