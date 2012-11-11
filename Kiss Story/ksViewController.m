@@ -559,28 +559,29 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // the header view container, the whole thing
-    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 20.0f)];
+    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 318.0f, 28.0f)];
     headerView.backgroundColor = CCO_LIGHT_CREAM;
+    headerView.layer.borderColor = [[UIColor whiteColor] CGColor];
 
     // the colored banner w/info
-    UIView* headerBanner = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 20.0f)];
+    UIView* headerBanner = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 318.0f, 28.0f)];
     headerBanner.backgroundColor = [[[ksColorObject colorArray]objectAtIndex:(5-(section%5))]objectAtIndex:CCO_BASE];
 
     // the header text
-    UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(32.0f, 0.0f, headerView.bounds.size.width-44.0f, 18.0f)];
+    UILabel* headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(34.0f, 1.0f, headerView.frame.size.width - 34.0f, 28.0f)];
     headerLabel.textColor = CCO_BASE_CREAM;
     headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:14.0f];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.5f);
+    headerLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:22.0f];
+    headerLabel.shadowColor = CCO_BASE_GREY;
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     headerLabel.text = [[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:0]objectAtIndex:section];
-    
-    // the banner cut-out for the flag look
-    UIImageView* headerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"HeaderBannerOverlay.png"]];
-    headerImage.frame = CGRectMake(160.0f, 0.0f, 160.0f, 20.0f);
 
     // the header icon
-    UIImageView* headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10.0f, 1.0f, 18.0f, 18.0f)];
+    UIImageView* headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(6.0f, 3.0f, 24.0f, 24.0f)];
+    headerImageView.layer.shadowColor = [CCO_BASE_GREY CGColor];
+    headerImageView.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerImageView.layer.shadowOpacity = 1.0f;
+    headerImageView.layer.shadowRadius = 0.0f;
 
     switch (_state) {
         case KISSER: {
@@ -593,15 +594,27 @@
             break;
         case RATING: {
             headerImageView.image = [UIImage imageNamed:@""];
+            int headerCount = [headerLabel.text intValue];
             headerLabel.text = @"";
-            
-            for (int i = 0; i < (5 - section); i++) {
-                [headerBanner addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(10.0f + (i*26.0f), 1.0f, 18.0f, 18.0f)]];
-                [[[headerBanner subviews] lastObject] setImage:[UIImage imageNamed:@"IconHeartCreamShadow.png"]];
-            }
-            headerBanner.backgroundColor = [[[ksColorObject colorArray]objectAtIndex:(5 - section)]objectAtIndex:CCO_BASE];
-            if ((5 - section) == 0) {
+           
+            if (headerCount == 0) {
+                // the zero heart
                 headerBanner.backgroundColor = CCO_LIGHT_GREY;
+
+                [headerBanner addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(6.0f, 2.0f, 24.0f, 24.0f)]];
+                [[[headerBanner subviews] lastObject] setImage:[UIImage imageNamed:@"IconHeartGreyShadow.png"]];
+                [[[[headerBanner subviews] lastObject] layer] setShadowColor:[CCO_BASE_GREY CGColor]];
+                [[[[headerBanner subviews] lastObject] layer] setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+                [[[[headerBanner subviews] lastObject] layer] setShadowOpacity:1.0f];
+                [[[[headerBanner subviews] lastObject] layer] setShadowRadius:0.0f];
+            } else {
+                // 1 - 5 hearts
+                headerBanner.backgroundColor = [[[ksColorObject colorArray]objectAtIndex:headerCount]objectAtIndex:CCO_BASE];
+
+                for (int i = 0; i < headerCount; i++) {
+                    [headerBanner addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(6.0f + (i*26.0f), 2.0f, 24.0f, 24.0f)]];
+                    [[[headerBanner subviews] lastObject] setImage:[UIImage imageNamed:@"IconHeartCreamShadow.png"]];
+                }
             }
         }
             break;
@@ -610,7 +623,6 @@
     [headerView addSubview:headerBanner];
     [headerView addSubview:headerImageView];
     [headerView addSubview:headerLabel];
-    [headerView addSubview:headerImage];
 
     return headerView;
 }
