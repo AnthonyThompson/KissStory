@@ -53,8 +53,6 @@
                 break;
             case CCO_LOCATION: {
                 // ksCalloutView: person, date
-                //9901 will this even work???
-                // yes, it will; this returns a colorObject!
                 leftImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_KISSER];
                 rightImage = [[_imageArray objectAtIndex:whichColor] objectAtIndex:CCO_DATE];
             }

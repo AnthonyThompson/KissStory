@@ -13,27 +13,15 @@
 
 @implementation ksKissItemView
 
--(void)awakeFromNib {
+- (id)init {
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissItemView" owner:self options:nil] objectAtIndex:0];
+    }
+    return self;
 }
 
--(void)makeForTableView {
 
-    _dataContainerView.frame = CGRectMake(_dataContainerView.frame.origin.x,
-                                          _dataContainerView.frame.origin.y,
-                                          _dataContainerView.frame.size.width,
-                                          _dataContainerView.frame.size.height - _dataRatingView.frame.size.height);
-    
-    _photoContainerView.frame = CGRectMake(_photoContainerView.frame.origin.x,
-                                           _photoContainerView.frame.origin.y - _dataRatingView.frame.size.height,
-                                           _photoContainerView.frame.size.width,
-                                           _photoContainerView.frame.size.height);
-
-    _descContainerView.frame = CGRectMake(_descContainerView.frame.origin.x,
-                                           _descContainerView.frame.origin.y - _dataRatingView.frame.size.height,
-                                           _descContainerView.frame.size.width,
-                                           _descContainerView.frame.size.height);
-    
-    [_dataRatingView removeFromSuperview];
+-(void)awakeFromNib {
 }
 
 -(void)colorizeWithData:(NSManagedObject*)kissRecord forType:(int)type {
@@ -70,8 +58,7 @@
     _headerRatingView.backgroundColor = [UIColor clearColor];
 
     _dataContainerView.backgroundColor = CCO_BASE_CREAM;
-    _dataRatingView.backgroundColor = [UIColor clearColor];
-    
+
     _leftImage.backgroundColor = [UIColor clearColor];
     _leftLabel.backgroundColor = [UIColor clearColor];
     _rightImage.backgroundColor = [UIColor clearColor];
@@ -85,12 +72,11 @@
     for (UIView* subV in [_headerRatingView subviews]) {
         [subV removeFromSuperview];
     }
-    
     for (int i = 0; i< [[kissRecord valueForKey:@"score"] intValue]; i++){
         // add hearts
         [_headerRatingView addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(108.0f - (i * 26.0f), 1.0f, 26.0f, 26.0f)]];
         [[[_headerRatingView subviews] lastObject] setImage:[[[ksColorObject imageArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]]objectAtIndex:4]];
-        
+            
         // shorten label to accomodate hearts
         _headerLabel.frame = CGRectMake(_headerLabel.frame.origin.x,
                                         _headerLabel.frame.origin.y,
@@ -104,13 +90,22 @@
     _photoImage.image = nil;
     
     // widget and content control
+    float imageHeight = 0.0f;
+    //float textHeight = [[[[_cellSizeArray objectAtIndex:type]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
+    float textHeight = [ksKissItemView calcTextSizeForKiss:kissRecord];
+    //float labelWidth = ([[kissRecord valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
+    float labelWidth;
+
     _photoContainerView.hidden = NO;
     if ([[kissRecord valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
         //image does NOT exist
         _photoContainerView.hidden = YES;
+        labelWidth = 300.0f;
     } else {
         // image exists
         _photoImage.image = [UIImage imageWithData:[kissRecord valueForKey:@"image"]];
+        imageHeight += 82.0f;
+        labelWidth = 218.0f;
     }
     
     _descContainerView.hidden = NO;
@@ -120,8 +115,22 @@
     } else {
         // text exists
         _descLabel.text = [kissRecord valueForKey:@"desc"];
+        
     }
     
+    float heightDelta = imageHeight;
+    heightDelta = (textHeight > heightDelta) ? textHeight : heightDelta;
+    
+    _descLabel.frame = CGRectMake(_descLabel.frame.origin.x,
+                                  _descLabel.frame.origin.y,
+                                  labelWidth,
+                                  textHeight);
+    
+    _descContainerView.frame = CGRectMake(302.0f - labelWidth,
+                                          _descContainerView.frame.origin.y,
+                                          _descLabel.frame.size.width + 6.0f,
+                                          _descLabel.frame.size.height + 6.0f);
+
     switch (type) {
         case KISSER: {
             _headerLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
@@ -142,8 +151,18 @@
             _rightLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
         }
             break;
+        case LOCATION: {
+            _headerLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
+            _leftLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
+            _rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
+        }
+            break;
     }
 }
 
++(float)calcTextSizeForKiss:(NSManagedObject*)kissRecord {
+    float labelWidth = ([[kissRecord valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
+    return [[kissRecord valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(labelWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByTruncatingTail].height;
+}
 
 @end

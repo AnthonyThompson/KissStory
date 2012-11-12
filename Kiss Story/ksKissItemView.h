@@ -11,17 +11,14 @@
 
 @interface ksKissItemView : UIView
 
-//-(void)colorizeWithColor:(int)color forType:(int)type;
 -(void)colorizeWithData:(NSManagedObject*)kissRecord forType:(int)type;
-
--(void)makeForTableView;
++(float)calcTextSizeForKiss:(NSManagedObject*)kissRecord;
 
 @property (nonatomic, retain) IBOutlet UIView* headerContainerView;
 @property (nonatomic, retain) IBOutlet UILabel* headerLabel;
 @property (nonatomic, retain) IBOutlet UIView* headerRatingView;
 
 @property (nonatomic, retain) IBOutlet UIView* dataContainerView;
-@property (nonatomic, retain) IBOutlet UIView* dataRatingView;
 @property (nonatomic, retain) IBOutlet UIImageView* leftImage;
 @property (nonatomic, retain) IBOutlet UILabel* leftLabel;
 @property (nonatomic, retain) IBOutlet UIImageView* rightImage;

@@ -14,22 +14,24 @@
 -(void)displayCallout;
 -(void)dismissCallout;
 
-@property (nonatomic, retain) ksCalloutView* calloutView;
-@property (nonatomic, retain) UITapGestureRecognizer* tap;
+@property (nonatomic, retain) ksKissItemView* content;
 
+@property (nonatomic, retain) UIImageView* frameImageView;
+@property (nonatomic, retain) UIButton* moreButton;
+@property (nonatomic, retain) UIImageView* pinImageView;
+
+@property (nonatomic, retain) NSArray* kissArray;
+
+
+
+
+
+
+//9901 THESE ARE SUSPECT...
 @property (nonatomic, readwrite) NSString* title;
 @property (nonatomic, readwrite) NSString* reuseIdentifier;
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 
-@property (nonatomic, retain) NSArray* IDArray;
-@property (nonatomic, retain) NSArray* locationArray;
-@property (nonatomic, retain) NSArray* kisserArray;
-@property (nonatomic, retain) NSArray* ratingArray;
-@property (nonatomic, retain) NSArray* dateArray;
-@property (nonatomic, retain) NSArray* descriptionArray;
-@property (nonatomic, retain) NSArray* imageArray;
-
-@property (nonatomic, readwrite) int mapPinColor;
 @property (nonatomic, readwrite) int index;
 @property (nonatomic, readwrite) int indexIterations;
 @property (nonatomic, readwrite) int frameIterations;

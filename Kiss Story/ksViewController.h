@@ -75,7 +75,7 @@
 @property (nonatomic, retain) NSArray* fetchedResultsControllerArray;
 @property (nonatomic, retain) CLLocationManager* locationManager;
 @property (nonatomic, retain) NSMutableArray* annotationArray;
-@property (nonatomic, retain) NSArray* cellSizeArray;
+//@property (nonatomic, retain) NSArray* cellSizeArray;
 @property (nonatomic, retain) NSArray* imageArray;
 @property (nonatomic, retain) ksCoreData* ksCD;
 @property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;

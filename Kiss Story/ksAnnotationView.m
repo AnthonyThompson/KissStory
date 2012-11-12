@@ -19,104 +19,141 @@
 
         _title = annotation.title;
         _coordinate = annotation.coordinate;
-
-        _IDArray = annotation.IDArray;
-        _kisserArray = annotation.kisserArray;
-        _dateArray = annotation.dateArray;
-        _ratingArray = annotation.ratingArray;
-        _descriptionArray = annotation.descriptionArray;
-        _imageArray = annotation.imageArray;
-
-        _calloutView = [[ksCalloutView alloc]init];
-        _calloutView.containerFrameImage.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 304, 304)];
-
-        [self addSubview:_calloutView];
-        [self initData];
+        _kissArray = annotation.kissArray;
         
+        self.canShowCallout = NO;
+        self.enabled = YES;
+
+        self.frame = CGRectMake(0.0f, 0.0f, 37.0f, 39.0f);
+        _frameImageView = [[UIImageView alloc]initWithFrame:self.frame];
+        _moreButton = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 64.0f, 40.0f)];
+        [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
+        _pinImageView = [[UIImageView alloc]initWithFrame:self.frame];
+        _content = [[ksKissItemView alloc]init];
+        _content.autoresizingMask = UIViewContentModeCenter;
+        _content.transform = CGAffineTransformMakeScale(0.8f, 0.80f);
+        
+        [_frameImageView addSubview:_content];
+        [_frameImageView addSubview:_moreButton];
+        [self addSubview:_frameImageView];
+        [self addSubview:_pinImageView];
+        
+        [self initDisplay];
     }
     return self;
 }
 
--(int)mapPinColor {
-    if ([_ratingArray count] > 1) {
-        return CCO_RAINBOW_COLOR;
-    }
+-(void)fullDisplay {
+    [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
+
+    _pinImageView.image = self.image;
+    self.image = [UIImage imageNamed:@"PinInvisible.png"];
+
+    _moreButton.hidden = NO;
+    _moreButton.frame = ([_kissArray count] > 1) ? CGRectMake(0,0,64,40) : CGRectMake(0,0,0,-30.0f);
+
+    _content.hidden = NO;
+    _content.frame = CGRectMake(8.0f, 8.0f,
+                                _content.frame.size.width,
+                                _content.frame.size.height);
+    //_content.layer.borderColor = [[UIColor redColor] CGColor];
+    //_content.layer.borderWidth = 1.0f;
+    _content.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    _content.descContainerView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     
-    return [[_ratingArray objectAtIndex:0]intValue];
+    _moreButton.frame = CGRectMake(_content.frame.size.width - _moreButton.frame.size.width,
+                                   _content.frame.size.height + 10.0f,
+                                   _moreButton.frame.size.width,
+                                   _moreButton.frame.size.height);
+
+    _frameImageView.hidden = NO;
+    _frameImageView.frame = CGRectMake(0.0f, 0.0f,
+                                       _content.frame.size.width + 16.0f,
+                                       _content.frame.size.height + 40.0f + _moreButton.frame.size.height);
+    _frameImageView.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 200, 200)];
+
+    //_frameImageView.layer.borderColor = [[UIColor blueColor] CGColor];
+    //_frameImageView.layer.borderWidth = 1.0f;
+
+    _frameImageView.layer.shadowColor = [CCO_BASE_GREY CGColor];
+    _frameImageView.layer.shadowOpacity = 0.75f;
+    _frameImageView.layer.shadowRadius = 0.0f;
+    _frameImageView.layer.shadowOffset = CGSizeMake(4.0f, 4.0f);
+
+    _pinImageView.hidden = NO;
+    _pinImageView.frame = CGRectMake(_frameImageView.frame.size.width/2 - (_pinImageView.frame.size.width/2/3),
+                                     _frameImageView.frame.size.height,
+                                     _pinImageView.frame.size.width,
+                                     _pinImageView.frame.size.height);
+    //_pinImageView.layer.borderColor = [[UIColor greenColor] CGColor];
+    //_pinImageView.layer.borderWidth = 1.0f;
+
+    self.frame = CGRectMake(self.frame.origin.x - _pinImageView.frame.origin.x,
+                            self.frame.origin.y - _frameImageView.frame.size.height,
+                            _frameImageView.frame.size.width,
+                            (_frameImageView.frame.size.height + _pinImageView.frame.size.height));
+    //self.layer.borderColor = [[UIColor blackColor] CGColor];
+    //self.layer.borderWidth = 1.0f;
 }
 
--(void)initData {
-    self.canShowCallout = NO;
-    self.enabled = YES;
+-(int)mapPinColor {
+    return ([_kissArray count] > 1) ? CCO_RAINBOW_COLOR : [[[_kissArray objectAtIndex:0] valueForKey:@"score"] intValue];
+}
+
+-(void)initDisplay {
+    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
+                            self.frame.origin.y + _pinImageView.frame.origin.y,
+                            37.0f,
+                            39.0f);
+    
+    self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
+
+    _content.hidden = YES;
+    _frameImageView.hidden = YES;
+    _pinImageView.hidden = YES;
+    _moreButton.hidden = YES;
 
     _index = 0;
     _indexIterations = 3;
     _frameIterations = 3;
-
-    [self colorizeAnnotationWithColor:[[_ratingArray objectAtIndex:0] intValue] withType:LOCATION];
-    
-    //[self dataForIndex:_index];
 }
 
--(void)dataForIndex:(int)index {
-    _calloutView.container.headerLabel.text = _title;
-    _calloutView.container.leftLabel.text = [_kisserArray objectAtIndex:index];
-    
-    //_calloutView.container.rightLabel.text = [_dateArray objectAtIndex:index];
-    
-    _calloutView.container.descLabel.text = [_descriptionArray objectAtIndex:index];
-    _calloutView.container.photoImage.image = [[UIImage alloc]init];
+-(void)moreButtonTouched {
+    _indexIterations = 3;
 
-    if (![[_imageArray objectAtIndex:index] isEqualToData:KSCD_DUMMYIMAGE]) {
-        // image exists
-        _calloutView.container.photoImage.image = [UIImage imageWithData:[_imageArray objectAtIndex:index]];
-    } else {
-        // image does not exist... resize element?
-    }
+    _index = (_index == [_kissArray count]) ? 0 : _index++;
+    
+    [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
 }
+
 
 -(void)displayCallout {
-    // called from mapview delegate in didSelectAnnotationView
-    
-    //9901 RE-FRAME ANNOTATION HERE?  AND THEN DE-FRAME ON DISMISS?
-    
-    // RESET AND INIT
-    [self initData];
-    [self dataForIndex:_index];
-    _calloutView.hidden = NO;
-    
-    /*
-    _calloutView.indexButton.hidden = YES;
-    if ([_kisserArray count] > 1) {
-        _calloutView.indexButton.hidden = NO;
-    }
-     */
-    
-    _calloutView.indexButton.hidden = ([_kisserArray count] > 1) ? NO : YES;
+    // centers on pin
 
     CGPoint annotationCoordPoint = [[ROOT mainMapView] convertCoordinate:_coordinate toPointToView:[ROOT mainMapView]];
-    
-    // 9901 this is teh offset to make the pin point to teh right place... different for pin vs anootation view?  Use offset here?
-    // or is this acrtually controlled at creation???
-    annotationCoordPoint = CGPointMake(annotationCoordPoint.x + 6.0f,
-                                       annotationCoordPoint.y - 155.0f);
-    
+    annotationCoordPoint = CGPointMake(annotationCoordPoint.x,
+                                     annotationCoordPoint.y - 60.0f);
+
     [[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
+    [self fullDisplay];
 }
 
 -(void)dismissCallout {
+    [self initDisplay];
+    return;
+    
     _indexIterations = 3;
     _frameIterations = 3;
-    _calloutView.hidden = YES;
-    [[ROOT mainMapView] setCenterCoordinate:_coordinate animated:YES];
 }
 
+/*
 -(UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
     
     // think about this...
     //BOOL jool = [self pointInside:point withEvent:event];
     
-    CGRect indexButtonFrame = CGRectMake(94.0f, -55.0f, 64.0f, 30.0f);
+
+ CGRect indexButtonFrame = CGRectMake(94.0f, -55.0f, 64.0f, 30.0f);
 
     if (CGRectContainsPoint(indexButtonFrame, point) && _calloutView.indexButton.hidden == NO) {
         _indexIterations--;
@@ -147,42 +184,10 @@
     }
 
     return _calloutView;
+ 
+    return [[UIView alloc]init];
 }
-
-//9901 is needed???
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    // for testing purposes
-    BOOL result = [super pointInside:point withEvent:event];
-    NSLog(@"pointInside:RESULT = %i", result);
-    
-    return YES;
-}
-
--(void)indexButtonTouched {
-    _indexIterations = 3;
-    _index++;
-    if (_index == [_kisserArray count]) {
-        _index = 0;
-    }
-    [self dataForIndex:_index];
-}
-
--(void)colorizeAnnotationWithColor:(int)whichColor withType:(int)whichType {
-    
-    for (UIView* subV in [_calloutView.container.headerRatingView subviews]) {
-        [subV removeFromSuperview];
-    }
-    
-    // these all need to be re-set before/after use/reuse
-    
-    _calloutView.container.headerRatingView.backgroundColor = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] lightColor];
-    _calloutView.container.leftImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] leftThumbnailImage];
-    _calloutView.container.rightImage.image = [[[ksColorObject alloc]initDisplayWithColor:whichColor withType:whichType] rightThumbnailImage];
-    
-    _calloutView.container.photoImage.image = nil;
-    _calloutView.container.descContainerView.hidden = NO;
-    _calloutView.container.photoContainerView.hidden = NO;
-}
+*/
 
 
 @end

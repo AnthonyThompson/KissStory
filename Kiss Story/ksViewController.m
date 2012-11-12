@@ -44,7 +44,7 @@
     
     [self buildDataDictionary];
     [self buildSettingsDictionary];
-    _cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
+    //_cellSizeArray = [[NSArray alloc]initWithArray:[self buildCellSizeArray]];
     _imageArray = [[NSArray alloc]initWithArray:[self buildImageArray]];
     [self buildAnnotationArray];
 }
@@ -252,39 +252,6 @@
     return @[titles,sectionDataCollection];
 }
 
--(NSArray*)buildCellSizeArray {
-    NSMutableArray* returnArray = [[NSMutableArray alloc]init];
-    
-    // the 3 data sets
-    for (int i=0; i < 3;i++) {
-        
-        // section
-        NSMutableArray* sectionArray = [[NSMutableArray alloc]init];
-        
-        //the number of sections in data set i
-        for (int j = 0; j < [[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1] count]; j++) {
-            
-            NSMutableArray* rowArray = [[NSMutableArray alloc]init];
-
-            // the numbers of rows rows in section j
-            for (int k = 0; k < [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j] count]; k++) {
-                
-                // the data object at data/section/row
-                NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",i]]objectAtIndex:1]objectAtIndex:j]objectAtIndex:k];
-
-                float labelWidth = ([[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
-                CGSize descBlock = [[manObj valueForKey:@"desc"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(labelWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByTruncatingTail];
-
-                // the height that the textfield should be
-                [rowArray addObject:[NSNumber numberWithFloat:descBlock.height]];
-            }
-            [sectionArray addObject:rowArray];
-        }
-        [returnArray addObject:sectionArray];
-    }
-    return (NSArray*)returnArray;
-}
-
 -(NSArray*)buildImageArray {
     NSMutableArray* returnArray = [[NSMutableArray alloc]init];
     
@@ -303,51 +270,27 @@
     // gotta skip headers, so only object at index:1 is interesting
     int dataIndex = 1;
     for (int i = 0; i < [[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:dataIndex]count]; i++) {
-        ksAnnotationView* annotation = [[ksAnnotationView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+        ksAnnotationView* annotation = [[ksAnnotationView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 37.0f, 39.0f)];
 
         // extract the data beyond the header array (index:1), at the array of fetched objects
-        // just need the coord once, and we know that there's always an object at index:0
-        NSManagedObject* coordinateObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:0];
+        // just need the coord & title once, and we know that there's always an object at index:0
+        NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:0];
         
-        annotation.coordinate = CLLocationCoordinate2DMake([[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[coordinateObject valueForKey:@"kissWhere"]valueForKey:@"lon"]floatValue]);
+        annotation.coordinate = CLLocationCoordinate2DMake([[[locationObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[locationObject valueForKey:@"kissWhere"]valueForKey:@"lon"]floatValue]);
+        annotation.title = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
         
         //9901
         // this is a 0,0 location discriminator, won't be needed after data is purged?
-        // or still needed for added locations??
         if (!((annotation.coordinate.latitude == 0.0f) && (annotation.coordinate.longitude == 0.0f))) {
-            
-            // our temp arrays
-            NSMutableArray* IDs = [[NSMutableArray alloc]init];
-            NSMutableArray* locations = [[NSMutableArray alloc]init];
-            NSMutableArray* kissers = [[NSMutableArray alloc]init];
-            NSMutableArray* ratings = [[NSMutableArray alloc]init];
-            NSMutableArray* dates = [[NSMutableArray alloc]init];
-            NSMutableArray* descriptions = [[NSMutableArray alloc]init];
-            NSMutableArray* images = [[NSMutableArray alloc]init];
 
-            // now loop through all of the elements and break into separate arrays for ksAnnotationView storage
+            NSMutableArray* kisses = [[NSMutableArray alloc]init];
+
+            // now loop through kisses at this location and array them
             for (int j = 0; j < [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]count]; j ++) {
-                NSManagedObject* locationObject = [[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j];
-                
-                // fill temp arrays
-                [IDs addObject:[locationObject valueForKey:@"id"]];
-                [locations addObject:[[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"]];
-                [kissers addObject:[[locationObject valueForKey:@"kissWho"]valueForKey:@"name"]];
-                [ratings addObject:[locationObject valueForKey:@"score"]];
-                [dates addObject:[locationObject valueForKey:@"when"]];
-                [descriptions addObject:[locationObject valueForKey:@"desc"]];
-                [images addObject:[locationObject valueForKey:@"image"]];
-
-                annotation.title = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
+                [kisses addObject:(NSManagedObject*)[[[[_dataDictionary valueForKey:@"tableData3"]objectAtIndex:1]objectAtIndex:i]objectAtIndex:j]];
             }
-            // add arrays to the ksAnnotationView object
-            annotation.IDArray = [[NSArray alloc]initWithArray:IDs];
-            annotation.locationArray = [[NSArray alloc]initWithArray:locations];
-            annotation.kisserArray = [[NSArray alloc]initWithArray:kissers];
-            annotation.ratingArray = [[NSArray alloc]initWithArray:ratings];
-            annotation.dateArray = [[NSArray alloc]initWithArray:dates];
-            annotation.descriptionArray = [[NSArray alloc]initWithArray:descriptions];
-            annotation.imageArray = [[NSArray alloc]initWithArray:images];
+            // add array to the ksAnnotationView object
+            annotation.kissArray = kisses;
 
             // add the ksAnnotationView to the annotation array
             [_annotationArray addObject:annotation];
@@ -639,7 +582,7 @@
         imageHeight = (imageBuffer + 82.0f);
     }
 
-    float textHeight = textBuffer + [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
+    float textHeight = textBuffer + [ksKissItemView calcTextSizeForKiss:[[[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]];
 
     return rowHeight += (textHeight > imageHeight) ? textHeight : imageHeight;
 }
@@ -649,48 +592,23 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString* cellID = @"ksKissTableViewCell";
     
-    NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
-
+    NSString* cellID = @"ksKissTableViewCell";
     UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     cell.clipsToBounds = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
-    //This prevents crashes when the table is still scrolling and someone flips to map/settings
+    //This prevents crashes when the table is still scrolling and someone flips to map/photos
     if (_state > RATING) return cell;
+
+    NSManagedObject* manObj = [[[[_dataDictionary valueForKey:[[NSString alloc]initWithFormat:@"tableData%i",_state]]objectAtIndex:1]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
 
     ksKissItemView* content = [[[NSBundle mainBundle] loadNibNamed:@"ksKissItemView" owner:cell options:nil] objectAtIndex:0];
     [content colorizeWithData:manObj forType:_state];
-    [content makeForTableView];
-    
+
     // indented width to allow shadow effects
     content.frame = CGRectMake(3, 3, 312, cell.frame.size.height - 6);
-
     [cell addSubview:content];
-
-    float imageHeight = 0.0f;
-    if (!content.photoContainerView.hidden) imageHeight += 82.0f;
-    
-    float textHeight = [[[[_cellSizeArray objectAtIndex:_state]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
-
-    float heightDelta = imageHeight;
-    heightDelta = (textHeight > heightDelta) ? textHeight : heightDelta;
-
-    float labelWidth = ([[manObj valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
-
-    //adjust bodyLabel
-    content.descLabel.frame = CGRectMake(content.descLabel.frame.origin.x,
-                                         content.descLabel.frame.origin.y,
-                                         labelWidth,
-                                         textHeight);
-    
-    //adjust bodyContainer
-    content.descContainerView.frame = CGRectMake(302.0f - labelWidth,
-                                                 content.descContainerView.frame.origin.y,
-                                                 content.descLabel.frame.size.width + 6.0f,
-                                                 content.descLabel.frame.size.height + 6.0f);
-
     return cell;
 }
 
@@ -743,7 +661,6 @@
     // This is to accommodate the annotation at all zoom levels...
     // it's half the minUnit * times the zoom level of minUnits per *Span
     // the half the minunit is to accomiodate the height of the annotation...
-    //9901 THIS WILL BE ADJUST TO THE SIZE OF THE ANNOTATION...
     float latSpan = fabs(maxLat-minLat);
     float lonSpan = fabs(maxLon-minLon);
     
@@ -775,14 +692,14 @@
         return nil;
     }
     ksAnnotationView* annotationView = [[ksAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"resuableIdentifier"];
-    annotationView.image = [[[ksColorObject imageArray]objectAtIndex:[(ksAnnotationView*)annotation mapPinColor]]objectAtIndex:CCO_PIN];
-    
+
     // the image is normally centered itself on the point, so offset for the size of the image itself
     // move it up by half the size
-    int offSetHeight = annotationView.image.size.height/-2;
-    //move it right by 2/3 because of drop shadow, et al
-    int offSetWidth = annotationView.image.size.width/2/3;
-    annotationView.centerOffset = CGPointMake(offSetWidth,offSetHeight);
+    // move it right by 2/3 because of drop shadow, et al
+    //float offSetHeight = annotationView.image.size.height/-2;
+    //float offSetWidth = annotationView.image.size.width/2/3;
+    annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2/3,annotationView.image.size.height/-2);
+
     return annotationView;
 }
 
@@ -803,7 +720,6 @@
 #pragma mark - VC super class
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    //self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         _iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
         [self initDataStructures];
@@ -847,19 +763,10 @@
             //NSLog(@"Mail not sent.");
             break;
     }
-    
-    // Remove the mail view
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - DISORGANIZED BULLSHIT
-
-//9901 ???
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer
-                         :(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [[[[self view]subviews]lastObject]kissObject].kissPicture = [info objectForKey:UIImagePickerControllerOriginalImage];

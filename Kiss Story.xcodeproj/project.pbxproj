@@ -139,6 +139,7 @@
 		05966B571635D3DB0023AB4D /* PinYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B4F1635D3DB0023AB4D /* PinYellow.png */; };
 		05A150B8164862200046105F /* ksCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A150B7164862200046105F /* ksCalloutView.m */; };
 		05A150BB164862430046105F /* ksCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A150BA164862430046105F /* ksCalloutView.xib */; };
+		05A48C5916518625009B72C5 /* PinInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A48C5816518625009B72C5 /* PinInvisible.png */; };
 		05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A87810163FA07900D2DF2F /* ksSettingsView.m */; };
 		05A87815163FA0AA00D2DF2F /* ksSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A87814163FA0AA00D2DF2F /* ksSettingsView.xib */; };
 		05BD07751638F17F002E9671 /* ButtonHeaderAccept.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BD07741638F17F002E9671 /* ButtonHeaderAccept.png */; };
@@ -298,6 +299,7 @@
 		05A150B6164862200046105F /* ksCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksCalloutView.h; sourceTree = "<group>"; };
 		05A150B7164862200046105F /* ksCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksCalloutView.m; sourceTree = "<group>"; };
 		05A150BA164862430046105F /* ksCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksCalloutView.xib; sourceTree = "<group>"; };
+		05A48C5816518625009B72C5 /* PinInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PinInvisible.png; path = Assets/PinInvisible.png; sourceTree = "<group>"; };
 		05A8780F163FA07900D2DF2F /* ksSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksSettingsView.h; sourceTree = "<group>"; };
 		05A87810163FA07900D2DF2F /* ksSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksSettingsView.m; sourceTree = "<group>"; };
 		05A87814163FA0AA00D2DF2F /* ksSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksSettingsView.xib; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 		056C62CA1625DFE200044257 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				05A48C5816518625009B72C5 /* PinInvisible.png */,
 				0540DF57164C3106000FB81D /* FrameCallout.png */,
 				0540DF58164C3106000FB81D /* FrameGeneric.png */,
 				057E6BD0164AD352008D73FD /* IMAGETEST1.png */,
@@ -824,6 +827,7 @@
 				0540DF59164C3106000FB81D /* FrameCallout.png in Resources */,
 				0540DF5A164C3106000FB81D /* FrameGeneric.png in Resources */,
 				05234716164DF233009B3778 /* ksKissItemView.xib in Resources */,
+				05A48C5916518625009B72C5 /* PinInvisible.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
