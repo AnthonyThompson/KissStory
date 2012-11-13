@@ -34,9 +34,17 @@
     self.frame = BASE_ANNOTATION_FRAME;
 
     _moreButton = [[UIButton alloc]initWithFrame:BASE_BUTTON_FRAME];
-    [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
     [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
+    _buttonImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ButtonHeaderMore.png"]];
+    _buttonLabel = [[UILabel alloc]initWithFrame:_buttonImage.frame];
+    _buttonLabel.backgroundColor = [UIColor clearColor];
+    _buttonLabel.textColor = CCO_BASE_CREAM;
+    _buttonLabel.textAlignment = NSTextAlignmentCenter;
+    _buttonLabel.minimumScaleFactor = 0.1f;
+    _buttonLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:18.0f];
+    _buttonLabel.adjustsFontSizeToFitWidth = YES;
+
     _pinImageView = [[UIImageView alloc]initWithFrame:BASE_PIN_FRAME];
     
     _content = [[ksKissItemView alloc]initForAnnotation];
@@ -50,6 +58,8 @@
     _frameImageView.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
 
     [_frameImageView addSubview:_content];
+    [_frameImageView addSubview:_buttonImage];
+    [_frameImageView addSubview:_buttonLabel];
 
     [self addSubview:_pinImageView];
     [self addSubview:_frameImageView];
@@ -58,13 +68,16 @@
 
 -(void)resetAnnotationView {
     // reset to factory fresh settings
-    
     _index = 0;
     
     _content.hidden = YES;
     _frameImageView.hidden = YES;
+    _frameImageView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+
     _pinImageView.hidden = YES;
     _moreButton.hidden = YES;
+    _buttonImage.hidden = YES;
+    _buttonLabel.hidden = YES;
 
     self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
                             self.frame.origin.y + _pinImageView.frame.origin.y,
@@ -72,7 +85,7 @@
     self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
     
     _moreButton.frame = BASE_BUTTON_FRAME;
-    
+
     _pinImageView.frame = BASE_PIN_FRAME;
     _pinImageView.image = self.image;
 
@@ -109,6 +122,8 @@
 }
 
 -(void)displayCallout {
+    
+    [self displayFullAnnotationView];
     // centers on pin
     //9901, move this down, or cut-out and call separately to re-size/re-center on new call-outs...
     CGPoint annotationCoordPoint = [[ROOT mainMapView] convertCoordinate:_coordinate toPointToView:[ROOT mainMapView]];
@@ -117,17 +132,49 @@
     
     [[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
     
-    [self displayFullAnnotationView];
+    _frameImageView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    
+    [UIView animateWithDuration:0.1f animations:^{
+        _frameImageView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:0.05f animations:^{
+            _frameImageView.transform = CGAffineTransformMakeScale(0.95f, 0.95f);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.05f animations:^{
+                _frameImageView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+            }];
+        }];
+    }];
+
+    
+}
+
+-(void)centerOnCallOut {
+    // check size of call-out
+    // check closeness to edge of view
+    //nudge horizontal
+    //check closeness to top - centering button
+    // nudge vertical
+    //[[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
 }
 
 -(void)dismissCallout {
-    [self resetAnnotationView];
+    [UIView animateWithDuration:0.075f animations:^{
+        _frameImageView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:0.1f animations:^{
+            _frameImageView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+        } completion:^(BOOL finished) {
+            [self resetAnnotationView];
+        }];
+    }];
+    
 }
 
 -(void)moreButtonTouched:(id)sender {
     _index++;
     if (_index == [_kissArray count]) _index = 0;
-    
+
     self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
                             self.frame.origin.y + _pinImageView.frame.origin.y,
                             37.0f, 39.0f);
@@ -144,6 +191,12 @@
                                                            _moreButton.frame.size.width,
                                                            _moreButton.frame.size.height);
     
+    _buttonImage.hidden = _moreButton.hidden;
+    _buttonImage.frame = _moreButton.frame;
+    _buttonLabel.hidden = _moreButton.hidden;
+    _buttonLabel.frame = _moreButton.frame;
+    _buttonLabel.text = [NSString stringWithFormat:@"%i (%i)",_index+1,[_kissArray count]];
+
     _frameImageView.frame = CGRectMake(0.0f, 0.0f,
                                        _content.frame.size.width + 12.0f,
                                        _content.frame.size.height + 32.0f + _moreButton.frame.size.height);

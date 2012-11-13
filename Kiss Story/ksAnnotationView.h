@@ -24,6 +24,8 @@
 @property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) ksKissItemView* content;
 @property (nonatomic, retain) UIImageView* frameImageView;
+@property (nonatomic, retain) UIImageView* buttonImage;
+@property (nonatomic, retain) UILabel* buttonLabel;
 @property (nonatomic, retain) UIButton* moreButton;
 @property (nonatomic, retain) UIImageView* pinImageView;
 @property (nonatomic, retain) NSArray* kissArray;

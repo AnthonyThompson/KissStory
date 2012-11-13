@@ -42,13 +42,13 @@
     [superView addSubview:backingView];
     [superView addSubview:self];
 
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         self.transform = CGAffineTransformMakeScale(1.25f, 1.25f);
     } completion:^(BOOL finished){
-        [UIView animateWithDuration:0.15f animations:^{
+        [UIView animateWithDuration:0.1f animations:^{
             self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.15f animations:^{
+            [UIView animateWithDuration:0.1f animations:^{
                 self.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
             }];
         }];
