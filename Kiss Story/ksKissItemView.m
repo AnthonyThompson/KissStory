@@ -90,11 +90,13 @@
     _photoImage.image = nil;
     
     // widget and content control
+    //float textBuffer = 12.0f;
+    //float imageBuffer = 5.0f;
+    
     float imageHeight = 0.0f;
-    //float textHeight = [[[[_cellSizeArray objectAtIndex:type]objectAtIndex:indexPath.section]objectAtIndex:indexPath.row] floatValue];
     float textHeight = [ksKissItemView calcTextSizeForKiss:kissRecord];
-    //float labelWidth = ([[kissRecord valueForKey:@"image"]isEqualToData:KSCD_DUMMYIMAGE]) ? 300.0f : 218.0f;
     float labelWidth;
+    //float rowHeight = 67.0f;
 
     _photoContainerView.hidden = NO;
     if ([[kissRecord valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
@@ -115,12 +117,11 @@
     } else {
         // text exists
         _descLabel.text = [kissRecord valueForKey:@"desc"];
-        
     }
     
     float heightDelta = imageHeight;
     heightDelta = (textHeight > heightDelta) ? textHeight : heightDelta;
-    
+
     _descLabel.frame = CGRectMake(_descLabel.frame.origin.x,
                                   _descLabel.frame.origin.y,
                                   labelWidth,
@@ -130,6 +131,11 @@
                                           _descContainerView.frame.origin.y,
                                           _descLabel.frame.size.width + 6.0f,
                                           _descLabel.frame.size.height + 6.0f);
+    
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            57.0f + heightDelta);
 
     switch (type) {
         case KISSER: {

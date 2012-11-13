@@ -137,8 +137,6 @@
 		05966B551635D3DB0023AB4D /* PinRainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B4D1635D3DB0023AB4D /* PinRainbow.png */; };
 		05966B561635D3DB0023AB4D /* PinRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B4E1635D3DB0023AB4D /* PinRed.png */; };
 		05966B571635D3DB0023AB4D /* PinYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 05966B4F1635D3DB0023AB4D /* PinYellow.png */; };
-		05A150B8164862200046105F /* ksCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A150B7164862200046105F /* ksCalloutView.m */; };
-		05A150BB164862430046105F /* ksCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A150BA164862430046105F /* ksCalloutView.xib */; };
 		05A48C5916518625009B72C5 /* PinInvisible.png in Resources */ = {isa = PBXBuildFile; fileRef = 05A48C5816518625009B72C5 /* PinInvisible.png */; };
 		05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A87810163FA07900D2DF2F /* ksSettingsView.m */; };
 		05A87815163FA0AA00D2DF2F /* ksSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05A87814163FA0AA00D2DF2F /* ksSettingsView.xib */; };
@@ -296,9 +294,6 @@
 		05966B4D1635D3DB0023AB4D /* PinRainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PinRainbow.png; path = Assets/PinRainbow.png; sourceTree = "<group>"; };
 		05966B4E1635D3DB0023AB4D /* PinRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PinRed.png; path = Assets/PinRed.png; sourceTree = "<group>"; };
 		05966B4F1635D3DB0023AB4D /* PinYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PinYellow.png; path = Assets/PinYellow.png; sourceTree = "<group>"; };
-		05A150B6164862200046105F /* ksCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksCalloutView.h; sourceTree = "<group>"; };
-		05A150B7164862200046105F /* ksCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksCalloutView.m; sourceTree = "<group>"; };
-		05A150BA164862430046105F /* ksCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ksCalloutView.xib; sourceTree = "<group>"; };
 		05A48C5816518625009B72C5 /* PinInvisible.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PinInvisible.png; path = Assets/PinInvisible.png; sourceTree = "<group>"; };
 		05A8780F163FA07900D2DF2F /* ksSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ksSettingsView.h; sourceTree = "<group>"; };
 		05A87810163FA07900D2DF2F /* ksSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ksSettingsView.m; sourceTree = "<group>"; };
@@ -434,7 +429,6 @@
 				053D465C163B6BA5003DF674 /* ksKissObject */,
 				05EC3A721635F2B200001367 /* ksAnnotationView */,
 				05234717164DF23B009B3778 /* ksKissItemView */,
-				05A150B9164862250046105F /* ksCalloutView */,
 				0514AF7A164039F200BEA562 /* ksImagePickerViewController */,
 				056C62CA1625DFE200044257 /* Art */,
 				0533D087160E75B6001C3E6B /* Supporting Files */,
@@ -572,16 +566,6 @@
 			);
 			name = Art;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		05A150B9164862250046105F /* ksCalloutView */ = {
-			isa = PBXGroup;
-			children = (
-				05A150B6164862200046105F /* ksCalloutView.h */,
-				05A150B7164862200046105F /* ksCalloutView.m */,
-				05A150BA164862430046105F /* ksCalloutView.xib */,
-			);
-			name = ksCalloutView;
 			sourceTree = "<group>";
 		};
 		05A87813163FA08B00D2DF2F /* ksSettingsView */ = {
@@ -820,7 +804,6 @@
 				052CF6EB164601E5005E73FD /* StatusLocationYes.png in Resources */,
 				052CF6EC164601E5005E73FD /* StatusRatingNo.png in Resources */,
 				052CF6ED164601E5005E73FD /* StatusRatingYes.png in Resources */,
-				05A150BB164862430046105F /* ksCalloutView.xib in Resources */,
 				057E6BD3164AD352008D73FD /* IMAGETEST1.png in Resources */,
 				057E6BD4164AD352008D73FD /* IMAGETEST2.png in Resources */,
 				057E6BD5164AD352008D73FD /* IMAGETEST3.png in Resources */,
@@ -852,7 +835,6 @@
 				0508964D163E3555003A943F /* ksPopOverView.m in Sources */,
 				05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */,
 				0514AF77164039EC00BEA562 /* ksImagePickerViewController.m in Sources */,
-				05A150B8164862200046105F /* ksCalloutView.m in Sources */,
 				05234713164DF21E009B3778 /* ksKissItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,7 @@
 //
 
 #import <MapKit/MapKit.h>
-#import "ksCalloutView.h"
+#import "ksKissItemView.h"
 
 @interface ksAnnotationView : MKAnnotationView
 
