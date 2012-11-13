@@ -27,13 +27,13 @@
         
         _moreButton = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 64.0f, 40.0f)];
         [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
+        [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventAllTouchEvents];
         
         _pinImageView = [[UIImageView alloc]initWithFrame:self.frame];
         
         _content = [[ksKissItemView alloc]init];
         _content.autoresizingMask = UIViewContentModeCenter;
         _content.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
-
         _content.frame = CGRectMake(7.0f, 7.0f, _content.frame.size.width, _content.frame.size.height);
         _content.clipsToBounds = YES;
         
@@ -46,6 +46,24 @@
         [self initDisplay];
     }
     return self;
+}
+
+-(void)initDisplay {
+    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
+                            self.frame.origin.y + _pinImageView.frame.origin.y,
+                            37.0f,
+                            39.0f);
+    
+    self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
+    
+    _content.hidden = YES;
+    _frameImageView.hidden = YES;
+    _pinImageView.hidden = YES;
+    _moreButton.hidden = YES;
+    
+    _index = 0;
+    _indexIterations = 3;
+    _frameIterations = 3;
 }
 
 -(void)fullDisplay {
@@ -70,6 +88,8 @@
                                                           _content.frame.size.height + 8.0f,
                                                           _moreButton.frame.size.width,
                                                           _moreButton.frame.size.height);
+    
+    NSLog(@"mB %@",_moreButton);
 
     _frameImageView.hidden = NO;
     _frameImageView.frame = CGRectMake(0.0f, 0.0f,
@@ -103,33 +123,6 @@
     return ([_kissArray count] > 1) ? CCO_RAINBOW_COLOR : [[[_kissArray objectAtIndex:0] valueForKey:@"score"] intValue];
 }
 
--(void)initDisplay {
-    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
-                            self.frame.origin.y + _pinImageView.frame.origin.y,
-                            37.0f,
-                            39.0f);
-    
-    self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
-
-    _content.hidden = YES;
-    _frameImageView.hidden = YES;
-    _pinImageView.hidden = YES;
-    _moreButton.hidden = YES;
-
-    _index = 0;
-    _indexIterations = 3;
-    _frameIterations = 3;
-}
-
--(void)moreButtonTouched {
-    _indexIterations = 3;
-
-    _index = (_index == [_kissArray count]) ? 0 : _index++;
-    
-    [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
-}
-
-
 -(void)displayCallout {
     // centers on pin
 
@@ -139,6 +132,7 @@
 
     [[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
     [self fullDisplay];
+    NSLog(@"%@",_content.headerLabel);
 }
 
 -(void)dismissCallout {
@@ -148,4 +142,13 @@
     _indexIterations = 3;
     _frameIterations = 3;
 }
+
+-(void)moreButtonTouched {
+    NSLog(@"that dang more button");
+    
+    _indexIterations = 3;
+    _index = (_index == [_kissArray count]) ? 0 : _index++;
+    [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
+}
+
 @end

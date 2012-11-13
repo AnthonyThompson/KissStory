@@ -72,6 +72,13 @@
     for (UIView* subV in [_headerRatingView subviews]) {
         [subV removeFromSuperview];
     }
+    
+    //need to re0set headerLabekl before iteratively shortening it on reuse
+    _headerLabel.frame = CGRectMake(_headerLabel.frame.origin.x,
+                                    _headerLabel.frame.origin.y,
+                                    306.0f,
+                                    _headerLabel.frame.size.height);
+
     for (int i = 0; i< [[kissRecord valueForKey:@"score"] intValue]; i++){
         // add hearts
         [_headerRatingView addSubview:[[UIImageView alloc]initWithFrame:CGRectMake(108.0f - (i * 26.0f), 1.0f, 26.0f, 26.0f)]];
