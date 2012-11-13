@@ -27,7 +27,7 @@
         
         _moreButton = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 64.0f, 40.0f)];
         [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
-        [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventAllTouchEvents];
+        [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
         _pinImageView = [[UIImageView alloc]initWithFrame:self.frame];
         
@@ -39,9 +39,10 @@
         
         _frameImageView = [[UIImageView alloc]initWithFrame:self.frame];
         [_frameImageView addSubview:_content];
-        [_frameImageView addSubview:_moreButton];
+        //[_frameImageView addSubview:_moreButton];
         [self addSubview:_pinImageView];
         [self addSubview:_frameImageView];
+        [self addSubview:_moreButton];
         
         [self initDisplay];
     }
@@ -88,8 +89,6 @@
                                                           _content.frame.size.height + 8.0f,
                                                           _moreButton.frame.size.width,
                                                           _moreButton.frame.size.height);
-    
-    NSLog(@"mB %@",_moreButton);
 
     _frameImageView.hidden = NO;
     _frameImageView.frame = CGRectMake(0.0f, 0.0f,
@@ -117,6 +116,10 @@
                             (_frameImageView.frame.size.height + _pinImageView.frame.size.height));
     //self.layer.borderColor = [[UIColor blackColor] CGColor];
     //self.layer.borderWidth = 1.0f;
+
+    _moreButton.layer.borderColor = [[UIColor purpleColor] CGColor];
+    _moreButton.layer.borderWidth = 1.0f;
+    _moreButton.layer.backgroundColor = [[UIColor purpleColor] CGColor];
 }
 
 -(int)mapPinColor {
@@ -132,7 +135,6 @@
 
     [[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
     [self fullDisplay];
-    NSLog(@"%@",_content.headerLabel);
 }
 
 -(void)dismissCallout {
@@ -143,12 +145,16 @@
     _frameIterations = 3;
 }
 
--(void)moreButtonTouched {
+-(void)moreButtonTouched:(id)sender {
     NSLog(@"that dang more button");
     
-    _indexIterations = 3;
-    _index = (_index == [_kissArray count]) ? 0 : _index++;
+    _index++;
+    if (_index == [_kissArray count]) _index = 0;
+    
+    //_indexIterations = 3;
+    //_index = (_index == [_kissArray count]) ? 0 : _index++;
     [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
+    [self fullDisplay];
 }
 
 @end
