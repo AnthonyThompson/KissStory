@@ -20,141 +20,143 @@
         _title = annotation.title;
         _coordinate = annotation.coordinate;
         _kissArray = annotation.kissArray;
-        
-        self.canShowCallout = NO;
-        self.enabled = YES;
-        self.frame = CGRectMake(0.0f, 0.0f, 37.0f, 39.0f);
-        
-        _moreButton = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 64.0f, 40.0f)];
-        [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
-        [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        
-        _pinImageView = [[UIImageView alloc]initWithFrame:self.frame];
-        
-        _content = [[ksKissItemView alloc]init];
-        _content.autoresizingMask = UIViewContentModeCenter;
-        _content.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
-        _content.frame = CGRectMake(7.0f, 7.0f, _content.frame.size.width, _content.frame.size.height);
-        _content.clipsToBounds = YES;
-        
-        _frameImageView = [[UIImageView alloc]initWithFrame:self.frame];
-        [_frameImageView addSubview:_content];
-        //[_frameImageView addSubview:_moreButton];
-        [self addSubview:_pinImageView];
-        [self addSubview:_frameImageView];
-        [self addSubview:_moreButton];
-        
-        [self initDisplay];
+
+        [self initData];
+        [self resetAnnotationView];
     }
     return self;
 }
 
--(void)initDisplay {
-    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
-                            self.frame.origin.y + _pinImageView.frame.origin.y,
-                            37.0f,
-                            39.0f);
-    
-    self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
-    
-    _content.hidden = YES;
-    _frameImageView.hidden = YES;
-    _pinImageView.hidden = YES;
-    _moreButton.hidden = YES;
-    
-    _index = 0;
-    _indexIterations = 3;
-    _frameIterations = 3;
-}
+-(void)initData {
+    // these are the once-and-done's
+    self.canShowCallout = NO;
+    self.enabled = YES;
+    self.frame = BASE_ANNOTATION_FRAME;
 
--(void)fullDisplay {
-    _pinImageView.image = self.image;
-    self.image = [UIImage imageNamed:@"PinInvisible.png"];
-
-    _content.hidden = NO;
-    [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
-    _content.frame = CGRectMake(_content.frame.origin.x,
-                                _content.frame.origin.y,
-                                _content.frame.size.width,
-                                _content.frame.size.height);
+    _moreButton = [[UIButton alloc]initWithFrame:BASE_BUTTON_FRAME];
+    [_moreButton setImage:[UIImage imageNamed:@"ButtonHeaderAccept.png"] forState:UIControlStateNormal];
+    [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
-    _content.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    _content.descContainerView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    //_content.layer.borderColor = [[UIColor redColor] CGColor];
-    //_content.layer.borderWidth = 1.0f;
+    _pinImageView = [[UIImageView alloc]initWithFrame:BASE_PIN_FRAME];
+    
+    _content = [[ksKissItemView alloc]initForAnnotation];
+    _content.frame = BASE_CONTENT_FRAME;
 
-    _moreButton.hidden = ([_kissArray count] > 1) ? NO : YES;
-    _moreButton.frame = (_moreButton.hidden) ? CGRectMake(0.0f, 0.0f, 0.0f, 0.0f) :
-                                               CGRectMake(_content.frame.size.width - _moreButton.frame.size.width,
-                                                          _content.frame.size.height + 8.0f,
-                                                          _moreButton.frame.size.width,
-                                                          _moreButton.frame.size.height);
-
-    _frameImageView.hidden = NO;
-    _frameImageView.frame = CGRectMake(0.0f, 0.0f,
-                                       _content.frame.size.width + 12.0f,
-                                       _content.frame.size.height + 32.0f + _moreButton.frame.size.height);
+    _frameImageView = [[UIImageView alloc]initWithFrame:BASE_FRAME_FRAME];
     _frameImageView.image = [[UIImage imageNamed:@"FrameCallout.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(8.0f, 127.0f, 32.0f, 127.0f)];
     _frameImageView.layer.shadowColor = [CCO_BASE_GREY CGColor];
     _frameImageView.layer.shadowOpacity = 0.33f;
     _frameImageView.layer.shadowRadius = 0.0f;
     _frameImageView.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
-    //_frameImageView.layer.borderColor = [[UIColor blueColor] CGColor];
-    //_frameImageView.layer.borderWidth = 1.0f;
 
-    _pinImageView.hidden = NO;
-    _pinImageView.frame = CGRectMake(_frameImageView.frame.size.width/2 - (_pinImageView.frame.size.width/2/3),
-                                     _frameImageView.frame.size.height,
-                                     _pinImageView.frame.size.width,
-                                     _pinImageView.frame.size.height);
-    //_pinImageView.layer.borderColor = [[UIColor greenColor] CGColor];
-    //_pinImageView.layer.borderWidth = 1.0f;
+    [_frameImageView addSubview:_content];
 
-    self.frame = CGRectMake(self.frame.origin.x - _pinImageView.frame.origin.x,
-                            self.frame.origin.y - _frameImageView.frame.size.height,
-                            _frameImageView.frame.size.width,
-                            (_frameImageView.frame.size.height + _pinImageView.frame.size.height));
-    //self.layer.borderColor = [[UIColor blackColor] CGColor];
-    //self.layer.borderWidth = 1.0f;
+    [self addSubview:_pinImageView];
+    [self addSubview:_frameImageView];
+    [self addSubview:_moreButton];
+}
 
-    _moreButton.layer.borderColor = [[UIColor purpleColor] CGColor];
-    _moreButton.layer.borderWidth = 1.0f;
-    _moreButton.layer.backgroundColor = [[UIColor purpleColor] CGColor];
+-(void)resetAnnotationView {
+    // reset to factory fresh settings
+    
+    _index = 0;
+    
+    _content.hidden = YES;
+    _frameImageView.hidden = YES;
+    _pinImageView.hidden = YES;
+    _moreButton.hidden = YES;
+
+    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
+                            self.frame.origin.y + _pinImageView.frame.origin.y,
+                            37.0f, 39.0f);
+    self.image = [[[ksColorObject imageArray]objectAtIndex:[self mapPinColor]]objectAtIndex:CCO_PIN];
+    
+    _moreButton.frame = BASE_BUTTON_FRAME;
+    
+    _pinImageView.frame = BASE_PIN_FRAME;
+    _pinImageView.image = self.image;
+
+    _content.frame = BASE_CONTENT_FRAME;
+    _content.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    _content.descContainerView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+
+    _frameImageView.frame = BASE_FRAME_FRAME;
 }
 
 -(int)mapPinColor {
     return ([_kissArray count] > 1) ? CCO_RAINBOW_COLOR : [[[_kissArray objectAtIndex:0] valueForKey:@"score"] intValue];
 }
 
+-(void)displayFullAnnotationView {
+    _pinImageView.image = self.image;
+    self.image = [UIImage imageNamed:@"PinInvisible.png"];
+    _content.hidden = NO;
+    _frameImageView.hidden = NO;
+    _pinImageView.hidden = NO;
+    
+    [self updateContent];
+    
+    //_content.layer.borderColor = [[UIColor redColor] CGColor];
+    //_content.layer.borderWidth = 1.0f;
+    //_content.photoContainerView.layer.borderColor = [[UIColor greenColor] CGColor];
+    //_content.photoContainerView.layer.borderWidth = 1.0f;
+    //_frameImageView.layer.borderColor = [[UIColor blueColor] CGColor];
+    //_frameImageView.layer.borderWidth = 1.0f;
+    //_pinImageView.layer.borderColor = [[UIColor greenColor] CGColor];
+    //_pinImageView.layer.borderWidth = 1.0f;
+    //self.layer.borderColor = [[UIColor blackColor] CGColor];
+    //self.layer.borderWidth = 1.0f;
+}
+
 -(void)displayCallout {
     // centers on pin
-
+    //9901, move this down, or cut-out and call separately to re-size/re-center on new call-outs...
     CGPoint annotationCoordPoint = [[ROOT mainMapView] convertCoordinate:_coordinate toPointToView:[ROOT mainMapView]];
     annotationCoordPoint = CGPointMake(annotationCoordPoint.x,
-                                     annotationCoordPoint.y - 60.0f);
-
+                                       annotationCoordPoint.y - 60.0f);
+    
     [[ROOT mainMapView] setCenterCoordinate:[[ROOT mainMapView] convertPoint:annotationCoordPoint toCoordinateFromView:[ROOT mainMapView]] animated:YES];
-    [self fullDisplay];
+    
+    [self displayFullAnnotationView];
 }
 
 -(void)dismissCallout {
-    [self initDisplay];
-    return;
-    
-    _indexIterations = 3;
-    _frameIterations = 3;
+    [self resetAnnotationView];
 }
 
 -(void)moreButtonTouched:(id)sender {
-    NSLog(@"that dang more button");
-    
     _index++;
     if (_index == [_kissArray count]) _index = 0;
     
-    //_indexIterations = 3;
-    //_index = (_index == [_kissArray count]) ? 0 : _index++;
+    self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
+                            self.frame.origin.y + _pinImageView.frame.origin.y,
+                            37.0f, 39.0f);
+    [self updateContent];
+}
+
+-(void)updateContent{
     [_content colorizeWithData:[_kissArray objectAtIndex:_index] forType:LOCATION];
-    [self fullDisplay];
+
+    _moreButton.hidden = ([_kissArray count] > 1) ? NO : YES;
+    _moreButton.frame = (_moreButton.hidden) ? CGRectMake(0.0f, 0.0f, 0.0f, 0.0f) :
+                                                CGRectMake(_content.frame.size.width - _moreButton.frame.size.width,
+                                                           _content.frame.size.height + 8.0f,
+                                                           _moreButton.frame.size.width,
+                                                           _moreButton.frame.size.height);
+    
+    _frameImageView.frame = CGRectMake(0.0f, 0.0f,
+                                       _content.frame.size.width + 12.0f,
+                                       _content.frame.size.height + 32.0f + _moreButton.frame.size.height);
+
+    _pinImageView.frame = CGRectMake(_frameImageView.frame.size.width/2 - (_pinImageView.frame.size.width/2/3),
+                                     _frameImageView.frame.size.height,
+                                     _pinImageView.frame.size.width,
+                                     _pinImageView.frame.size.height);
+    
+    self.frame = CGRectMake(self.frame.origin.x - _pinImageView.frame.origin.x,
+                            self.frame.origin.y - _frameImageView.frame.size.height,
+                            _frameImageView.frame.size.width,
+                            (_frameImageView.frame.size.height + _pinImageView.frame.size.height));
 }
 
 @end

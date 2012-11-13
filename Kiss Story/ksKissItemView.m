@@ -20,6 +20,17 @@
     return self;
 }
 
+- (id)initForAnnotation {
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissItemView" owner:self options:nil] objectAtIndex:0];
+    }
+    
+    self.autoresizingMask = UIViewContentModeCenter;
+    self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
+    self.clipsToBounds = YES;
+
+    return self;
+}
 
 -(void)awakeFromNib {
 }
@@ -36,17 +47,17 @@
     _descContainerView.layer.borderColor = [[[[ksColorObject colorArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]] objectAtIndex:CCO_BASE] CGColor];
     _descContainerView.layer.borderWidth = 1.0f;
     _descContainerView.layer.shadowColor = [[[[ksColorObject colorArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]] objectAtIndex:CCO_LIGHT] CGColor];
-    _descContainerView.layer.shadowOpacity = 0.75f;
+    _descContainerView.layer.shadowOpacity = 1.0f;
     _descContainerView.layer.shadowRadius = 0.0f;
     _descContainerView.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
     
     _photoContainerView.layer.shadowColor = [[[[ksColorObject colorArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]] objectAtIndex:CCO_LIGHT] CGColor];
-    _photoContainerView.layer.shadowOpacity = 0.75f;
+    _photoContainerView.layer.shadowOpacity = 1.0f;
     _photoContainerView.layer.shadowRadius = 0.0f;
     _photoContainerView.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
     
     self.layer.shadowColor = [[[[ksColorObject colorArray] objectAtIndex:[[kissRecord valueForKey:@"score"] intValue]] objectAtIndex:CCO_LIGHT] CGColor];
-    self.layer.shadowOpacity = 0.75f;
+    self.layer.shadowOpacity = 1.0f;
     self.layer.shadowRadius = 0.0f;
     self.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
 
@@ -73,7 +84,7 @@
         [subV removeFromSuperview];
     }
     
-    //need to re0set headerLabekl before iteratively shortening it on reuse
+    //need to reset headerLabel before iteratively shortening it on reuse
     _headerLabel.frame = CGRectMake(_headerLabel.frame.origin.x,
                                     _headerLabel.frame.origin.y,
                                     306.0f,
@@ -90,6 +101,34 @@
                                         _headerLabel.frame.size.width - 26.0f,
                                         _headerLabel.frame.size.height);
     }
+    
+    switch (type) {
+        case KISSER: {
+            _headerLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
+            _leftLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
+            _rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
+        }
+            break;
+        case DATE: {
+            _headerLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
+            _leftLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
+            _rightLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
+            
+        }
+            break;
+        case RATING: {
+            _headerLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
+            _leftLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
+            _rightLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
+        }
+            break;
+        case LOCATION: {
+            _headerLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
+            _leftLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
+            _rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
+        }
+            break;
+    }
 
     _leftImage.image = [[[ksColorObject alloc]initDisplayWithColor:[[kissRecord valueForKey:@"score"] intValue] withType:type] leftThumbnailImage];
     _rightImage.image = [[[ksColorObject alloc]initDisplayWithColor:[[kissRecord valueForKey:@"score"] intValue] withType:type] rightThumbnailImage];
@@ -97,13 +136,9 @@
     _photoImage.image = nil;
     
     // widget and content control
-    //float textBuffer = 12.0f;
-    //float imageBuffer = 5.0f;
-    
     float imageHeight = 0.0f;
     float textHeight = [ksKissItemView calcTextSizeForKiss:kissRecord];
     float labelWidth;
-    //float rowHeight = 67.0f;
 
     _photoContainerView.hidden = NO;
     if ([[kissRecord valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
@@ -139,38 +174,11 @@
                                           _descLabel.frame.size.width + 6.0f,
                                           _descLabel.frame.size.height + 6.0f);
     
+    // the heightdelta*.8 is for map annotations; it is ignored by the table for tableviews!
     self.frame = CGRectMake(self.frame.origin.x,
                             self.frame.origin.y,
                             self.frame.size.width,
-                            57.0f + heightDelta);
-
-    switch (type) {
-        case KISSER: {
-            _headerLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
-            _leftLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
-            _rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
-        }
-            break;
-        case DATE: {
-            _headerLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
-            _leftLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
-            _rightLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
-            
-        }
-            break;
-        case RATING: {
-            _headerLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
-            _leftLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
-            _rightLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
-        }
-            break;
-        case LOCATION: {
-            _headerLabel.text = [[kissRecord valueForKey:@"kissWhere"] valueForKey:@"name"];
-            _leftLabel.text = [[kissRecord valueForKey:@"kissWho"] valueForKey:@"name"];
-            _rightLabel.text = [[NSString alloc]initWithFormat:@"%@",[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[kissRecord valueForKey:@"when"] doubleValue]]]];
-        }
-            break;
-    }
+                            57.0f + (heightDelta * 0.8f));
 }
 
 +(float)calcTextSizeForKiss:(NSManagedObject*)kissRecord {

@@ -11,6 +11,7 @@
 
 @interface ksKissItemView : UIView
 
+-(id)initForAnnotation;
 -(void)colorizeWithData:(NSManagedObject*)kissRecord forType:(int)type;
 +(float)calcTextSizeForKiss:(NSManagedObject*)kissRecord;
 
