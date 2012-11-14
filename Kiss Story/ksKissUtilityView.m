@@ -12,87 +12,76 @@
 
 @implementation ksKissUtilityView
 
-@synthesize kissObject = _kissObject;
-@synthesize locationMapView = _locationMapView;
-@synthesize textControl = _textControl;
-
 #pragma mark - Inits
 
--(id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil] objectAtIndex:0];
-        self.frame = frame;
-    }
-    
-    return self;
-}
-
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary {
-    if ([self initWithFrame:CGRectMake(0.0f, 480.0f, 320.0f, 436.0f)]) {
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissUtilityView" owner:self options:nil] objectAtIndex:0];
+        self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
         
         //generic all-cases inits
-        _dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
-        _kissObject = [[ksKissObject alloc]init];
+        self.dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
+        self.kissObject = [[ksKissObject alloc]init];
         
-        _state = whichState;
-        _textControl = KUV_TEXTVIEW;
+        self.state = whichState;
+        self.textControl = KUV_TEXTVIEW;
         
-        [_ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
-        [_ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
-        [_ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        [self.ratingSlider setThumbImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        [self.ratingSlider setMinimumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
+        [self.ratingSlider setMaximumTrackImage:[UIImage imageNamed:@"Invisible1x1.png"] forState:UIControlStateNormal];
         
-        _locationMapView.delegate = ROOT;
-        _locationMapView.showsUserLocation = YES;
-        [_locationMapView removeAnnotations:[_locationMapView annotations]];
-        [_locationMapView addAnnotations:[ROOT annotationArray]];
-        _locationMapView.region = MKCoordinateRegionMake([_locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.0025f, 0.0025f));
+        self.locationMapView.delegate = ROOT;
+        self.locationMapView.showsUserLocation = YES;
+        [self.locationMapView removeAnnotations:[self.locationMapView annotations]];
+        [self.locationMapView addAnnotations:[ROOT annotationArray]];
+        self.locationMapView.region = MKCoordinateRegionMake([self.locationMapView userLocation].coordinate, MKCoordinateSpanMake(0.0025f, 0.0025f));
 
         //state-specific inits & adjustments; custom data loading, &c.
-        switch (_state) {
+        switch (self.state) {
             case STATE_ADD: {
-                [_ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
+                [self.ratingSlider addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingSliderTapped:)]];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
             }
                 break;
             case STATE_EDIT: {
                 
-                _kisserStatus.image = [UIImage imageNamed:@"StatusKisserYes.png"];
-                _dateStatus.image = [UIImage imageNamed:@"StatusDateYes.png"];
-                _ratingStatus.image = [UIImage imageNamed:@"StatusRatingYes.png"];
-                _locationStatus.image = [UIImage imageNamed:@"StatusLocationYes.png"];
-                _descStatus.image = [UIImage imageNamed:@"StatusDescriptionYes.png"];
+                self.kisserStatus.image = [UIImage imageNamed:@"StatusKisserYes.png"];
+                self.dateStatus.image = [UIImage imageNamed:@"StatusDateYes.png"];
+                self.ratingStatus.image = [UIImage imageNamed:@"StatusRatingYes.png"];
+                self.locationStatus.image = [UIImage imageNamed:@"StatusLocationYes.png"];
+                self.descStatus.image = [UIImage imageNamed:@"StatusDescriptionYes.png"];
                 
-                [self prepareButton:_kisserButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
+                [self prepareButton:self.kisserButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
 
                 NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 
-                [self prepareButton:_dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
+                [self prepareButton:self.dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
                 
-                _ratingSlider.value = [[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
-                [self ratingSliderValueChanged:_ratingSlider];
-                _ratingSlider.enabled = NO;
+                self.ratingSlider.value = [[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
+                [self ratingSliderValueChanged:self.ratingSlider];
+                self.ratingSlider.enabled = NO;
                 
-                [self prepareButton:_locationButton withTitle:[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
+                [self prepareButton:self.locationButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
 
-                [_locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
-                _locationMapView.scrollEnabled = NO;
-                _locationMapView.zoomEnabled = NO;
-                _locationMapCenterButton.hidden = YES;
+                [self.locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
+                self.locationMapView.scrollEnabled = NO;
+                self.locationMapView.zoomEnabled = NO;
+                self.locationMapCenterButton.hidden = YES;
                 
-                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
-                    [_descTextView setText:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
+                if (![[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"] isEqualToString:@""]) {
+                    [self.descTextView setText:[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"desc"]];
                 } else {
-                    _whatSection.hidden = YES;
-                    _whatSection.frame = CGRectMake(0, 0, 0, 0);
+                    self.whatSection.hidden = YES;
+                    self.whatSection.frame = CGRectMake(0, 0, 0, 0);
                 }
 
-                if (![[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
-                    [_picButton setImage:[UIImage imageWithData:[[_dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
+                if (![[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"] isEqualToData:KSCD_DUMMYIMAGE]) {
+                    [self.picButton setImage:[UIImage imageWithData:[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"image"]] forState:UIControlStateNormal];
                 } else {
-                    _whySection.hidden = YES;
-                    _whySection.frame = CGRectMake(0, 0, 0, 0);
+                    self.whySection.hidden = YES;
+                    self.whySection.frame = CGRectMake(0, 0, 0, 0);
                 }
             }
                 break;
@@ -100,16 +89,16 @@
     }
 
     // dynamically adjust the size of the scolledContainer to fit it's contents... can't use autolayout becuase it frakked up the custom buttons in the buttons header...
-    [[_scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 0.0f
-                                                                + _whoSection.frame.size.height + 5.0f
-                                                                + _whenSection.frame.size.height + 5.0f
-                                                                + _howSection.frame.size.height + 5.0f
-                                                                + _whereSection.frame.size.height + 5.0f
-                                                                + _whatSection.frame.size.height + 5.0f
-                                                                + _whySection.frame.size.height + 5.0f)];
+    [[self.scrollView.subviews objectAtIndex:0] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, 0.0f
+                                                                + self.whoSection.frame.size.height + 5.0f
+                                                                + self.whenSection.frame.size.height + 5.0f
+                                                                + self.howSection.frame.size.height + 5.0f
+                                                                + self.whereSection.frame.size.height + 5.0f
+                                                                + self.whatSection.frame.size.height + 5.0f
+                                                                + self.whySection.frame.size.height + 5.0f)];
     
     // needs must set the scrollView contentSize to the frame of it's view
-    _scrollView.contentSize = CGSizeMake([[_scrollView.subviews objectAtIndex:0]frame].size.width, [[_scrollView.subviews objectAtIndex:0]frame].size.height);
+    self.scrollView.contentSize = CGSizeMake([[self.scrollView.subviews objectAtIndex:0]frame].size.width, [[self.scrollView.subviews objectAtIndex:0]frame].size.height);
 
     [self displayUtilityView];
     return self;
@@ -289,6 +278,24 @@
     [_locationMapView setCenterCoordinate:[_locationMapView userLocation].coordinate animated:YES];
 }
 
+#pragma mark - Picture Action Group
+
+-(IBAction)takePicture:(id) sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    //9901
+    //poopOver for camera/roll?
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    } else {
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+    
+    [imagePicker setDelegate:ROOT];
+    [ROOT presentViewController:imagePicker animated:YES completion:nil];
+}
+
 #pragma mark - UITextView Delegate
 
 -(void)keyboardWillShowNotification:(NSNotification*)notification {
@@ -317,24 +324,5 @@
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
 }
-
--(IBAction)takePicture:(id) sender {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
-    //9901
-    //poopOver for camera/roll?
-
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    } else {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }
-
-    [imagePicker setDelegate:ROOT];
-    [ROOT presentViewController:imagePicker animated:YES completion:nil];
-}
-
-
-
 
 @end

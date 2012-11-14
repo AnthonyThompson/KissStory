@@ -16,29 +16,29 @@
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 288.0f, 368.0f)]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSettingsView" owner:self options:nil] objectAtIndex:0];
 
-        _settingsDictionary = [ROOT settingsDictionary];
+        self.settingsDictionary = [ROOT settingsDictionary];
 
         /*
-        _facebookSwitch.on = NO;
-        if ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
-            _facebookSwitch.on = YES;
+        self.facebookSwitch.on = NO;
+        if ([[self.settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) {
+            self.facebookSwitch.on = YES;
         }
          */
         
-        _facebookSwitch.on = ([[_settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) ? YES : NO;
+        self.facebookSwitch.on = ([[self.settingsDictionary valueForKey:@"facebookEnabled"] isEqualToString:@"YES"]) ? YES : NO;
         
         /*
-        _twitterSwitch.on = NO;
-        if ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
-            _twitterSwitch.on = YES;
+        self.twitterSwitch.on = NO;
+        if ([[self.settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) {
+            self.twitterSwitch.on = YES;
         }
          */
         
-        _twitterSwitch.on = ([[_settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) ? YES : NO;
+        self.twitterSwitch.on = ([[self.settingsDictionary valueForKey:@"twitterEnabled"] isEqualToString:@"YES"]) ? YES : NO;
 
-        _passcodeSwitch.on = [ksSecurityView securityCheck:_settingsDictionary];
+        self.passcodeSwitch.on = [ksSecurityView securityCheck:self.settingsDictionary];
 
-        _bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
+        self.bigVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ v%@.%@%@",
                                  [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"],
                                  [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"],
                                  [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey],
@@ -48,7 +48,7 @@
                                  @""
 #endif
                                  ];
-        _littleVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ logo and app are\n© 2012 Geek Gamer Guy Mobile LLC\nAll rights reserved",
+        self.littleVersionLabel.text = [[NSString alloc]initWithFormat:@"%@ logo and app are\n© 2012 Geek Gamer Guy Mobile LLC\nAll rights reserved",
                                     [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleDisplayName"]];
 
 
@@ -58,7 +58,6 @@
 
 -(void)displaySettingsView {
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:self.frame];
-    //[popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
     [popOverView displayPopOverViewWithContent:self withBacking:nil inSuperView:[ROOT view]];
 }
 

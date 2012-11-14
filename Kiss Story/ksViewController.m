@@ -129,7 +129,6 @@
     
     //9901 this does not sufficiently track prior-to-edit/delete state
     int tempState = _state;
-    //tempState = STATE_KISSER;
     _state = STATE_NEUTRAL;
     switch (tempState) {
         case STATE_KISSER: {
@@ -279,8 +278,7 @@
         annotation.coordinate = CLLocationCoordinate2DMake([[[locationObject valueForKey:@"kissWhere"]valueForKey:@"lat"]floatValue], [[[locationObject valueForKey:@"kissWhere"]valueForKey:@"lon"]floatValue]);
         annotation.title = [[locationObject valueForKey:@"kissWhere"]valueForKey:@"name"];
         
-        //9901
-        // this is a 0,0 location discriminator, won't be needed after data is purged?
+        // this is a 0,0 location discriminator JIC
         if (!((annotation.coordinate.latitude == 0.0f) && (annotation.coordinate.longitude == 0.0f))) {
 
             NSMutableArray* kisses = [[NSMutableArray alloc]init];
@@ -776,13 +774,17 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark - DISORGANIZED BULLSHIT
+#pragma mark - UIImagePickerContrioller Delegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [[[[self view]subviews]lastObject]kissObject].kissPicture = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage* betaDog = [info objectForKey:UIImagePickerControllerOriginalImage];
+    float scale = betaDog.size.width/80.0f;
+    if (betaDog.size.height/80.0f > scale) scale = betaDog.size.height/80.0f;
+
+    [[[[self view]subviews]lastObject]kissObject].kissPicture = [UIImage imageWithCGImage:[[info objectForKey:UIImagePickerControllerOriginalImage] CGImage] scale:scale orientation:UIImageOrientationUp];
+
     [[[[[self view]subviews]lastObject]picButton]setImage:[info objectForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

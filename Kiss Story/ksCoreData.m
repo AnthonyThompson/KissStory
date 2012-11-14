@@ -25,15 +25,15 @@
     
 #ifdef DEBUG
     // KSCD_DATA = initial place-values; anon, addNew, &c
-    //_runTime = KSCD_DATA;
+    //self.runTime = KSCD_DATA;
     
     // KSCD_DEBUGDATA = ladies && settings
     self.runTime = KSCD_DEBUGDATA;
     
     // KSCD_NODATA = no data generated at all BE CAREFUL WITH THIS ONE MY FRIEND
-    //_runTime = KSCD_NODATA;
+    //self.runTime = KSCD_NODATA;
 #else
-    _runTime = KSCD_DATA;
+    self.runTime = KSCD_DATA;
 #endif
 
     return self;
@@ -399,8 +399,7 @@
         NSMutableSet* tesoroK = [tesoro mutableSetValueForKey:@"kissRecord"];
         NSMutableSet* RanchK = [Ranch mutableSetValueForKey:@"kissRecord"];
         NSMutableSet* EveMendezK = [EveMendez mutableSetValueForKey:@"kissRecord"];
-        
-        //9901
+
         NSData* imageData = UIImagePNGRepresentation([UIImage imageNamed:@"WindowPasscode.png"]);
         NSData* imageT1 = UIImagePNGRepresentation([UIImage imageNamed:@"IMAGETEST1.png"]);
         NSData* imageT2 = UIImagePNGRepresentation([UIImage imageNamed:@"IMAGETEST2.png"]);

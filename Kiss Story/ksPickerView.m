@@ -14,36 +14,31 @@
 
 #pragma mark - Inits
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self = [[[NSBundle mainBundle] loadNibNamed:@"ksPickerView" owner:self options:nil] objectAtIndex:0];
-        self.frame = frame;
-    }
-    return self;
-}
-
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults {
-    if ([self initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 302.0f)]) {
-        _fetchedResults = [[NSFetchedResultsController alloc]init];
-        _fetchedResults = fetchedResults;
-        _state = whichState;
-        _stringPickerView.delegate = self;
-        _stringPickerView.dataSource = self;
-        _screenView = [[UIView alloc]initWithFrame:CGRectMake(0.0f, -42.0f, 320.0f, 524.0f)];
-        _screenView.backgroundColor = CCO_BASE_GREY;
-        _screenView.alpha = 0.3f;
+    if (self = [super init]) {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"ksPickerView" owner:self options:nil] objectAtIndex:0];
+        self.frame = CGRectMake(0.0f, 0.0f, 300.0f, 302.0f);
         
-        switch (_state) {
+        self.fetchedResults = [[NSFetchedResultsController alloc]init];
+        self.fetchedResults = fetchedResults;
+        self.state = whichState;
+        self.stringPickerView.delegate = self;
+        self.stringPickerView.dataSource = self;
+        self.screenView = [[UIView alloc]initWithFrame:CGRectMake(0.0f, -42.0f, 320.0f, 524.0f)];
+        self.screenView.backgroundColor = CCO_BASE_GREY;
+        self.screenView.alpha = 0.3f;
+        
+        switch (self.state) {
             case KISSER: {
-                _datePickerView.hidden = TRUE;
+                self.datePickerView.hidden = TRUE;
             }
                 break;
             case DATE: {
-                _stringPickerView.hidden = TRUE;
+                self.stringPickerView.hidden = TRUE;
             }
                 break;
             case LOCATION: {
-                _datePickerView.hidden = TRUE;
+                self.datePickerView.hidden = TRUE;
             }
                 break;
         }
@@ -94,7 +89,6 @@
         case KISSER: {
             [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWho:YES];
 
-            //9901 is this still needed???
             if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
                 // add a new kisser
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
