@@ -32,18 +32,23 @@
     self.canShowCallout = NO;
     self.enabled = YES;
     self.frame = BASE_ANNOTATION_FRAME;
+    
+    _index = 0;
 
     _moreButton = [[UIButton alloc]initWithFrame:BASE_BUTTON_FRAME];
     [_moreButton addTarget:self action:@selector(moreButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
-    _buttonImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ButtonHeaderMore.png"]];
-    _buttonLabel = [[UILabel alloc]initWithFrame:_buttonImage.frame];
-    _buttonLabel.backgroundColor = [UIColor clearColor];
-    _buttonLabel.textColor = CCO_BASE_CREAM;
-    _buttonLabel.textAlignment = NSTextAlignmentCenter;
-    _buttonLabel.minimumScaleFactor = 0.1f;
-    _buttonLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:18.0f];
-    _buttonLabel.adjustsFontSizeToFitWidth = YES;
+    _backingButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _backingButton.frame = _moreButton.frame;
+    [_backingButton setImage:[UIImage imageNamed:@"ButtonHeaderMore.png"] forState:UIControlStateNormal];
+    
+    _backingButton.titleLabel.frame = CGRectOffset(_backingButton.frame, 0, -2);
+    _backingButton.titleLabel.textColor = CCO_BASE_CREAM;
+    _backingButton.titleLabel.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:18.0f];
+    _backingButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _backingButton.titleLabel.minimumScaleFactor = 0.1f;
+    _backingButton.titleLabel.hidden = NO;
+    _backingButton.titleLabel.adjustsFontSizeToFitWidth = YES;
 
     _pinImageView = [[UIImageView alloc]initWithFrame:BASE_PIN_FRAME];
     
@@ -58,8 +63,7 @@
     _frameImageView.layer.shadowOffset = CGSizeMake(3.0f, 3.0f);
 
     [_frameImageView addSubview:_content];
-    [_frameImageView addSubview:_buttonImage];
-    [_frameImageView addSubview:_buttonLabel];
+    [_frameImageView addSubview:_backingButton];
 
     [self addSubview:_pinImageView];
     [self addSubview:_frameImageView];
@@ -76,8 +80,9 @@
 
     _pinImageView.hidden = YES;
     _moreButton.hidden = YES;
-    _buttonImage.hidden = YES;
-    _buttonLabel.hidden = YES;
+    _backingButton.hidden = YES;
+    
+    _backingButton.titleLabel.text = [NSString stringWithFormat:@"%i (%i)",_index+1,[_kissArray count]];
 
     self.frame = CGRectMake(self.frame.origin.x + _pinImageView.frame.origin.x,
                             self.frame.origin.y + _pinImageView.frame.origin.y,
@@ -145,8 +150,6 @@
             }];
         }];
     }];
-
-    
 }
 
 -(void)centerOnCallOut {
@@ -191,11 +194,10 @@
                                                            _moreButton.frame.size.width,
                                                            _moreButton.frame.size.height);
     
-    _buttonImage.hidden = _moreButton.hidden;
-    _buttonImage.frame = _moreButton.frame;
-    _buttonLabel.hidden = _moreButton.hidden;
-    _buttonLabel.frame = _moreButton.frame;
-    _buttonLabel.text = [NSString stringWithFormat:@"%i (%i)",_index+1,[_kissArray count]];
+    _backingButton.hidden = _moreButton.hidden;
+    _backingButton.frame = _moreButton.frame;
+    _backingButton.titleLabel.hidden = NO;
+    _backingButton.titleLabel.text = [NSString stringWithFormat:@"%i (%i)",_index+1,[_kissArray count]];
 
     _frameImageView.frame = CGRectMake(0.0f, 0.0f,
                                        _content.frame.size.width + 12.0f,
