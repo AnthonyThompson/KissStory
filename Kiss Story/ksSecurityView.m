@@ -20,9 +20,9 @@
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksSecurityView" owner:self options:nil] objectAtIndex:0];
     }
     
-    _whichProcess = whichProcess;
-    _passcode = [settingsDictionary valueForKey:@"passcode"];
-    _securityEnabled = [ksSecurityView securityCheck:settingsDictionary];
+    self.whichProcess = whichProcess;
+    self.passcode = [settingsDictionary valueForKey:@"passcode"];
+    self.securityEnabled = [ksSecurityView securityCheck:settingsDictionary];
 
     return self;
 }
@@ -30,12 +30,6 @@
 #pragma mark - Class Actions
 
 +(BOOL)securityCheck:(NSDictionary*)dataDictionary {
-    /*
-    if ([[dataDictionary valueForKey:@"securityEnabled"] isEqualToString:@"YES"])
-        return YES;
-    return NO;
-     */
-    
     return ([[dataDictionary valueForKey:@"securityEnabled"] isEqualToString:@"YES"]) ? YES : NO;
 }
 

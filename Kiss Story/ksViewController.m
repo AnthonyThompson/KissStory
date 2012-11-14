@@ -129,7 +129,7 @@
     
     //9901 this does not sufficiently track prior-to-edit/delete state
     int tempState = _state;
-    tempState = STATE_KISSER;
+    //tempState = STATE_KISSER;
     _state = STATE_NEUTRAL;
     switch (tempState) {
         case STATE_KISSER: {
@@ -623,6 +623,16 @@
     
     [self.view addSubview:[[ksKissUtilityView alloc]initForState:STATE_EDIT withData:singleCellDictionary]];
     return indexPath;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // if it's the last section (count-1), then return value BUT this seems to be overriden by nib???
+    return (section == [[[_dataDictionary valueForKey:[NSString stringWithFormat:@"tableData%i",_state]]objectAtIndex:1] count]-1) ? 22.0f : 0.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    NSLog(@"%f",_mainTableView.sectionFooterHeight);
+    return [[UIView alloc]initWithFrame:CGRectMake(0,0,320,_mainTableView.sectionFooterHeight)];
 }
 
 #pragma mark - Map Group

@@ -24,7 +24,6 @@
 
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults {
     if ([self initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 302.0f)]) {
-        
         _fetchedResults = [[NSFetchedResultsController alloc]init];
         _fetchedResults = fetchedResults;
         _state = whichState;

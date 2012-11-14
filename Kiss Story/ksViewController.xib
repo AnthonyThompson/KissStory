@@ -150,7 +150,7 @@
 								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
 								<float key="IBUIRowHeight">44</float>
 								<float key="IBUISectionHeaderHeight">30</float>
-								<float key="IBUISectionFooterHeight">12</float>
+								<float key="IBUISectionFooterHeight">22</float>
 							</object>
 							<object class="IBUIView" id="635795792">
 								<reference key="NSNextResponder" ref="789539996"/>
@@ -393,7 +393,6 @@
 						<string key="NSFrame">{{256, 440}, {64, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -2280,17 +2279,45 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ksViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">ratingButtonTapped:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">ratingButtonTapped:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dateButtonTapped:">id</string>
+						<string key="kisserButtonTapped:">id</string>
+						<string key="locationButtonTapped:">id</string>
+						<string key="photoButtonTapped:">id</string>
+						<string key="ratingButtonTapped:">id</string>
+						<string key="topLeftButtonTapped:">id</string>
+						<string key="topRightButtonTapped:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dateButtonTapped:">
+							<string key="name">dateButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="kisserButtonTapped:">
+							<string key="name">kisserButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="locationButtonTapped:">
+							<string key="name">locationButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="photoButtonTapped:">
+							<string key="name">photoButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="ratingButtonTapped:">
 							<string key="name">ratingButtonTapped:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+						<object class="IBActionInfo" key="topLeftButtonTapped:">
+							<string key="name">topLeftButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="topRightButtonTapped:">
+							<string key="name">topRightButtonTapped:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="centerMapButton">UIButton</string>
 						<string key="dateButton">UIButton</string>
