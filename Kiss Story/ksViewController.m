@@ -185,17 +185,16 @@
     NSMutableArray* sectionDataCollection = [[NSMutableArray alloc] init];
 
     // enumerate the fetched objects
-    for (NSFetchedResultsController* fetched in [[_fetchedResultsControllerArray objectAtIndex:whichData]fetchedObjects]) {
-                
+    for (NSFetchedResultsController* fetched in [[_fetchedResultsControllerArray objectAtIndex:whichData]fetchedObjects]) {                
         NSString* titleKey;
                 
-                switch (whichData) {
-                    case KISSER: {
-                        // KISSES by NAME
-                        // here building a list of kissWho.name initials, and then the records by section based on kissWho.name
-                        titleKey = [[[[fetched valueForKey:@"kissWho"]valueForKey:@"name"]substringToIndex:1]uppercaseString];
-                    }
-                        break;
+        switch (whichData) {
+            case KISSER: {
+                // KISSES by NAME
+                // here building a list of kissWho.name initials, and then the records by section based on kissWho.name
+                titleKey = [[[[fetched valueForKey:@"kissWho"]valueForKey:@"name"]substringToIndex:1]uppercaseString];
+            }
+                break;
                     case DATE: {
                         // KISSES by DATE
                         // here building a list of normalized datestrings, and then the records by section based on date category
@@ -344,6 +343,7 @@
                 [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderGear.png"] forState:UIControlStateNormal];
                 [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderPlus.png"] forState:UIControlStateNormal];
                 [_kisserButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+                _topRightButton.hidden = NO;
             }
             _state = STATE_KISSER;
         }
@@ -359,6 +359,7 @@
         case STATE_LOCATION:
         case STATE_PHOTO: {
             // add a new kiss
+            // 9901 previous state control...
             _state = STATE_ADD;
             _topBarLabel.text = @"Add A Kiss";
             [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
@@ -777,6 +778,9 @@
 #pragma mark - UIImagePickerContrioller Delegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    //9901 is scale really changing the byte size???
+    
     UIImage* betaDog = [info objectForKey:UIImagePickerControllerOriginalImage];
     float scale = betaDog.size.width/80.0f;
     if (betaDog.size.height/80.0f > scale) scale = betaDog.size.height/80.0f;

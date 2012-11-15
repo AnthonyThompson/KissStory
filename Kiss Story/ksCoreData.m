@@ -97,6 +97,8 @@
 }
 
 - (void)saveContext {
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent ();
+
     NSError *err = nil;
     if ([self managedObjectContext] != nil){
         if ([[self managedObjectContext] hasChanges] && ![[self managedObjectContext] save:&err]){
@@ -104,6 +106,9 @@
             abort();
         }
     }
+    
+    NSLog(@"save %f",CFAbsoluteTimeGetCurrent () - startTime);
+
 }
 
 #pragma mark - Filename Exposure

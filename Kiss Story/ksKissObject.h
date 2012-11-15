@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ksCoreData.h"
+#import "DCRoundSwitch.h"
 
 #define VALID_DATA 0
 #define INVALID_WHO_ENTITY 1
@@ -36,16 +37,25 @@
 
 @property (nonatomic, retain) ksCoreData* coreData;
 
+// object 0 KissDetailsWarning
 @property (nonatomic, retain) IBOutlet UILabel* popOverTitle;
 @property (nonatomic, retain) IBOutlet UILabel* popOverText;
 
+// object 1 AddWhoWhere
 @property (nonatomic, retain) IBOutlet UILabel* addTitle;
 @property (nonatomic, retain) IBOutlet UITextField* addText;
-
 @property (nonatomic, retain) IBOutlet UIButton* addAcceptButton;
 
+// objetc 2 ConfirmAction
 @property (nonatomic, retain) IBOutlet UILabel* confirmTitle;
 @property (nonatomic, retain) IBOutlet UIButton* confirmAcceptButton;
+
+// object 3 ShareKiss
+@property (nonatomic, retain) IBOutlet DCRoundSwitch* facebookSwitch;
+@property (nonatomic, retain) IBOutlet DCRoundSwitch* twitterSwitch;
+@property (nonatomic, retain) IBOutlet UIButton* shareAcceptButton;
+
+
 
 
 

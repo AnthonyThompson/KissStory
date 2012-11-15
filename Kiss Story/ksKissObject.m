@@ -29,12 +29,10 @@
 
 #pragma mark - Inits
 
-//9901 needed???
 -(id)init {
     if (self = [super init]) {
         [self initData];
     }
-    
     return self;
 }
 
@@ -42,8 +40,20 @@
     if (self = [super init]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:configuration];
         [self initData];
+        
+        switch (configuration) {
+            case SHARE: {
+                _facebookSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(167.0f, 60.0f, 79.0f, 27.0f)];
+                _facebookSwitch.onTintColor = [UIColor colorWithRed:59.0f/255.0f green:89.0f/255.0f blue:182.0f/255.0f alpha:1.0f];
+                _twitterSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(167.0f, 102.0f, 79.0f, 27.0f)];
+                _twitterSwitch.onTintColor = [UIColor colorWithRed:64.0f/255.0f green:153.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+                
+                [self addSubview:_facebookSwitch];
+                [self addSubview:_twitterSwitch];
+            }
+                break;
+        }
     }
-    
     return self;
 }
 
@@ -65,6 +75,7 @@
     _validWhere = NO;
     
     _coreData = [ROOT ksCD];
+    
 }
 
 #pragma mark - Data Actions
@@ -141,6 +152,15 @@
     [whoKey addObject:newKiss];
     NSMutableSet* whereKey = [[_kissWhere valueForKey:@"where"] mutableSetValueForKey:@"kissRecord"];
     [whereKey addObject:newKiss];
+    
+    // 9901 saved!  want to share?
+    ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:SHARE];
+    ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
+    [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
+    
+    
+
+    
 
     //9901 rate app stuff
     /*
@@ -194,16 +214,20 @@
     [ROOT mapUpdate];
 }
 
-#pragma mark - IBAction Group
+#pragma mark - KissDetailWarning Group
 
 -(IBAction)dismissButtonTapped:(id)sender {
     [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
 }
 
+#pragma mark - AddWhoWhere Group
+
 -(IBAction)addCancelButtonTapped:(id)sender {
     [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
+
+#pragma mark - ConfirmAction Group
 
 -(IBAction)cancelConfirmButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
@@ -213,6 +237,24 @@
     [self deleteKiss];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
+
+#pragma mark - ShareKiss Group
+
+-(IBAction)shareConfirmButtonTapped:(id)sender {
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        [tweetSheet setInitialText:@"Initial Tweet Text!"];
+        if (_kissPicture) [tweetSheet addImage:_kissPicture];
+        
+        [ROOT presentViewController:tweetSheet animated:YES completion:nil];
+    }
+
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+}
+
+
 
 #pragma mark - UITextFieldDelegate group
 

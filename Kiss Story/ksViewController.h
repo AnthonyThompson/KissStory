@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import <MessageUI/MessageUI.h>
+#import <Social/Social.h>
 #import "ksCoreData.h"
 #import "ksColorObject.h"
 #import "ksAnnotationView.h"
@@ -39,6 +40,7 @@
 #define MISSINGWHOWHERE 0
 #define ADDWHOWHERE 1
 #define CONFIRM 2
+#define SHARE 3
 
 #define TWITTERBOOK_FACEBOOK 0
 #define TWITTERBOOK_TWITTER 1
