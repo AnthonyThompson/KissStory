@@ -77,10 +77,6 @@
     [[ROOT kissUtilityView] kisserButton].backgroundColor = CCO_BASE_CREAM;
     [[ROOT kissUtilityView] dateButton].backgroundColor = CCO_BASE_CREAM;
     [[ROOT kissUtilityView] locationButton].backgroundColor = CCO_BASE_CREAM;
-    //[(ksKissUtilityView*)[[self superview] superview] kisserButton].backgroundColor = CCO_BASE_CREAM;
-    //[(ksKissUtilityView*)[[self superview] superview] dateButton].backgroundColor = CCO_BASE_CREAM;
-    //[(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
-
     [self dismissPickerView];
 }
 
