@@ -22,7 +22,7 @@
 		050E7713162DEFD800D4F89F /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 050E7712162DEFD800D4F89F /* FacebookSDKResources.bundle */; };
 		050E7717162DF05400D4F89F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7714162DF05400D4F89F /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		050E7718162DF05400D4F89F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7715162DF05400D4F89F /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		050E7719162DF05400D4F89F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7716162DF05400D4F89F /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		050E7719162DF05400D4F89F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050E7716162DF05400D4F89F /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		050F07D41629B8400059C756 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D31629B8400059C756 /* UIKit.framework */; };
 		050F07D61629B8520059C756 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D51629B8520059C756 /* Foundation.framework */; };
 		050F07D81629B85C0059C756 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050F07D71629B85C0059C756 /* CoreData.framework */; };
@@ -80,6 +80,10 @@
 		05517D1616331F4C00DE5A51 /* ButtonRatingUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0C16331F4C00DE5A51 /* ButtonRatingUnselected.png */; };
 		05517D1716331F4C00DE5A51 /* ButtonSettingsSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0D16331F4C00DE5A51 /* ButtonSettingsSelected.png */; };
 		05517D1816331F4C00DE5A51 /* ButtonSettingsUnselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 05517D0E16331F4C00DE5A51 /* ButtonSettingsUnselected.png */; };
+		05559E3C1654CDBD007E81FE /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 05559E351654CDBD007E81FE /* DCRoundSwitch.m */; };
+		05559E3D1654CDBD007E81FE /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05559E371654CDBD007E81FE /* DCRoundSwitchKnobLayer.m */; };
+		05559E3E1654CDBD007E81FE /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05559E391654CDBD007E81FE /* DCRoundSwitchOutlineLayer.m */; };
+		05559E3F1654CDBD007E81FE /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05559E3B1654CDBD007E81FE /* DCRoundSwitchToggleLayer.m */; };
 		05575C52160E78110010C03A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05575C51160E78110010C03A /* Default-568h@2x.png */; };
 		0567FA9F1631B880005D6F20 /* IconDateBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0567FA811631B880005D6F20 /* IconDateBlue.png */; };
 		0567FAA01631B880005D6F20 /* IconDateCream.png in Resources */ = {isa = PBXBuildFile; fileRef = 0567FA821631B880005D6F20 /* IconDateCream.png */; };
@@ -236,6 +240,14 @@
 		05517D0C16331F4C00DE5A51 /* ButtonRatingUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonRatingUnselected.png; path = Assets/ButtonRatingUnselected.png; sourceTree = "<group>"; };
 		05517D0D16331F4C00DE5A51 /* ButtonSettingsSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSettingsSelected.png; path = Assets/ButtonSettingsSelected.png; sourceTree = "<group>"; };
 		05517D0E16331F4C00DE5A51 /* ButtonSettingsUnselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonSettingsUnselected.png; path = Assets/ButtonSettingsUnselected.png; sourceTree = "<group>"; };
+		05559E341654CDBD007E81FE /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
+		05559E351654CDBD007E81FE /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
+		05559E361654CDBD007E81FE /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
+		05559E371654CDBD007E81FE /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
+		05559E381654CDBD007E81FE /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
+		05559E391654CDBD007E81FE /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
+		05559E3A1654CDBD007E81FE /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
+		05559E3B1654CDBD007E81FE /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
 		05575C51160E78110010C03A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0567FA811631B880005D6F20 /* IconDateBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconDateBlue.png; path = Assets/IconDateBlue.png; sourceTree = "<group>"; };
 		0567FA821631B880005D6F20 /* IconDateCream.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconDateCream.png; path = Assets/IconDateCream.png; sourceTree = "<group>"; };
@@ -419,6 +431,7 @@
 		0533D086160E75B6001C3E6B /* Kiss Story */ = {
 			isa = PBXGroup;
 			children = (
+				05559E401654CDC4007E81FE /* DCRoundSwitch */,
 				05EC3A751635F2E300001367 /* ksAppDelegate */,
 				05EC3A711635F29D00001367 /* ksViewController */,
 				05EC3A771635F30100001367 /* ksCoreData */,
@@ -457,6 +470,21 @@
 				05089653163EC68E003A943F /* ksKissObject.xib */,
 			);
 			name = ksKissObject;
+			sourceTree = "<group>";
+		};
+		05559E401654CDC4007E81FE /* DCRoundSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				05559E341654CDBD007E81FE /* DCRoundSwitch.h */,
+				05559E351654CDBD007E81FE /* DCRoundSwitch.m */,
+				05559E361654CDBD007E81FE /* DCRoundSwitchKnobLayer.h */,
+				05559E371654CDBD007E81FE /* DCRoundSwitchKnobLayer.m */,
+				05559E381654CDBD007E81FE /* DCRoundSwitchOutlineLayer.h */,
+				05559E391654CDBD007E81FE /* DCRoundSwitchOutlineLayer.m */,
+				05559E3A1654CDBD007E81FE /* DCRoundSwitchToggleLayer.h */,
+				05559E3B1654CDBD007E81FE /* DCRoundSwitchToggleLayer.m */,
+			);
+			name = DCRoundSwitch;
 			sourceTree = "<group>";
 		};
 		056C62CA1625DFE200044257 /* Art */ = {
@@ -840,6 +868,10 @@
 				05A87811163FA07900D2DF2F /* ksSettingsView.m in Sources */,
 				0514AF77164039EC00BEA562 /* ksImagePickerViewController.m in Sources */,
 				05234713164DF21E009B3778 /* ksKissItemView.m in Sources */,
+				05559E3C1654CDBD007E81FE /* DCRoundSwitch.m in Sources */,
+				05559E3D1654CDBD007E81FE /* DCRoundSwitchKnobLayer.m in Sources */,
+				05559E3E1654CDBD007E81FE /* DCRoundSwitchOutlineLayer.m in Sources */,
+				05559E3F1654CDBD007E81FE /* DCRoundSwitchToggleLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

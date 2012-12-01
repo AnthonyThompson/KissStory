@@ -81,16 +81,14 @@
     [self dismissPickerView];
 }
 
--(void)saveWhoWhere:(ksKissObject*)kissObject isNew:(BOOL)isNew {
-    UIButton* receiverButton;
-    NSString* receiverTitle;
-
+-(IBAction)acceptButtonTapped:(id)sender {
+    // accept button hit; a row of the picker has been accepted.
+    // if it's not 0, then grab object and push down to kiss object
+    // if it's 0, then lanuch the text field
+    
     switch (_state) {
         case KISSER: {
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWho:YES];
-
-            if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
-                // add a new kisser
+            if ([_stringPickerView selectedRowInComponent:0] == 0) {
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
                 content.kissWho = [[NSMutableDictionary alloc]init];
                 content.addTitle.text = @"Who did you kiss?";
@@ -98,82 +96,46 @@
                 
                 ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
                 [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
-                
-                return;
-            }
-
-            receiverButton = [(ksKissUtilityView*)[[self superview] superview] kisserButton];
-            
-            if (!isNew) {
-                receiverTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
-                [[kissObject kissWho] setValue:receiverTitle forKey:@"name"];
-                [[kissObject kissWho] setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"who"];
             } else {
-                receiverTitle = [[kissObject kissWho] valueForKey:@"name"];
+                NSMutableDictionary* whoDict = [[NSMutableDictionary alloc]init];
+                [whoDict setValue:@"who" forKey:@"type"];
+                [whoDict setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"who"];
+                
+                [[[ROOT kissUtilityView] kissObject] newWhoWhere:whoDict];
+                [self dismissPickerView];
             }
-            
         }
             break;
         case DATE: {
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidDate:YES];
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setKissDate:[_datePickerView date]];
-            
-            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            
-            receiverButton = [(ksKissUtilityView*)[[self superview] superview] dateButton];
-            receiverTitle = [dateFormatter stringFromDate:[_datePickerView date]];
+            [[(ksKissUtilityView*)[[self superview] superview] kissObject] saveDate:[_datePickerView date]];
+            [self dismissPickerView];
         }
             break;
         case LOCATION: {
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] setValidWhere:YES];
-
-            if ((!isNew) && ([_stringPickerView selectedRowInComponent:0] == 0)) {
+            if ([_stringPickerView selectedRowInComponent:0] == 0) {
                 ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:ADDWHOWHERE];
-                content.kissWhere = [[NSMutableDictionary alloc]init];
-                content.addText.tag = LOCATION;
+                content.kissWho = [[NSMutableDictionary alloc]init];
                 content.addTitle.text = @"Where did you kiss?";
+                content.addText.tag = LOCATION;
                 
                 ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
-                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
-                
-                return;
-            }
-            
-            receiverButton = [(ksKissUtilityView*)[[self superview] superview] locationButton];
-            
-            if (!isNew) {
-                receiverTitle = [self pickerView:_stringPickerView titleForRow:[_stringPickerView selectedRowInComponent:0] forComponent:0];
-                [[kissObject kissWhere] setValue:receiverTitle forKey:@"name"];
-                [[kissObject kissWhere] setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"where"];
-                
-                [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lat"] doubleValue], [[[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"where"] valueForKey:@"lon"] doubleValue]) animated:YES];
+                [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[(ksViewController*)[[[UIApplication sharedApplication] keyWindow] rootViewController] view]];
             } else {
-                receiverTitle = [[kissObject kissWhere] valueForKey:@"name"];
+                NSMutableDictionary* whereDict = [[NSMutableDictionary alloc]init];
+                [whereDict setValue:@"where" forKey:@"type"];
+                [whereDict setValue:[[_fetchedResults fetchedObjects] objectAtIndex:[_stringPickerView selectedRowInComponent:0]] forKey:@"where"];
                 
-                [[(ksKissUtilityView*)[[self superview] superview] locationMapView] setCenterCoordinate:CLLocationCoordinate2DMake([[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lat"] doubleValue], [[[[(ksKissUtilityView*)[[self superview] superview] kissObject] kissWhere] valueForKey:@"lon"] doubleValue]) animated:YES];
+                [[[ROOT kissUtilityView] kissObject] newWhoWhere:whereDict];
+                [self dismissPickerView];
             }
         }
             break;
     }
-
-    [receiverButton setTitle:receiverTitle forState:UIControlStateNormal];
-    [receiverButton setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
-    [receiverButton setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
-    receiverButton.backgroundColor = CCO_BASE_CREAM;
-    
-    [self dismissPickerView];
-}
-
--(IBAction)acceptButtonTapped:(id)sender {
-    [self saveWhoWhere:[(ksKissUtilityView*)[[self superview] superview] kissObject] isNew:NO];
 }
 
 -(void)dismissPickerView{
     [ROOT enableTopButtons:YES];
-    
     [(ksPopOverView*)[self superview] dismissPopOverView];
-    [[(ksKissUtilityView*)[[self superview] superview] kissObject] validityCheck];
     [self removeFromSuperview];
 }
 

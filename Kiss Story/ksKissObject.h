@@ -19,9 +19,10 @@
 
 -(id)initWithConfiguration:(int)configuration;
 
--(void)validityCheck;
 -(BOOL)saveKiss;
 -(void)deleteKiss;
+-(void)newWhoWhere:(NSDictionary*)dictionary;
+-(void)saveDate:(NSDate*)saveDate;
 
 @property (nonatomic) int state;
 @property (nonatomic, retain) NSMutableDictionary* kissWho;
@@ -30,10 +31,6 @@
 @property (nonatomic, readwrite) int kissRating;
 @property (nonatomic, retain) NSString* kissDescription;
 @property (nonatomic, retain) UIImage* kissPicture;
-@property (nonatomic) BOOL validWho;
-@property (nonatomic) BOOL validWhere;
-@property (nonatomic) BOOL validDate;
-@property (nonatomic) BOOL validDesc;
 
 @property (nonatomic, retain) ksCoreData* coreData;
 
@@ -44,7 +41,7 @@
 // object 1 AddWhoWhere
 @property (nonatomic, retain) IBOutlet UILabel* addTitle;
 @property (nonatomic, retain) IBOutlet UITextField* addText;
-@property (nonatomic, retain) IBOutlet UIButton* addAcceptButton;
+@property (nonatomic, retain) IBOutlet UIButton* addCancelButton;
 
 // objetc 2 ConfirmAction
 @property (nonatomic, retain) IBOutlet UILabel* confirmTitle;
@@ -54,11 +51,5 @@
 @property (nonatomic, retain) IBOutlet DCRoundSwitch* facebookSwitch;
 @property (nonatomic, retain) IBOutlet DCRoundSwitch* twitterSwitch;
 @property (nonatomic, retain) IBOutlet UIButton* shareAcceptButton;
-
-
-
-
-
-
 
 @end

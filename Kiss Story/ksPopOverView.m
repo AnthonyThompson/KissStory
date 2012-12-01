@@ -60,6 +60,7 @@
         self.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
     } completion:^(BOOL finished){
         UIView* sv = [self superview];
+        // 9901 yeah, what are these?
         [[[sv subviews] lastObject] removeFromSuperview];
         [[[sv subviews] lastObject] removeFromSuperview];
     }];

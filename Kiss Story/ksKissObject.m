@@ -20,11 +20,6 @@
 @synthesize kissWhere = _kissWhere;
 @synthesize kissDescription = _kissDescription;
 @synthesize addTitle = _addTitle;
-@synthesize validWhere = _validWhere;
-@synthesize validWho = _validWho;
-@synthesize validDate = _validDate;
-@synthesize validDesc = _validDesc;
-
 @synthesize addText = _addText;
 
 #pragma mark - Inits
@@ -43,11 +38,14 @@
         
         switch (configuration) {
             case SHARE: {
-                _facebookSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(167.0f, 60.0f, 79.0f, 27.0f)];
+                _facebookSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(160.0f, 60.0f, 86.0f, 27.0f)];
                 _facebookSwitch.onTintColor = [UIColor colorWithRed:59.0f/255.0f green:89.0f/255.0f blue:182.0f/255.0f alpha:1.0f];
-                _twitterSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(167.0f, 102.0f, 79.0f, 27.0f)];
-                _twitterSwitch.onTintColor = [UIColor colorWithRed:64.0f/255.0f green:153.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+                _facebookSwitch.onText = @"Share";
                 
+                _twitterSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(160.0f, 102.0f, 86.0f, 27.0f)];
+                _twitterSwitch.onTintColor = [UIColor colorWithRed:64.0f/255.0f green:153.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+                _twitterSwitch.onText = @"Tweet";
+
                 [self addSubview:_facebookSwitch];
                 [self addSubview:_twitterSwitch];
             }
@@ -70,37 +68,11 @@
     
     _kissWho = [[NSMutableDictionary alloc]init];
     _kissWhere = [[NSMutableDictionary alloc]init];
-    
-    _validWho = NO;
-    _validWhere = NO;
-    
+
     _coreData = [ROOT ksCD];
-    
 }
 
 #pragma mark - Data Actions
-
--(void)validityCheck {
-    if (_validWho) {
-        [[[[[ROOT view] subviews] objectAtIndex:10] kisserStatus] setImage:[UIImage imageNamed:@"StatusKisserYes.png"]];
-    }
-    
-    if (_validWhere) {
-        [[[[[ROOT view] subviews] objectAtIndex:10] locationStatus] setImage:[UIImage imageNamed:@"StatusLocationYes.png"]];
-    }
-    
-    if (_validDate) {
-        [[[[[ROOT view] subviews] objectAtIndex:10] dateStatus] setImage:[UIImage imageNamed:@"StatusDateYes.png"]];
-    }
-
-    if (_validDesc) {
-        [[[[[ROOT view] subviews] objectAtIndex:10] descStatus] setImage:[UIImage imageNamed:@"StatusDescriptionYes.png"]];
-    }
-
-    if (_validWho && _validWhere) {
-        [[ROOT topRightButton] setHidden:NO];
-    }
-}
 
 -(BOOL)saveKiss {
     if (![_kissWho objectForKey:@"who"]) {
@@ -155,6 +127,13 @@
     
     // 9901 saved!  want to share?
     ksKissObject* content = [[ksKissObject alloc]initWithConfiguration:SHARE];
+    content.kissWho = _kissWho;
+    content.kissWhere = _kissWhere;
+    content.kissDate = _kissDate;
+    content.kissRating = _kissRating;
+    content.kissDescription = _kissDescription;
+    content.kissPicture = _kissPicture;
+
     ksPopOverView* popOverView = [[ksPopOverView alloc]initWithFrame:content.frame];
     [popOverView displayPopOverViewWithContent:content withBacking:nil inSuperView:[ROOT view]];
     
@@ -204,7 +183,8 @@
     }
 
     [self dataRebuild];
-    [UPTHECHAIN dismissUtilityViewWithSave:NO];
+    //[UPTHECHAIN dismissUtilityViewWithSave:NO];
+    [[ROOT kissUtilityView] dismissUtilityViewWithSave:NO];
     [ROOT resetMainView];
 }
 
@@ -216,11 +196,15 @@
 
 #pragma mark - KissDetailWarning Group
 
+//9901 this has been disgraced
+
 -(IBAction)dismissButtonTapped:(id)sender {
     [(ksPopOverView*)[[sender superview] superview] dismissPopOverView];
 }
 
 #pragma mark - AddWhoWhere Group
+
+// [ENTER]ing will save, the cancel button dismisses the textfield
 
 -(IBAction)addCancelButtonTapped:(id)sender {
     [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
@@ -228,6 +212,8 @@
 }
 
 #pragma mark - ConfirmAction Group
+
+// confirming or not the kiss deletion
 
 -(IBAction)cancelConfirmButtonTapped:(id)sender {
     [(ksPopOverView*)[self superview] dismissPopOverView];
@@ -241,20 +227,38 @@
 #pragma mark - ShareKiss Group
 
 -(IBAction)shareConfirmButtonTapped:(id)sender {
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-        SLComposeViewController *tweetSheet = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-        
-        [tweetSheet setInitialText:@"Initial Tweet Text!"];
-        if (_kissPicture) [tweetSheet addImage:_kissPicture];
-        
-        [ROOT presentViewController:tweetSheet animated:YES completion:nil];
+    //dismiss pop-over 1st
+    [(ksPopOverView*)[self superview] dismissPopOverView];
+    
+    //check for the twitter
+    if (_twitterSwitch) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+            SLComposeViewController* tweetSheet = [SLComposeViewController
+                                                   composeViewControllerForServiceType:SLServiceTypeTwitter];
+            
+            BOOL tweetText;
+            BOOL tweetPic;
+            
+            tweetText = [tweetSheet setInitialText:[NSString stringWithFormat:@"#kissstory @%@ %@",[_kissWho valueForKey:@"name"],_kissDescription]];
+            
+            //9901 add location???
+            
+            if (_kissPicture) {
+                tweetPic = [tweetSheet addImage:_kissPicture];
+            }
+            
+            [ROOT presentViewController:tweetSheet animated:YES completion:nil];
+        } else {
+            //9901
+            //twitter not available
+        }
     }
 
-    [(ksPopOverView*)[self superview] dismissPopOverView];
+    // check for the FB
+    if (_facebookSwitch) {
+        
+    }
 }
-
-
 
 #pragma mark - UITextFieldDelegate group
 
@@ -262,12 +266,14 @@
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, -55.0f);
 }
 
+// [ENTER] happened; save the text out
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     switch ([textField tag]) {
         case KISSER: {
             [_kissWho removeObjectForKey:@"who"];
             [_kissWho setValue:textField.text forKey:@"name"];
-            [[UPTHECHAIN kissObject] setKissWho:_kissWho];
+            [_kissWho setValue:@"who" forKey:@"type"];
+            [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWho];
         }
             break;
         case LOCATION: {
@@ -275,19 +281,50 @@
             [_kissWhere setValue:textField.text forKey:@"name"];
             [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
             [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
-            [[UPTHECHAIN kissObject] setKissWhere:_kissWhere];
+            [_kissWhere setValue:@"where" forKey:@"type"];
+            [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWhere];
         }
             break;
     }
     [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
-    [[UPTHECHAIN pickerView] saveWhoWhere:self isNew:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, 55.0f);
     return YES;
+}
+
+-(void)newWhoWhere:(NSMutableDictionary*)dictionary {
+    // 9909
+    // this executes, but button is brown-on-brown...
+    if ([[dictionary valueForKey:@"type"] isEqualToString:@"who"]) {
+        _kissWho = dictionary;
+        [ROOT kissUtilityView].validWho = YES;
+
+        if ([dictionary valueForKey:@"name"]) {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[dictionary valueForKey:@"name"]];
+        } else {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[[dictionary objectForKey:@"who"] valueForKey:@"name"]];
+        }
+    } else {
+        _kissWhere = dictionary;
+        [ROOT kissUtilityView].validWhere = YES;
+        
+        if ([dictionary valueForKey:@"name"]) {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[dictionary valueForKey:@"name"]];
+        } else {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[[dictionary objectForKey:@"where"] valueForKey:@"name"]];
+        }
+    }
+    
+    [[ROOT kissUtilityView] validateWhoWhere];
+}
+
+-(void)saveDate:(NSDate*)saveDate {
+    // extract date && use dateFormatter to stock buttons
+        //      {utility does this} ????
 }
 
 @end

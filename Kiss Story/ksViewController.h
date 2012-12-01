@@ -82,6 +82,8 @@
 @property (nonatomic, retain) ksCoreData* ksCD;
 @property (nonatomic, retain) ksImagePickerViewController* imagePickerViewController;
 
+@property (nonatomic, retain) ksKissUtilityView* kissUtilityView;
+
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
 @property (nonatomic, retain) IBOutlet UIButton* ratingButton;

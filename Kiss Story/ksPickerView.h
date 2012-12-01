@@ -12,8 +12,6 @@
 
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults;
 -(void)displayPickerView;
-//-(IBAction)cancelButtonTapped:(id)sender;
--(void)saveWhoWhere:(NSObject*)kissObject isNew:(BOOL)isNew;
 
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;

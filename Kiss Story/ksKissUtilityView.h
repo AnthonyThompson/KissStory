@@ -19,13 +19,21 @@
 -(id)initForState:(int)whichState withData:(NSDictionary*)whichDictionary;
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save;
 -(void)displayUtilityView;
+-(void)validateWhoWhere;
+-(void)updateButton:(UIButton*)button withTitle:(NSString*)title;
 
 @property (nonatomic, retain) NSDictionary* dataDictionary;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) ksKissObject* kissObject;
+//9901 IS THIS STILL THE CASE???
 // need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
 
+// to validate topButton control
+@property (nonatomic) BOOL validWho;
+@property (nonatomic) BOOL validWhere;
+
+// what is this for?
 @property (nonatomic, readwrite) int textControl;
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl* segmentedControl;

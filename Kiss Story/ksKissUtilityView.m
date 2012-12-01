@@ -23,6 +23,9 @@
         self.dataDictionary = [[NSDictionary alloc]initWithDictionary:whichDictionary];
         self.kissObject = [[ksKissObject alloc]init];
         
+        self.validWho = NO;
+        self.validWhere = NO;
+        
         self.state = whichState;
         self.textControl = KUV_TEXTVIEW;
         
@@ -52,18 +55,18 @@
                 self.locationStatus.image = [UIImage imageNamed:@"StatusLocationYes.png"];
                 self.descStatus.image = [UIImage imageNamed:@"StatusDescriptionYes.png"];
                 
-                [self prepareButton:self.kisserButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
+                [self prepareButtonForEdit:self.kisserButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"name"]];
 
                 NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 
-                [self prepareButton:self.dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
+                [self prepareButtonForEdit:self.dateButton withTitle:[dateFormatter stringFromDate:[[NSDate alloc]initWithTimeIntervalSince1970:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"when"] intValue]]]];
                 
                 self.ratingSlider.value = [[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"score"] floatValue];
                 [self ratingSliderValueChanged:self.ratingSlider];
                 self.ratingSlider.enabled = NO;
                 
-                [self prepareButton:self.locationButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
+                [self prepareButtonForEdit:self.locationButton withTitle:[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"name"]];
 
                 [self.locationMapView setCenterCoordinate:CLLocationCoordinate2DMake([[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lat"] floatValue], [[[[self.dataDictionary valueForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"lon"] floatValue]) animated:YES];
                 self.locationMapView.scrollEnabled = NO;
@@ -110,7 +113,16 @@
 
 #pragma mark - GUI Control
 
--(void)prepareButton:(UIButton*)button withTitle:(NSString*)title {
+-(void)updateButton:(UIButton*)button withTitle:(NSString*)title {
+    //button.enabled = NO;
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
+    [button setBackgroundColor:CCO_BASE_CREAM];
+    [button setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+}
+
+-(void)prepareButtonForEdit:(UIButton*)button withTitle:(NSString*)title {
     button.enabled = NO;
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
@@ -128,7 +140,7 @@
 }
 
 -(BOOL)dismissUtilityViewWithSave:(BOOL)save {
-    // if you're NOT trying to save OR you you're trying to save and do, kill-window-routine
+    // if you're NOT trying to save OR you're trying to save and do, kill-window-routine
     // otherwise you're left at utility view
     if (!save || (save && [_kissObject saveKiss])) {
         // a slide-down dismiss, not a poop-out
@@ -314,8 +326,8 @@
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         [_kissObject setKissDescription:textView.text];
-        [_kissObject setValidDesc:YES];
-        [_kissObject validityCheck];
+        //9901 check length of descText here; if < 1 then NO.png
+        [_descStatus setImage:[UIImage imageNamed:@"StatusDescriptionYes.png"]];
 
         // Return FALSE so that the final '\n' character doesn't get added
         return FALSE;
@@ -323,6 +335,22 @@
     
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
+}
+
+#pragma mark - Data Control
+
+-(void)validateWhoWhere {
+    if (_validWho) {
+        [_kisserStatus setImage:[UIImage imageNamed:@"StatusKisserYes.png"]];
+    }
+    
+    if (_validWhere) {
+        [_locationStatus setImage:[UIImage imageNamed:@"StatusLocationYes.png"]];
+    }
+    
+    if (_validWho && _validWhere) {
+        [[ROOT topRightButton] setHidden:NO];
+    }
 }
 
 @end

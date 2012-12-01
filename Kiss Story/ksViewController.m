@@ -366,7 +366,10 @@
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
             _topRightButton.hidden = YES;
             
-            [self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
+            //[self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
+
+            _kissUtilityView = [[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary];
+            [self.view addSubview:_kissUtilityView];
         }
             break;
         case STATE_ADD: {
@@ -705,8 +708,6 @@
     // the image is normally centered itself on the point, so offset for the size of the image itself
     // move it up by half the size
     // move it right by 2/3 because of drop shadow, et al
-    //float offSetHeight = annotationView.image.size.height/-2;
-    //float offSetWidth = annotationView.image.size.width/2/3;
     annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2/3,annotationView.image.size.height/-2);
 
     return annotationView;
