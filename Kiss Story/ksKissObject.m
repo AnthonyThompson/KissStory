@@ -74,6 +74,37 @@
 
 #pragma mark - Data Actions
 
+-(void)newWhoWhere:(NSMutableDictionary*)dictionary {
+    if ([[dictionary valueForKey:@"type"] isEqualToString:@"who"]) {
+        _kissWho = dictionary;
+        [ROOT kissUtilityView].validWho = YES;
+        
+        if ([dictionary valueForKey:@"name"]) {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[dictionary valueForKey:@"name"]];
+        } else {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[[dictionary objectForKey:@"who"] valueForKey:@"name"]];
+        }
+    } else {
+        _kissWhere = dictionary;
+        [ROOT kissUtilityView].validWhere = YES;
+        
+        if ([dictionary valueForKey:@"name"]) {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[dictionary valueForKey:@"name"]];
+        } else {
+            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[[dictionary objectForKey:@"where"] valueForKey:@"name"]];
+            [[ROOT kissUtilityView] updateMap:_kissWhere];
+        }
+    }
+    
+    [[ROOT kissUtilityView] validateWhoWhere];
+}
+
+-(void)saveDate:(NSDate*)saveDate {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].dateButton withTitle:[dateFormatter stringFromDate:saveDate]];
+}
+
 -(BOOL)saveKiss {
     if (![_kissWho objectForKey:@"who"]) {
         // no who, so new object to insert
@@ -170,20 +201,19 @@
 }
 
 -(void)deleteKiss {
-    [[_coreData managedObjectContext] deleteObject:[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"]];
+    [[_coreData managedObjectContext] deleteObject:[[[ROOT kissUtilityView] dataDictionary] objectForKey:@"editKiss"]];
 
     // this deletes singleton who's
-    if ([[[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"kissRecord"] count] == 1) {
-        [[_coreData managedObjectContext] deleteObject:[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"]];
+    if ([[[[[[ROOT kissUtilityView] dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"] valueForKey:@"kissRecord"] count] == 1) {
+        [[_coreData managedObjectContext] deleteObject:[[[[ROOT kissUtilityView] dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWho"]];
     }
     
     // this deletes singleton where's
-    if ([[[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"kissRecord"] count] == 1) {
-        [[_coreData managedObjectContext] deleteObject:[[[UPTHECHAIN dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"]];
+    if ([[[[[[ROOT kissUtilityView] dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"] valueForKey:@"kissRecord"] count] == 1) {
+        [[_coreData managedObjectContext] deleteObject:[[[[ROOT kissUtilityView] dataDictionary] objectForKey:@"editKiss"] valueForKey:@"kissWhere"]];
     }
 
     [self dataRebuild];
-    //[UPTHECHAIN dismissUtilityViewWithSave:NO];
     [[ROOT kissUtilityView] dismissUtilityViewWithSave:NO];
     [ROOT resetMainView];
 }
@@ -207,7 +237,7 @@
 // [ENTER]ing will save, the cancel button dismisses the textfield
 
 -(IBAction)addCancelButtonTapped:(id)sender {
-    [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
+    [[ROOT kissUtilityView] setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 
@@ -266,6 +296,7 @@
 }
 
 // [ENTER] happened; save the text out
+// this is a newly added who/where
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     switch ([textField tag]) {
         case KISSER: {
@@ -278,14 +309,14 @@
         case LOCATION: {
             [_kissWhere removeObjectForKey:@"where"];
             [_kissWhere setValue:textField.text forKey:@"name"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[UPTHECHAIN locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
+            [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
             [_kissWhere setValue:@"where" forKey:@"type"];
             [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWhere];
         }
             break;
     }
-    [UPTHECHAIN setTextControl:KUV_TEXTVIEW];
+    [[ROOT kissUtilityView] setTextControl:KUV_TEXTVIEW];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 
@@ -293,37 +324,6 @@
     [textField resignFirstResponder];
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, 55.0f);
     return YES;
-}
-
--(void)newWhoWhere:(NSMutableDictionary*)dictionary {
-    // 9909
-    // this executes, but button is brown-on-brown...
-    if ([[dictionary valueForKey:@"type"] isEqualToString:@"who"]) {
-        _kissWho = dictionary;
-        [ROOT kissUtilityView].validWho = YES;
-
-        if ([dictionary valueForKey:@"name"]) {
-            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[dictionary valueForKey:@"name"]];
-        } else {
-            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:[[dictionary objectForKey:@"who"] valueForKey:@"name"]];
-        }
-    } else {
-        _kissWhere = dictionary;
-        [ROOT kissUtilityView].validWhere = YES;
-        
-        if ([dictionary valueForKey:@"name"]) {
-            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[dictionary valueForKey:@"name"]];
-        } else {
-            [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:[[dictionary objectForKey:@"where"] valueForKey:@"name"]];
-        }
-    }
-    
-    [[ROOT kissUtilityView] validateWhoWhere];
-}
-
--(void)saveDate:(NSDate*)saveDate {
-    // extract date && use dateFormatter to stock buttons
-        //      {utility does this} ????
 }
 
 @end

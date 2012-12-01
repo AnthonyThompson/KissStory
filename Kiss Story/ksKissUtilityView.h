@@ -21,12 +21,11 @@
 -(void)displayUtilityView;
 -(void)validateWhoWhere;
 -(void)updateButton:(UIButton*)button withTitle:(NSString*)title;
+-(void)updateMap:(NSDictionary*)whereDictionary;
 
 @property (nonatomic, retain) NSDictionary* dataDictionary;
 @property (nonatomic, readwrite) int state;
 @property (nonatomic, retain) ksKissObject* kissObject;
-//9901 IS THIS STILL THE CASE???
-// need this because upthechain it is asked to dismiss itself
 @property (nonatomic, retain) ksPickerView* pickerView;
 
 // to validate topButton control
@@ -37,13 +36,11 @@
 @property (nonatomic, readwrite) int textControl;
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl* segmentedControl;
-
 @property (nonatomic, retain) IBOutlet UIImageView* kisserStatus;
 @property (nonatomic, retain) IBOutlet UIImageView* dateStatus;
 @property (nonatomic, retain) IBOutlet UIImageView* ratingStatus;
 @property (nonatomic, retain) IBOutlet UIImageView* locationStatus;
 @property (nonatomic, retain) IBOutlet UIImageView* descStatus;
-
 @property (nonatomic, retain) IBOutlet UIButton* kisserButton;
 @property (nonatomic, retain) IBOutlet UIButton* dateButton;
 @property (nonatomic, retain) IBOutlet UISlider* ratingSlider;

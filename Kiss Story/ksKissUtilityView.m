@@ -114,7 +114,6 @@
 #pragma mark - GUI Control
 
 -(void)updateButton:(UIButton*)button withTitle:(NSString*)title {
-    //button.enabled = NO;
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
     [button setBackgroundColor:CCO_BASE_CREAM];
@@ -123,11 +122,21 @@
 }
 
 -(void)prepareButtonForEdit:(UIButton*)button withTitle:(NSString*)title {
+    //9901 is this needed?  Can't these be defaults or something?
     button.enabled = NO;
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:CCO_BASE_GREY forState:UIControlStateNormal];
     [button setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+}
+
+-(void)updateMap:(NSDictionary*)whereDictionary {
+    if ([whereDictionary valueForKey:@"where"]) {
+        // a new location, extract lat/lon
+        float lat = [[[whereDictionary objectForKey:@"where"] valueForKey:@"lat"] floatValue];
+        float lon = [[[whereDictionary objectForKey:@"where"] valueForKey:@"lon"] floatValue];
+        [_locationMapView setCenterCoordinate:CLLocationCoordinate2DMake(lat, lon) animated:YES];
+    }
 }
 
 #pragma mark - Display/Dismiss Group

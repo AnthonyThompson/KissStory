@@ -110,7 +110,6 @@
         }
             break;
         case DATE: {
-            //[[(ksKissUtilityView*)[[self superview] superview] kissObject] saveDate:[_datePickerView date]];
             [[[ROOT kissUtilityView] kissObject] saveDate:[_datePickerView date]];
             [self dismissPickerView];
         }
