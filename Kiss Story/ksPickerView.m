@@ -74,9 +74,12 @@
 }
 
 -(IBAction)cancelButtonTapped:(id)sender {
-    [(ksKissUtilityView*)[[self superview] superview] kisserButton].backgroundColor = CCO_BASE_CREAM;
-    [(ksKissUtilityView*)[[self superview] superview] dateButton].backgroundColor = CCO_BASE_CREAM;
-    [(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
+    [[ROOT kissUtilityView] kisserButton].backgroundColor = CCO_BASE_CREAM;
+    [[ROOT kissUtilityView] dateButton].backgroundColor = CCO_BASE_CREAM;
+    [[ROOT kissUtilityView] locationButton].backgroundColor = CCO_BASE_CREAM;
+    //[(ksKissUtilityView*)[[self superview] superview] kisserButton].backgroundColor = CCO_BASE_CREAM;
+    //[(ksKissUtilityView*)[[self superview] superview] dateButton].backgroundColor = CCO_BASE_CREAM;
+    //[(ksKissUtilityView*)[[self superview] superview] locationButton].backgroundColor = CCO_BASE_CREAM;
 
     [self dismissPickerView];
 }
@@ -107,7 +110,8 @@
         }
             break;
         case DATE: {
-            [[(ksKissUtilityView*)[[self superview] superview] kissObject] saveDate:[_datePickerView date]];
+            //[[(ksKissUtilityView*)[[self superview] superview] kissObject] saveDate:[_datePickerView date]];
+            [[[ROOT kissUtilityView] kissObject] saveDate:[_datePickerView date]];
             [self dismissPickerView];
         }
             break;

@@ -365,9 +365,6 @@
             [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
             _topRightButton.hidden = YES;
-            
-            //[self.view addSubview:[[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary]];
-
             _kissUtilityView = [[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary];
             [self.view addSubview:_kissUtilityView];
         }
@@ -622,8 +619,10 @@
     NSDictionary* singleCellDictionary = [[NSDictionary alloc]initWithObjects:@[[[[[_dataDictionary objectForKey:[NSString stringWithFormat:@"tableData%i",_state]] objectAtIndex:1] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]] forKeys:@[@"editKiss"]];
 
     _state = STATE_EDIT;
-    
-    [self.view addSubview:[[ksKissUtilityView alloc]initForState:STATE_EDIT withData:singleCellDictionary]];
+    _kissUtilityView = [[ksKissUtilityView alloc]initForState:STATE_EDIT withData:singleCellDictionary];
+    //9901
+    //does it need to be added???
+    [self.view addSubview:_kissUtilityView];
     return indexPath;
 }
 
@@ -633,7 +632,6 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    NSLog(@"%f",_mainTableView.sectionFooterHeight);
     return [[UIView alloc]initWithFrame:CGRectMake(0,0,320,_mainTableView.sectionFooterHeight)];
 }
 
