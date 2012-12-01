@@ -249,7 +249,6 @@
             
             [ROOT presentViewController:tweetSheet animated:YES completion:nil];
         } else {
-            //9901
             //twitter not available
         }
     }
