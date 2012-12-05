@@ -261,20 +261,21 @@
     [(ksPopOverView*)[self superview] dismissPopOverView];
     
     //check for the twitter
-    if (_twitterSwitch) {
+    if (_twitterSwitch.on) {
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             SLComposeViewController* tweetSheet = [SLComposeViewController
                                                    composeViewControllerForServiceType:SLServiceTypeTwitter];
             
             BOOL tweetText;
             BOOL tweetPic;
-            
-            tweetText = [tweetSheet setInitialText:[NSString stringWithFormat:@"#kissstory @%@ %@",[_kissWho valueForKey:@"name"],_kissDescription]];
-            
-            //9901 add location???
-            
+            NSString* kisser = [[[_kissWho valueForKey:@"who"] valueForKey:@"name"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+            tweetText = [tweetSheet setInitialText:[NSString stringWithFormat:@"#kissstory @%@ %@",kisser,_kissDescription]];
+
             if (_kissPicture) {
                 tweetPic = [tweetSheet addImage:_kissPicture];
+            } else {
+                tweetPic = [tweetSheet addImage:[UIImage imageNamed:@"Default@2x.png"]];
             }
             
             [ROOT presentViewController:tweetSheet animated:YES completion:nil];
@@ -284,7 +285,7 @@
     }
 
     // check for the FB
-    if (_facebookSwitch) {
+    if (_facebookSwitch.on) {
         
     }
 }
@@ -317,6 +318,8 @@
             break;
     }
     [[ROOT kissUtilityView] setTextControl:KUV_TEXTVIEW];
+
+    [(ksPickerView*)[[[[[ROOT kissUtilityView] subviews] lastObject] subviews] lastObject] dismissPickerView];
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 

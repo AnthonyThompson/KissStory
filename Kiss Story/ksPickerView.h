@@ -12,6 +12,7 @@
 
 -(id)initForState:(int)whichState withData:(NSFetchedResultsController*)fetchedResults;
 -(void)displayPickerView;
+-(void)dismissPickerView;
 
 @property (nonatomic, retain) NSFetchedResultsController* fetchedResults;
 @property (nonatomic, readwrite) int state;
