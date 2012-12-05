@@ -108,6 +108,15 @@
     _mainGalleryView.hidden = YES;
     
     [sender setHidden:NO];
+    
+    if (!_mainTableView.hidden) {
+        if ([_mainTableView numberOfSections] > 0 && [_mainTableView numberOfRowsInSection:0] > 0) {
+            _mainTableView.backgroundColor = [UIColor whiteColor];
+            [_mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        } else {
+            _mainTableView.backgroundColor = CCO_BASE_CREAM;
+        }
+    }
 }
 
 -(void)viewCameAlive {
@@ -410,11 +419,6 @@
 
     _state = STATE_KISSER;
     [_mainTableView reloadData];
-    
-    // for when it's an empty table
-    if ([_mainTableView numberOfSections] > 0 && [_mainTableView numberOfRowsInSection:0] > 0) {
-            [_mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    }
 }
 
 #pragma mark - Date Action Group
@@ -433,7 +437,6 @@
     
     _state = STATE_DATE;
     [_mainTableView reloadData];
-    [_mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 #pragma mark - Rating Action Group
@@ -452,7 +455,6 @@
     
     _state = STATE_RATING;
     [_mainTableView reloadData];
-    [_mainTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 #pragma mark - Location Action Group
