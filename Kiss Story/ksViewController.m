@@ -374,8 +374,10 @@
             [_topLeftButton setImage:[UIImage imageNamed:@"ButtonHeaderCancel.png"] forState:UIControlStateNormal];
             [_topRightButton setImage:[UIImage imageNamed:@"ButtonHeaderSave.png"] forState:UIControlStateNormal];
             _topRightButton.hidden = YES;
+
             _kissUtilityView = [[ksKissUtilityView alloc]initForState:_state withData:_dataDictionary];
             [self.view addSubview:_kissUtilityView];
+            [_kissUtilityView displayUtilityView];
         }
             break;
         case STATE_ADD: {

@@ -103,7 +103,7 @@
     // needs must set the scrollView contentSize to the frame of it's view
     self.scrollView.contentSize = CGSizeMake([[self.scrollView.subviews objectAtIndex:0]frame].size.width, [[self.scrollView.subviews objectAtIndex:0]frame].size.height);
 
-    [self displayUtilityView];
+    //[self displayUtilityView];
     return self;
 }
 
@@ -156,7 +156,8 @@
         [UIView animateWithDuration:0.5f animations:^{
             self.frame = CGRectMake(0.0f, 480.0f, 320.0f, 436.0f);
         } completion:^(BOOL finished){
-            [self removeFromSuperview];
+            //9901 this prevented the crashes, but clean this up?
+            //[self removeFromSuperview];
         }];
         return YES;
     }
@@ -328,18 +329,23 @@
 }
 
 -(void)keyboardWillHideNotification:(NSNotification*)notification {
-    [_descTextView resignFirstResponder];
+    _textControl = KUV_TEXTVIEW;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        [_kissObject setKissDescription:textView.text];
-        //9901 check length of descText here; if < 1 then NO.png
-        [_descStatus setImage:[UIImage imageNamed:@"StatusDescriptionYes.png"]];
+        
+        [_descStatus setImage:[UIImage imageNamed:@"StatusDescriptionNo.png"]];
+        _kissObject.kissDescription = textView.text;
+        
+        if ([textView.text length] > 0) {
+            [_descStatus setImage:[UIImage imageNamed:@"StatusDescriptionYes.png"]];
+        }
 
         // Return FALSE so that the final '\n' character doesn't get added
-        return FALSE;
+        //return FALSE;
     }
     
     // For any other character return TRUE so that the text gets added to the view

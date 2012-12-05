@@ -28,7 +28,8 @@
 -(void)newWhoWhere:(NSDictionary*)dictionary;
 -(void)saveDate:(NSDate*)saveDate;
 
-@property (nonatomic) int state;
+@property (nonatomic, readwrite) int state;
+@property (nonatomic, readwrite) BOOL editingCancelled;
 @property (nonatomic, retain) NSMutableDictionary* kissWho;
 @property (nonatomic, retain) NSMutableDictionary* kissWhere;
 @property (nonatomic, readwrite) NSDate* kissDate;

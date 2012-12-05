@@ -35,7 +35,7 @@
     if (self = [super init]) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"ksKissObject" owner:self options:nil] objectAtIndex:configuration];
         [self initData];
-        
+
         switch (configuration) {
             case SHARE: {
                 _facebookSwitch = [[DCRoundSwitch alloc]initWithFrame:CGRectMake(160.0f, 60.0f, 86.0f, 27.0f)];
@@ -70,6 +70,9 @@
     _kissWhere = [[NSMutableDictionary alloc]init];
 
     _coreData = [ROOT ksCD];
+    
+    _editingCancelled = NO;
+
 }
 
 #pragma mark - Data Actions
@@ -237,7 +240,8 @@
 // [ENTER]ing will save, the cancel button dismisses the textfield
 
 -(IBAction)addCancelButtonTapped:(id)sender {
-    [[ROOT kissUtilityView] setTextControl:KUV_TEXTVIEW];
+    _editingCancelled = YES;
+    [ROOT kissUtilityView].textControl = KUV_TEXTVIEW;
     [(ksPopOverView*)[self superview] dismissPopOverView];
 }
 
@@ -312,31 +316,45 @@
 #pragma mark - UITextFieldDelegate group
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [ROOT kissUtilityView].textControl = KUV_TEXTFIELD;
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, -55.0f);
 }
 
 // [ENTER] happened; save the text out
 // this is a newly added who/where
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    switch ([textField tag]) {
-        case KISSER: {
-            [_kissWho removeObjectForKey:@"who"];
-            [_kissWho setValue:textField.text forKey:@"name"];
-            [_kissWho setValue:@"who" forKey:@"type"];
-            [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWho];
+    if (!_editingCancelled) {
+        switch ([textField tag]) {
+            case KISSER: {
+                [_kissWho removeObjectForKey:@"who"];
+                [_kissWho setValue:textField.text forKey:@"name"];
+                [_kissWho setValue:@"who" forKey:@"type"];
+                [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWho];
+            }
+                break;
+            case LOCATION: {
+                [_kissWhere removeObjectForKey:@"where"];
+                [_kissWhere setValue:textField.text forKey:@"name"];
+                [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
+                [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
+                [_kissWhere setValue:@"where" forKey:@"type"];
+                [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWhere];
+            }
+                break;
         }
-            break;
-        case LOCATION: {
-            [_kissWhere removeObjectForKey:@"where"];
-            [_kissWhere setValue:textField.text forKey:@"name"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].latitude] forKey:@"lat"];
-            [_kissWhere setValue:[NSNumber numberWithDouble:[[[[ROOT kissUtilityView] locationMapView] userLocation] coordinate].longitude] forKey:@"lon"];
-            [_kissWhere setValue:@"where" forKey:@"type"];
-            [[[ROOT kissUtilityView] kissObject] newWhoWhere:_kissWhere];
+    } else {
+        _editingCancelled = NO;
+        switch ([textField tag]) {
+            case KISSER: {
+                [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].kisserButton withTitle:@""];
+            }
+                break;
+            case LOCATION: {
+                [[ROOT kissUtilityView] updateButton:[ROOT kissUtilityView].locationButton withTitle:@""];
+            }
+                break;
         }
-            break;
     }
-    [[ROOT kissUtilityView] setTextControl:KUV_TEXTVIEW];
 
     [(ksPickerView*)[[[[[ROOT kissUtilityView] subviews] lastObject] subviews] lastObject] dismissPickerView];
     [(ksPopOverView*)[self superview] dismissPopOverView];
@@ -344,6 +362,7 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    [ROOT kissUtilityView].textControl = KUV_TEXTVIEW;
     [self superview].frame=CGRectOffset([self superview].frame, 0.0f, 55.0f);
     return YES;
 }
