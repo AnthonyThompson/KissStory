@@ -265,17 +265,18 @@
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             SLComposeViewController* tweetSheet = [SLComposeViewController
                                                    composeViewControllerForServiceType:SLServiceTypeTwitter];
-            
-            BOOL tweetText;
-            BOOL tweetPic;
-            NSString* kisser = [[[_kissWho valueForKey:@"who"] valueForKey:@"name"] stringByReplacingOccurrencesOfString:@" " withString:@""];
 
-            tweetText = [tweetSheet setInitialText:[NSString stringWithFormat:@"#kissstory @%@ %@",kisser,_kissDescription]];
+            NSString* kisser = [[[_kissWho valueForKey:@"who"] valueForKey:@"name"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSString* kissText = [NSString stringWithFormat:@"#KissStory @%@ %@",kisser,_kissDescription];
+            
+            if ([kissText length] > 140) {
+                kissText = [kissText substringToIndex:140];
+            }
+
+            [tweetSheet setInitialText:kissText];
 
             if (_kissPicture) {
-                tweetPic = [tweetSheet addImage:_kissPicture];
-            } else {
-                tweetPic = [tweetSheet addImage:[UIImage imageNamed:@"Default@2x.png"]];
+                [tweetSheet addImage:_kissPicture];
             }
             
             [ROOT presentViewController:tweetSheet animated:YES completion:nil];
@@ -286,6 +287,8 @@
 
     // check for the FB
     if (_facebookSwitch.on) {
+        
+        
         
     }
 }
