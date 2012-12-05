@@ -15,6 +15,10 @@
 #define INVALID_WHERE_ENTITY 2
 #define INVALID_WHO_AND_WHERE_ENTITY 3
 
+#define FB_APP_ID @"117729658381209"
+//#define FB_API_KEY @"3269fff9ef3b6fc13255e670ebb44c4d"
+#define FB_APP_SECRET @"efe06e7628f75a8c674efb496419da91"
+
 @interface ksKissObject : UIView <UITextFieldDelegate>
 
 -(id)initWithConfiguration:(int)configuration;

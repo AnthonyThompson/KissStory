@@ -262,6 +262,7 @@
     
     //check for the twitter
     if (_twitterSwitch.on) {
+
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             SLComposeViewController* tweetSheet = [SLComposeViewController
                                                    composeViewControllerForServiceType:SLServiceTypeTwitter];
@@ -281,15 +282,30 @@
             
             [ROOT presentViewController:tweetSheet animated:YES completion:nil];
         } else {
-            //twitter not available
+            //9901 twitter not available
         }
     }
 
     // check for the FB
     if (_facebookSwitch.on) {
         
-        
-        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            SLComposeViewController* facePost = [SLComposeViewController
+                                                   composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+            NSString* kisser = [[[_kissWho valueForKey:@"who"] valueForKey:@"name"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSString* kissText = [NSString stringWithFormat:@"#KissStory @%@ %@",kisser,_kissDescription];
+
+            [facePost setInitialText:kissText];
+            
+            if (_kissPicture) {
+                [facePost addImage:_kissPicture];
+            }
+            
+            [ROOT presentViewController:facePost animated:YES completion:nil];
+        } else {
+            // 9901 fb fail
+        }
     }
 }
 
