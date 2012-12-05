@@ -21,12 +21,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Kiss Story/ksKissUtilityView.m"
-         timestampString = "376085674.543957"
+         timestampString = "376430601.052409"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
-         landmarkName = "-updateMap:"
+         startingLineNumber = "331"
+         endingLineNumber = "331"
+         landmarkName = "-keyboardWillHideNotification:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Kiss Story/ksKissUtilityView.m"
+         timestampString = "376425231.743114"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
+         landmarkName = "-dismissUtilityViewWithSave:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
